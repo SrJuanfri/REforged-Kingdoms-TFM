@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RecipeBlueprint : MonoBehaviour
+public class RecipeBlueprint : Interactable
 {
 
     [SerializeField] private Image recipeImage;

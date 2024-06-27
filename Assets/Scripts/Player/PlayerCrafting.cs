@@ -7,17 +7,25 @@ public class PlayerCrafting : MonoBehaviour
 
     [SerializeField] private Transform playerCameraTransform;
     [SerializeField] private LayerMask craftLayerMask;
-    [SerializeField] private LayerMask objectLayerMask;
-    private float interactDistance = 3f;
+    private float interactDistance = 2f;
+
+    private PlayerUI playerUI;
+
+    void Start()
+    {
+        playerUI = GetComponent<PlayerUI>();
+    }
 
     private void FixedUpdate()
     {
+        playerUI.actionUI.SetActive(false);
         if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out RaycastHit raycastHit,
-                interactDistance, objectLayerMask))
+                interactDistance))
         {
-            if (raycastHit.transform.TryGetComponent(out ObjectGrabbable objectGrabbable))
+            if (raycastHit.collider.GetComponent<Interactable>())
             {
-                objectGrabbable.ShowName();
+                playerUI.UpdateActionText(raycastHit.collider.GetComponent<Interactable>().actionPrompt, raycastHit.collider.GetComponent<Interactable>().actionKey);
+                playerUI.actionUI.SetActive(true);
             }
         }
     }

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 8738471637253570315}
   m_Layer: 3
   m_Name: SM_Item_Coins_01
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,5 +161,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae04d4fdc02e0444e914e21dc190cb5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  value: 0
+  actionPrompt: Coger
+  actionKey: E

@@ -4,24 +4,18 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ObjectGrabbable : MonoBehaviour
+public class ObjectGrabbable : Interactable
 {
     private Rigidbody objectRigidbody;
     private Transform objectGrabPointTransform;
-    [HideInInspector] public string name;
-    [HideInInspector] public int value;
 
     private ItemSOHolder itemSOHolder;
-    private ObjectInfoShower objectInfoShower;
-
-
+    
     private void Awake()
     {
         objectRigidbody = GetComponent<Rigidbody>();
         itemSOHolder = GetComponent<ItemSOHolder>();
-
-        name = itemSOHolder.itemSO.name;
-        value = itemSOHolder.itemSO.value;
+        
     }
 
     public void Grab(Transform objectGrabPointTransform)
@@ -37,13 +31,7 @@ public class ObjectGrabbable : MonoBehaviour
         objectRigidbody.useGravity = true;
         objectRigidbody.isKinematic = false;
     }
-
-    public void ShowName()
-    {
-        Debug.Log(name +"Tiene un valor de " + value.ToString() + " monedas");
-        objectInfoShower.ShowInfo(name, value);
-    }
-
+    
     private void FixedUpdate()
     {
         if (objectGrabPointTransform)
@@ -52,5 +40,10 @@ public class ObjectGrabbable : MonoBehaviour
             Vector3 newPosition = Vector3.Lerp(transform.position, objectGrabPointTransform.position, Time.deltaTime * lerpSpeed);
             objectRigidbody.MovePosition(newPosition);
         }
+    }
+
+    protected override void Interact()
+    {
+        Debug.Log("Interacted with " + gameObject.name);
     }
 }

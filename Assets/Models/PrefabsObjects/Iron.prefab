@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1448569682502635173}
   m_Layer: 3
   m_Name: Iron
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24,8 +24,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4748042279657592548}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.33937675, z: -0, w: 0.9406506}
-  m_LocalPosition: {x: 9.459419, y: 0.8324307, z: -3.6992154}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -47,6 +47,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: f3f5b4b3f3d5af74bb5614e8cd89677f, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f3f5b4b3f3d5af74bb5614e8cd89677f, type: 3}
+      propertyPath: m_TagString
+      value: Selectable
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f3f5b4b3f3d5af74bb5614e8cd89677f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -158,6 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae04d4fdc02e0444e914e21dc190cb5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionPrompt: Coger
+  actionKey: E
 --- !u!114 &5549302112064426502
 MonoBehaviour:
   m_ObjectHideFlags: 0

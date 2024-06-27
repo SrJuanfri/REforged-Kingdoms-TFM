@@ -14,7 +14,7 @@ public class PlayerPickUpDrop : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if(objectGrabbable == null)
+            if(!objectGrabbable)
             {
                 //No llevamos objeto e intentamos cogerlo
                 float pickUpDistance = 2f;

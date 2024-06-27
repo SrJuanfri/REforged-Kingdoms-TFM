@@ -21,8 +21,8 @@ public class PlayerInteract : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         Debug.Log("Hit Customer");
-                        interaction.Interact();
-                        interaction.Sell();
+                        interaction.InteractNPC();
+                        interaction.SellNPC();
                     }
                 }
 

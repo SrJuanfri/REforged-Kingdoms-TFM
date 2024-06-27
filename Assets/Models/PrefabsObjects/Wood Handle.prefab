@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6145266301346258577}
   m_Layer: 3
   m_Name: Wood Handle
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,7 +128,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae04d4fdc02e0444e914e21dc190cb5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  value: 0
+  actionPrompt: Coger
+  actionKey: E
 --- !u!114 &6145266301346258577
 MonoBehaviour:
   m_ObjectHideFlags: 0

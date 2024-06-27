@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interaction : MonoBehaviour
+public class Interaction : Interactable
 {
     [SerializeField] private BoxCollider placeItemsAreaCollider;
     [SerializeField] private Transform itemSpawnPoint;
@@ -18,7 +18,7 @@ public class Interaction : MonoBehaviour
         animator = GetComponent<Animator>();
     }
     
-    public void Interact()
+    public void InteractNPC()
     {
         ChatBubble.Create(transform.transform, new Vector3(-0.6f, 1.7f, 0f), emotion,
             sellText);
@@ -26,7 +26,7 @@ public class Interaction : MonoBehaviour
         animator.SetTrigger("Talk");
     }
 
-    public void Sell()
+    public void SellNPC()
     {
         Debug.Log("Sell");
 
