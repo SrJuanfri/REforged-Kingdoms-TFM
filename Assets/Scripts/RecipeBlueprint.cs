@@ -12,7 +12,7 @@ public class RecipeBlueprint : Interactable
     [SerializeField] private List<CraftingRecipeSO> craftingRecipeSOList;
     [SerializeField] private BoxCollider placeItemsAreaCollider;
     [SerializeField] private Transform itemSpawnPoint;
-    //[SerializeField] private Transform vfxSpawnItem;
+    [SerializeField] private Transform vfxSpawnItem;
 
     private CraftingRecipeSO craftingRecipeSO;
 
@@ -70,7 +70,10 @@ public class RecipeBlueprint : Interactable
 
             Debug.Log("Yes");
 
-            Transform spawnedItemTransform = Instantiate(craftingRecipeSO.outputItemSO.prefab, itemSpawnPoint.position, itemSpawnPoint.rotation);
+            Transform spawnedItemTransform = Instantiate(craftingRecipeSO.outputItemSO.prefab, itemSpawnPoint.position,
+                itemSpawnPoint.rotation);
+
+            Instantiate(vfxSpawnItem, itemSpawnPoint.position, itemSpawnPoint.rotation);
 
             foreach(GameObject consumeItemGameObject in consumeItemGameObjectList)
             {
