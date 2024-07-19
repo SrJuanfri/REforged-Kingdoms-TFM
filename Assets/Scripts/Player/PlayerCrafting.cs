@@ -7,7 +7,7 @@ public class PlayerCrafting : MonoBehaviour
 
     [SerializeField] private Transform playerCameraTransform;
     [SerializeField] private LayerMask craftLayerMask;
-    private float interactDistance = 2f;
+    private float interactDistance = 2.5f;
 
     private PlayerUI playerUI;
 
@@ -18,14 +18,30 @@ public class PlayerCrafting : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Checkeamos si tiene capacidad de interactuar y si tiene nombre y valor
+        
         playerUI.actionUI.SetActive(false);
+        playerUI.infoUI.SetActive(false);
+        
         if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out RaycastHit raycastHit,
                 interactDistance))
         {
             if (raycastHit.collider.GetComponent<Interactable>())
             {
-                playerUI.UpdateActionText(raycastHit.collider.GetComponent<Interactable>().actionPrompt, raycastHit.collider.GetComponent<Interactable>().actionKey);
+                //Update interactuabilidad
+                
+                playerUI.UpdateActionText(raycastHit.collider.GetComponent<Interactable>().actionPrompt,
+                    raycastHit.collider.GetComponent<Interactable>().actionKey);
                 playerUI.actionUI.SetActive(true);
+            }
+
+            if (raycastHit.collider.GetComponent<ItemSOHolder>())
+            {
+                //Update nombre y valor
+                
+                playerUI.UpdateInfoText(raycastHit.collider.GetComponent<ItemSOHolder>().itemSO.itemName, 
+                    raycastHit.collider.GetComponent<ItemSOHolder>().itemSO.value);
+                playerUI.infoUI.SetActive(true);
             }
         }
     }
