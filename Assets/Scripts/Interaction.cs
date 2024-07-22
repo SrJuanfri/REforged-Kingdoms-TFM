@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Interaction : Interactable
@@ -64,6 +65,8 @@ public class Interaction : Interactable
             
             ChatBubble.Create(transform.transform, new Vector3(-0.6f, 1.7f, 0f), emotion,
                 endText);
+
+            GetComponent<CustomerController>().SetState(CustomerController.State.ReturnToStart);
         }
     }
 }
