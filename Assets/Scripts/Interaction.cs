@@ -66,7 +66,7 @@ public class Interaction : Interactable
             ChatBubble.Create(transform.transform, new Vector3(-0.6f, 1.7f, 0f), emotion,
                 endText);
 
-            GetComponent<CustomerController>().SetState(CustomerController.State.ReturnToStart);
+            GetComponent<CustomerController>().Leave();
         }
     }
 }

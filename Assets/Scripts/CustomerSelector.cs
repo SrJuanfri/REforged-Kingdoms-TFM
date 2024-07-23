@@ -8,12 +8,6 @@ public class CustomerSelector : MonoBehaviour
     public List<GameObject> customers;
     [HideInInspector]
     public GameObject selectedCustomer;
-
-    void Start()
-    {
-        SelectRandomCustomer();
-    }
-
     public void SelectRandomCustomer()
     {
         // Recoger todos los objetos de la capa Customer

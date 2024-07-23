@@ -4,34 +4,98 @@ using System.Collections;
 public class DayCycleManager : MonoBehaviour
 {
     public CustomerSelector customerSelector;
-    public float dayDuration = 180f; // Duración del día en segundos (3 minutos)
+    public float customerShoppingDuration = 180f; // Duración de la fase de clientes en segundos, ajustable desde el Inspector
     private float dayTimer;
+
+    private enum DayPhase
+    {
+        MerchantArrival,
+        CustomerShopping,
+        DayTransition
+    }
+
+    private DayPhase currentPhase;
+    private MerchantController merchantController;
 
     private void Start()
     {
-        dayTimer = dayDuration;
+        merchantController = FindObjectOfType<MerchantController>();
+        merchantController.OnMerchantLeft += StartCustomerShoppingPhase;
+
+        currentPhase = DayPhase.MerchantArrival;
         StartCoroutine(DayCycleRoutine());
     }
 
     private IEnumerator DayCycleRoutine()
     {
-        while (dayTimer > 0)
+        while (true)
         {
-            SelectAndSendCustomer();
-            // Esperar hasta que el cliente vuelva a su posición inicial
-            yield return new WaitUntil(() => customerSelector.selectedCustomer.GetComponent<CustomerController>().currentState == CustomerController.State.Idle);
-            yield return null; // Asegura que se detecte correctamente el cambio de estado
-        }
+            switch (currentPhase)
+            {
+                case DayPhase.MerchantArrival:
+                    yield return StartCoroutine(MerchantArrivalPhase());
+                    break;
 
-        Debug.Log("Day ended.");
+                case DayPhase.CustomerShopping:
+                    yield return StartCoroutine(CustomerShoppingPhase());
+                    break;
+
+                case DayPhase.DayTransition:
+                    yield return StartCoroutine(DayTransitionPhase());
+                    break;
+            }
+        }
     }
 
-    private void Update()
+    private IEnumerator MerchantArrivalPhase()
     {
-        if (dayTimer > 0)
+        Debug.Log("Merchant Arrival Phase started.");
+        // El mercader llega y muestra productos
+        // No se necesita esperar aquí, ya que el mercader permanecerá hasta que se pulse la campana
+        while (currentPhase == DayPhase.MerchantArrival)
         {
+            yield return null;
+        }
+        Debug.Log("Merchant Arrival Phase ended.");
+    }
+
+    private void StartCustomerShoppingPhase()
+    {
+        currentPhase = DayPhase.CustomerShopping;
+        StartCoroutine(CustomerShoppingPhase());
+    }
+
+    private IEnumerator CustomerShoppingPhase()
+    {
+        Debug.Log("Customer Shopping Phase started.");
+        dayTimer = customerShoppingDuration; // Usar la duración ajustable desde el Inspector
+
+        while (dayTimer > 0)
+        {
+            if (!customerSelector.selectedCustomer)
+            {
+                SelectAndSendCustomer();
+            }
+           
+            yield return new WaitUntil(() => customerSelector.selectedCustomer.GetComponent<CustomerController>().currentState == CustomerController.State.Shopping);
+            yield return new WaitUntil(() => customerSelector.selectedCustomer.GetComponent<CustomerController>().currentState == CustomerController.State.ReturnToStart);
+            yield return new WaitUntil(() => customerSelector.selectedCustomer.GetComponent<CustomerController>().currentState == CustomerController.State.Idle);
             dayTimer -= Time.deltaTime;
         }
+
+        currentPhase = DayPhase.DayTransition;
+        Debug.Log("Customer Shopping Phase ended.");
+    }
+
+    private IEnumerator DayTransitionPhase()
+    {
+        Debug.Log("Day Transition Phase started.");
+
+        // Aquí puedes añadir la lógica para manejar la transición al siguiente día
+        yield return new WaitForSeconds(1.0f); // Simular tiempo de transición
+
+        currentPhase = DayPhase.MerchantArrival;
+        Debug.Log("Day Transition Phase ended.");
     }
 
     private void SelectAndSendCustomer()
@@ -44,7 +108,7 @@ public class DayCycleManager : MonoBehaviour
             if (customerController != null)
             {
                 customerController.shouldGoToShop = true;
-                customerController.shouldReturnToStart = true;
+                customerController.shouldReturnToStart = false; // Asegurarnos de que no se vayan automáticamente
             }
         }
     }

@@ -7,11 +7,12 @@ public class CustomerController : MonoBehaviour
     public Transform shopDestination;
     private NavMeshAgent navMeshAgent;
     private Vector3 startPosition;
+    private Transform player; // Referencia al jugador
     [HideInInspector]
     public State currentState;
 
-    public bool shouldGoToShop;
-    public bool shouldReturnToStart;
+    public bool shouldGoToShop = false;
+    public bool shouldReturnToStart = false;
     public float walkingSpeed = 1.5f; // Ajusta la velocidad aquí
 
     private Animator animator;
@@ -30,8 +31,11 @@ public class CustomerController : MonoBehaviour
 
     void Start()
     {
+        shouldGoToShop = false;
+        shouldReturnToStart = false;
         startPosition = transform.position;
         navMeshAgent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player").transform; // Buscar el jugador por el tag
         navMeshAgent.speed = walkingSpeed; // Establece la velocidad del NavMeshAgent aquí
         animator = GetComponent<Animator>();
         SetState(State.Idle);
@@ -125,7 +129,13 @@ public class CustomerController : MonoBehaviour
 
     private void UpdateShopping()
     {
-        // Optional: Add any update logic for the shopping state
+        // Hacer que el cliente mire al jugador
+        if (player != null)
+        {
+            Vector3 direction = (player.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }
     }
 
     /*private IEnumerator ShoppingRoutine()
@@ -148,6 +158,14 @@ public class CustomerController : MonoBehaviour
         navMeshAgent.destination = startPosition;
         // Set the Walk boolean in the Animator to true
         animator.SetBool("Walk", true);
+    }
+
+    public void Leave()
+    {
+        if (currentState == State.Shopping)
+        {
+            SetState(State.ReturnToStart);
+        }
     }
 
     private void UpdateReturnToStart()
