@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BellClickHandler : MonoBehaviour
+public class BellClickHandler : Interactable
 {
     private MerchantController merchantController;
     private CustomerController[] customerControllers;
