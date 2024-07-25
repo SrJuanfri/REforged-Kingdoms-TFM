@@ -4,7 +4,7 @@ using System.Collections;
 public class DayCycleManager : MonoBehaviour
 {
     public CustomerSelector customerSelector;
-    public float customerShoppingDuration = 180f; // DuraciÛn de la fase de clientes en segundos, ajustable desde el Inspector
+    public float customerShoppingDuration = 180f; // Duraci√≥n de la fase de clientes en segundos, ajustable desde el Inspector
     private float dayTimer;
 
     private enum DayPhase
@@ -26,6 +26,7 @@ public class DayCycleManager : MonoBehaviour
         StartCoroutine(DayCycleRoutine());
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator DayCycleRoutine()
     {
         while (true)
@@ -47,11 +48,12 @@ public class DayCycleManager : MonoBehaviour
         }
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator MerchantArrivalPhase()
     {
         Debug.Log("Merchant Arrival Phase started.");
         // El mercader llega y muestra productos
-        // No se necesita esperar aquÌ, ya que el mercader permanecer· hasta que se pulse la campana
+        // No se necesita esperar aqu√≠, ya que el mercader permanecer√° hasta que se pulse la campana
         while (currentPhase == DayPhase.MerchantArrival)
         {
             yield return null;
@@ -68,7 +70,7 @@ public class DayCycleManager : MonoBehaviour
     private IEnumerator CustomerShoppingPhase()
     {
         Debug.Log("Customer Shopping Phase started.");
-        dayTimer = customerShoppingDuration; // Usar la duraciÛn ajustable desde el Inspector
+        dayTimer = customerShoppingDuration; // Usar la duraci√≥n ajustable desde el Inspector
 
         while (dayTimer > 0)
         {
@@ -91,8 +93,8 @@ public class DayCycleManager : MonoBehaviour
     {
         Debug.Log("Day Transition Phase started.");
 
-        // AquÌ puedes aÒadir la lÛgica para manejar la transiciÛn al siguiente dÌa
-        yield return new WaitForSeconds(1.0f); // Simular tiempo de transiciÛn
+        // Aqu√≠ puedes a√±adir la l√≥gica para manejar la transici√≥n al siguiente d√≠a
+        yield return new WaitForSeconds(1.0f); // Simular tiempo de transici√≥n
 
         currentPhase = DayPhase.MerchantArrival;
         Debug.Log("Day Transition Phase ended.");
@@ -108,7 +110,7 @@ public class DayCycleManager : MonoBehaviour
             if (customerController != null)
             {
                 customerController.shouldGoToShop = true;
-                customerController.shouldReturnToStart = false; // Asegurarnos de que no se vayan autom·ticamente
+                customerController.shouldReturnToStart = false; // Asegurarnos de que no se vayan autom√°ticamente
             }
         }
     }

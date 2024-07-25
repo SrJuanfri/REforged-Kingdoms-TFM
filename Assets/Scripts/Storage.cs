@@ -54,5 +54,10 @@ public class Storage : MonoBehaviour
     void UpdateNumberText()
     {
         countText.text = "Número: " + objectsNumber;
+
+        if (itemStoragedSO.itemName == "10 Coins")
+        {
+            countText.text = (objectsNumber * 10) +" Monedas.";
+        }
     }
 }
