@@ -24,7 +24,7 @@ public class MerchantController : MonoBehaviour
         Leave
     }
 
-    void Start()
+    void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -32,7 +32,7 @@ public class MerchantController : MonoBehaviour
 
         merchantInventory = GameObject.FindGameObjectWithTag("MerchantInventory");
         merchantInventory.SetActive(false);
-        SetState(State.GoToShop);
+        //SetState(State.GoToShop);
     }
 
     void Update()
@@ -51,7 +51,12 @@ public class MerchantController : MonoBehaviour
         }
 
         // Manejar el Animator basado en la velocidad del NavMeshAgent
-        animator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
+        //animator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
+    }
+
+    public void setStateGoToShop()
+    {
+        SetState(State.GoToShop);
     }
 
     private void SetState(State newState)
@@ -124,8 +129,7 @@ public class MerchantController : MonoBehaviour
 
     private void EnterLeave()
     {
-        Debug.Log("leaving.");
-        Debug.Log(exitPoint.position);
+        //Debug.Log("leaving.");
         navMeshAgent.destination = exitPoint.position;
         animator.SetBool("Walk", true);
         merchantInventory.SetActive(false);
@@ -135,9 +139,11 @@ public class MerchantController : MonoBehaviour
     {
         if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance < 0.5f)
         {
-            animator.SetBool("Walk", false);
-            Debug.Log("Merchant has left.");
-            OnMerchantLeft?.Invoke();
+            if (animator.GetBool("Walk"))
+            {
+                animator.SetBool("Walk", false);
+                OnMerchantLeft?.Invoke();
+            }
         }
     }
 }

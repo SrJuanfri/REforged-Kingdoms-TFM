@@ -173,8 +173,9 @@ public class CustomerController : MonoBehaviour
         if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance < 0.5f)
         {
             SetState(State.Idle);
+            shouldGoToShop = false;
             // Notify that the customer has returned
-            OnCustomerReturned?.Invoke(this);
+            //OnCustomerReturned?.Invoke(this);
         }
     }
 }
