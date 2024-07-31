@@ -57,7 +57,9 @@ public class Storage : MonoBehaviour
 
         if (itemStoragedSO.itemName == "10 Coins")
         {
-            countText.text = (objectsNumber * 10) +" Monedas.";
+            
+            countText.text = ( objectsNumber * 10) +" Monedas.";
+            Debug.Log(objectsNumber + " Monedas");
         }
     }
 }
