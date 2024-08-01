@@ -10,7 +10,7 @@ public class Registradora : MonoBehaviour
     [SerializeField] private BoxCollider storageItemsAreaCollider;
     [SerializeField] private TextMeshPro countText;
     [SerializeField] private List<ItemSO> listItemStoragedSO;
-    private int moneyNumber;
+    private int moneyNumber { get; set; }
     void Start()
     {
         UpdateNumberText();
