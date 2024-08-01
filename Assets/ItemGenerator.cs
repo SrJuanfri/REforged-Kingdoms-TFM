@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemGenerator : MonoBehaviour
+public class ItemGenerator : Interactable
 {
-    public Registradora registradora;
+    [SerializeField] private Registradora registradora;
+    [SerializeField] private ItemSO itemSO;
+    [SerializeField] private Transform itemSpawnPoint;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -16,5 +19,14 @@ public class ItemGenerator : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void CreateItem()
+    {
+        if (registradora.moneyNumber >= itemSO.value)
+        {
+            Transform spawnedItemTransform = Instantiate(itemSO.prefab, itemSpawnPoint.position, itemSpawnPoint.rotation);
+            registradora.SubstractNumberText(itemSO.value);
+        }
     }
 }

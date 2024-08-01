@@ -1027,6 +1027,11 @@ PrefabInstance:
       propertyPath: actionMessage
       value: 
       objectReference: {fileID: 1413463200}
+    - target: {fileID: 2371938580478723713, guid: 11aaea5348574644a9eb4f4504fcce3f,
+        type: 3}
+      propertyPath: buttonLayerMask.m_Bits
+      value: 4096
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1156,6 +1161,18 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4233351731809697441, guid: d64a004e889081646a97a12502364fc9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 7839230167828740525, guid: d64a004e889081646a97a12502364fc9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3007671921978582969, guid: d64a004e889081646a97a12502364fc9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 5208755235142712424, guid: d64a004e889081646a97a12502364fc9,
         type: 3}
       insertIndex: -1
