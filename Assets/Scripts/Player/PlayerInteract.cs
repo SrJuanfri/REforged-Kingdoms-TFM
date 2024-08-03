@@ -26,6 +26,15 @@ public class PlayerInteract : MonoBehaviour
                         interaction.SellNPC();
                     }
                 }
+
+                if (raycastHitCustomer.transform.TryGetComponent(out MerchantController merchantController))
+                {
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        Debug.Log("Hit Merchant");
+                        merchantController.InteractNPC();
+                    }
+                }
             }
         }
 

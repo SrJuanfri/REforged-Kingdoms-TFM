@@ -2,20 +2,26 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
-public class MerchantController : MonoBehaviour
+public class MerchantController : Interactable
 {
+    
     public Transform shopDestination; // Destino del mercader
     private Transform player; // Referencia al jugador
     public Transform exitPoint; // Punto de salida del mercader
-
+    [SerializeField] private GameObject materialsMachine;
+    
     private NavMeshAgent navMeshAgent;
     private Animator animator;
     [HideInInspector]
     public State currentState;
-    private GameObject merchantInventory;
+    
 
     public delegate void MerchantEventHandler();
     public event MerchantEventHandler OnMerchantLeft;
+    
+    public string sellText;
+    public string endText;
+    public ChatBubble.IconType emotion;
 
     public enum State
     {
@@ -28,10 +34,8 @@ public class MerchantController : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        materialsMachine.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player").transform; // Buscar el jugador por el tag
-
-        merchantInventory = GameObject.FindGameObjectWithTag("MerchantInventory");
-        merchantInventory.SetActive(false);
         //SetState(State.GoToShop);
     }
 
@@ -95,14 +99,14 @@ public class MerchantController : MonoBehaviour
     {
         animator.SetBool("Walk", false);
         Debug.Log("Merchant is showing products.");
-        merchantInventory.SetActive(true);
+        materialsMachine.SetActive(true);
         StartCoroutine(ShowProductsRoutine());
     }
 
     private void UpdateShowProducts()
     {
         // Hacer que el mercader mire al jugador
-        if (player != null)
+        if (player)
         {
             Vector3 direction = (player.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
@@ -132,7 +136,7 @@ public class MerchantController : MonoBehaviour
         //Debug.Log("leaving.");
         navMeshAgent.destination = exitPoint.position;
         animator.SetBool("Walk", true);
-        merchantInventory.SetActive(false);
+        materialsMachine.SetActive(false);
     }
 
     private void UpdateLeave()
@@ -145,5 +149,11 @@ public class MerchantController : MonoBehaviour
                 OnMerchantLeft?.Invoke();
             }
         }
+    }
+    
+    public void InteractNPC()
+    {
+        ChatBubble.Create(transform.transform, new Vector3(-0.6f, 1.7f, 0f), emotion,
+            sellText);
     }
 }
