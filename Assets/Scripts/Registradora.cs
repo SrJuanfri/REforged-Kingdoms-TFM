@@ -8,7 +8,7 @@ using UnityEngine;
 public class Registradora : MonoBehaviour
 {
     [SerializeField] private BoxCollider storageItemsAreaCollider;
-    [SerializeField] private TextMeshPro countText;
+    public TextMeshPro countText;
     [SerializeField] private List<ItemSO> listItemStoragedSO;
     public int moneyNumber;
     void Start()
@@ -44,10 +44,5 @@ public class Registradora : MonoBehaviour
     void UpdateNumberText()
     {
         countText.text = moneyNumber.ToString();
-    }
-
-    public void SubstractNumberText(int valueItem)
-    {
-        countText.text = (moneyNumber - valueItem).ToString();
     }
 }

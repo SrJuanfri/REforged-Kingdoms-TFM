@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ItemGenerator : Interactable
@@ -25,8 +26,9 @@ public class ItemGenerator : Interactable
     {
         if (registradora.moneyNumber >= itemSO.value)
         {
-            Transform spawnedItemTransform = Instantiate(itemSO.prefab, itemSpawnPoint.position, itemSpawnPoint.rotation);
-            registradora.SubstractNumberText(itemSO.value);
+            Transform itemCreation = Instantiate(itemSO.prefab, itemSpawnPoint.position, itemSpawnPoint.rotation);
+            registradora.countText.text = (registradora.moneyNumber - itemSO.value).ToString();
+            registradora.moneyNumber -= itemSO.value;
         }
     }
 }

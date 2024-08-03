@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionPrompt: Apretar
   actionKey: E
-  registradora: {fileID: 6472642334976777300}
+  registradora: {fileID: 155527904533758058}
   itemSO: {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
   itemSpawnPoint: {fileID: 5030536777170296871}
 --- !u!1 &534082919973634901
@@ -343,7 +343,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4973685887166572008}
-  - component: {fileID: 6472642334976777300}
+  - component: {fileID: 155527904533758058}
   - component: {fileID: 6815279761893234880}
   - component: {fileID: 5739474498040906838}
   m_Layer: 0
@@ -372,7 +372,7 @@ Transform:
   - {fileID: 3674693648078816960}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6472642334976777300
+--- !u!114 &155527904533758058
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -387,8 +387,14 @@ MonoBehaviour:
   storageItemsAreaCollider: {fileID: 6815279761893234880}
   countText: {fileID: 2486523570686247216}
   listItemStoragedSO:
+  - {fileID: 11400000, guid: 63f15b1a3073eb74b9c0ee7b0ef76376, type: 2}
   - {fileID: 11400000, guid: 98345211c68e8a74fb23a1526ad42075, type: 2}
   - {fileID: 11400000, guid: 381644ab2dc3eac4cb868e4a36ee0a40, type: 2}
+  - {fileID: 11400000, guid: ce255e30075caa7429aaa94cd19316db, type: 2}
+  - {fileID: 11400000, guid: 4f37e99ed4e287e46a55e55a6aa13e65, type: 2}
+  - {fileID: 11400000, guid: c48f44f8b191ef8438b0f6fe3bb886ae, type: 2}
+  - {fileID: 11400000, guid: 532d3a574877a5b458bbbeef69ba2877, type: 2}
+  - {fileID: 11400000, guid: bca3c2684974d9240a14d62d3fe91e9a, type: 2}
   moneyNumber: 0
 --- !u!65 &6815279761893234880
 BoxCollider:
@@ -2619,7 +2625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionPrompt: Apretar
   actionKey: E
-  registradora: {fileID: 6472642334976777300}
+  registradora: {fileID: 155527904533758058}
   itemSO: {fileID: 11400000, guid: 233eaaf327dab6f499bdc9c9cd61559f, type: 2}
   itemSpawnPoint: {fileID: 5030536777170296871}
 --- !u!1 &6739407094508310641
@@ -2843,7 +2849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionPrompt: Apretar
   actionKey: E
-  registradora: {fileID: 6472642334976777300}
+  registradora: {fileID: 155527904533758058}
   itemSO: {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
   itemSpawnPoint: {fileID: 5030536777170296871}
 --- !u!1 &7198761379819809375

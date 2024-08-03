@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 5 Coins
   m_EditorClassIdentifier: 
   itemName: 5 Coins
-  inputItem: {fileID: 115104, guid: 5e966a5749f9b264a9eee5c9fffdfde9, type: 3}
-  prefab: {fileID: 449654, guid: 5e966a5749f9b264a9eee5c9fffdfde9, type: 3}
+  inputItem: {fileID: 115104, guid: 17982380a474d304cb48c368d2ef6aa6, type: 3}
+  prefab: {fileID: 449654, guid: 17982380a474d304cb48c368d2ef6aa6, type: 3}
   value: 5

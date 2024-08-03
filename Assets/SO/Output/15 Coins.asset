@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6b8ca5dc851f74ba635fd4491dacce, type: 3}
+  m_Name: 15 Coins
+  m_EditorClassIdentifier: 
+  itemName: 15 Coins
+  inputItem: {fileID: 138872, guid: cc9e9093344cfc8489bc50ba3c017116, type: 3}
+  prefab: {fileID: 412796, guid: cc9e9093344cfc8489bc50ba3c017116, type: 3}
+  value: 15
