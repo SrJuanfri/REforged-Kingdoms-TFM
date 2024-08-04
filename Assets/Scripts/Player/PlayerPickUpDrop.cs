@@ -7,9 +7,12 @@ public class PlayerPickUpDrop : MonoBehaviour
 {
     [SerializeField] private Transform playerCameraTransform;
     [SerializeField] private Transform objectGrabPointTransform;
+    public Transform readPoint;
     [SerializeField] private LayerMask pickUpLayerMask;
 
     private ObjectGrabbable objectGrabbable;
+    private Newspaper newspaper;
+    private float pickUpDistance = 2f;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -17,7 +20,7 @@ public class PlayerPickUpDrop : MonoBehaviour
             if(!objectGrabbable)
             {
                 //No llevamos objeto e intentamos cogerlo
-                float pickUpDistance = 2f;
+                
                 if (Physics.Raycast(playerCameraTransform.transform.position, playerCameraTransform.forward, out RaycastHit raycastHit, pickUpDistance, pickUpLayerMask))
                 {
                     if (raycastHit.transform.TryGetComponent(out objectGrabbable))
@@ -33,6 +36,27 @@ public class PlayerPickUpDrop : MonoBehaviour
                 objectGrabbable = null;
             }
             
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (!newspaper)
+            {
+                if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward,
+                        out RaycastHit raycastHit, pickUpDistance, pickUpLayerMask))
+                {
+                    if (raycastHit.transform.TryGetComponent(out newspaper))
+                    {
+                        Debug.Log("Coger Periodico");
+                        newspaper.Read(readPoint);
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("Soltar Periodico");
+                newspaper.Drop();
+                newspaper = null;
+            }
         }
     }
 }
