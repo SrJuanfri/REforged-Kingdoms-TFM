@@ -9,7 +9,7 @@ public class Interaction : Interactable
     public CraftingRecipeSO craftingRecipeSO;
 
     private Animator animator;
-    public string sellText;
+    private string sellText;
     public string endText;
     public ChatBubble.IconType emotion;
 
@@ -18,7 +18,7 @@ public class Interaction : Interactable
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        phraseManager = FindObjectOfType<CustomerPhraseManager>(); // Asegúrate de que el CustomerPhraseManager esté en la escena
+        phraseManager = FindObjectOfType<CustomerPhraseManager>(); // Asegï¿½rate de que el CustomerPhraseManager estï¿½ en la escena
     }
 
     public void SetCustomerState(CustomerState state)
@@ -36,6 +36,7 @@ public class Interaction : Interactable
 
         // Actualizar orderText en CustomerManager
         CustomerManager customerManager = GetComponent<ClientSOHolder>().ClientSO;
+        
         if (customerManager.currentOrder != null)
         {
             customerManager.currentOrder.OrderText = sellText;
@@ -52,43 +53,39 @@ public class Interaction : Interactable
     {
         Debug.Log("Sell");
 
-        // Detectar ítems en el área del collider
-        Collider[] colliderArray = Physics.OverlapBox(
-            transform.position + placeItemsAreaCollider.center,
-            placeItemsAreaCollider.size / 2, // Ajuste: Dividir tamaño por 2 para el centro del collider
-            placeItemsAreaCollider.transform.rotation
-        );
+        // Detectar ï¿½tems en el ï¿½rea del collider
+        Collider[] colliderArray = Physics.OverlapBox(transform.position + placeItemsAreaCollider.center, placeItemsAreaCollider.size / 2);
 
-        // Lista de ítems requeridos para la receta
+        // Lista de ï¿½tems requeridos para la receta
         List<ItemSO> inputItemList = new List<ItemSO>(craftingRecipeSO.inputItemSOList);
 
-        // Lista de ítems consumidos
+        // Lista de ï¿½tems consumidos
         List<GameObject> consumeItemGameObjectList = new List<GameObject>();
 
-        // Verificar qué ítems se han entregado
+        // Verificar quï¿½ ï¿½tems se han entregado
         foreach (Collider collider in colliderArray)
         {
             if (collider.TryGetComponent(out ItemSOHolder itemSOHolder))
             {
                 if (inputItemList.Contains(itemSOHolder.itemSO))
                 {
-                    // Remover ítem de la lista de ítems requeridos
+                    // Remover ï¿½tem de la lista de ï¿½tems requeridos
                     inputItemList.Remove(itemSOHolder.itemSO);
-                    // Agregar ítem a la lista de ítems a consumir
+                    // Agregar ï¿½tem a la lista de ï¿½tems a consumir
                     consumeItemGameObjectList.Add(collider.gameObject);
                 }
             }
         }
 
-        // Verificar si todos los ítems requeridos han sido entregados
+        // Verificar si todos los ï¿½tems requeridos han sido entregados
         if (inputItemList.Count == 0)
         {
-            Debug.Log("Todos los ítems requeridos han sido entregados.");
+            Debug.Log("Todos los ï¿½tems requeridos han sido entregados.");
        
             // Instanciar el objeto de salida
             Transform spawnedItemTransform = Instantiate(craftingRecipeSO.outputItemSO.prefab, itemSpawnPoint.position, itemSpawnPoint.rotation);
 
-            // Destruir los ítems consumidos
+            // Destruir los ï¿½tems consumidos
             foreach (GameObject consumeItemGameObject in consumeItemGameObjectList)
             {
                 Destroy(consumeItemGameObject);
@@ -102,7 +99,7 @@ public class Interaction : Interactable
         }
         else
         {
-            Debug.Log("Faltan ítems para completar la receta.");
+            Debug.Log("Faltan Ã­tems para completar la receta.");
         }
     }
 

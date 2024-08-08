@@ -14,13 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: {fileID: 0}
   ordersData:
-  - orderText: Daga
-    craftingRecipe: {fileID: 11400000, guid: 456263707424fda419ddcd0a6f04f4c0, type: 2}
+  - orderText: Necesito un 10 coins de metal desconocido con un robusto mango de
+      madera desconocida, por favor.
+    craftingRecipe: {fileID: 11400000, guid: 0d7240227e9eee7478c53455dd2f6b5d, type: 2}
+    customerState: 0
     isCompleted: 0
     price: 10
   currentOrder:
-    orderText: Espada de cobre y pino
-    craftingRecipe: {fileID: 0}
+    orderText: Necesito un 10 coins de metal desconocido con un robusto mango de
+      madera desconocida, por favor.
+    craftingRecipe: {fileID: 11400000, guid: 0d7240227e9eee7478c53455dd2f6b5d, type: 2}
+    customerState: 0
     isCompleted: 0
     price: 10
   appearanceProbability: 100

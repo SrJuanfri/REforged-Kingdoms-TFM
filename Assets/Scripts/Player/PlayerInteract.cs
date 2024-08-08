@@ -23,6 +23,7 @@ public class PlayerInteract : MonoBehaviour
                     {
                         Debug.Log("Hit Customer");
                         interaction.InteractNPC();
+                        
                         interaction.SellNPC();
                     }
                 }

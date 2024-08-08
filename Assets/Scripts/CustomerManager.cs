@@ -17,7 +17,7 @@ public class CustomerManager : ScriptableObject
 
     public void Start()
     {
-        // Obtener la última orden no completada
+        // Obtener la ï¿½ltima orden no completada
         currentOrder = GetLastUncompletedOrder();
 
         if (currentOrder != null && price != null)
@@ -27,14 +27,14 @@ public class CustomerManager : ScriptableObject
         }
     }
 
-    // Método para verificar si todos los pedidos del cliente están completados
+    // Metodo para verificar si todos los pedidos del cliente estï¿½n completados
     public bool AllOrdersCompleted()
     {
-        // Usamos LINQ para verificar si todos los pedidos están completados
+        // Usamos LINQ para verificar si todos los pedidos estï¿½n completados
         return ordersData.All(order => order.IsCompleted);
     }
 
-    // Método para obtener la última orden no completada
+    // MÃ©todo para obtener la ï¿½ltima orden no completada
     private OrderData GetLastUncompletedOrder()
     {
         for (int i = ordersData.Count - 1; i >= 0; i--)
