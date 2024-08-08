@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6b8ca5dc851f74ba635fd4491dacce, type: 3}
   m_Name: Gold
   m_EditorClassIdentifier: 
-  itemName: Gold
+  itemName: oro
   inputItem: {fileID: 4748042279657592548, guid: ff8302a95a1b1814599c635e90493697,
     type: 3}
   prefab: {fileID: 1448569682502635173, guid: ff8302a95a1b1814599c635e90493697, type: 3}
   value: 10
+  itemType: 0

@@ -8,9 +8,11 @@ public class CustomerSelector : MonoBehaviour
     public List<GameObject> customers;
     [HideInInspector]
     public GameObject selectedCustomer;
+
+    // Selecciona un cliente aleatorio basado en las probabilidades de aparición
     public void SelectRandomCustomer()
     {
-        // Recoger todos los objetos de la capa Customer
+        // Obtener todos los objetos con la etiqueta "Customer"
         customers = GameObject.FindGameObjectsWithTag("Customer")
             .Where(obj => obj.layer == LayerMask.NameToLayer("Customer"))
             .ToList();
@@ -27,9 +29,9 @@ public class CustomerSelector : MonoBehaviour
         foreach (GameObject customer in customers)
         {
             ClientSOHolder holder = customer.GetComponent<ClientSOHolder>();
-            if (holder != null && holder.clientSO != null)
+            if (holder != null && holder.ClientSO != null)
             {
-                appearanceProbabilities.Add(holder.clientSO.appearanceProbability);
+                appearanceProbabilities.Add(holder.ClientSO.AppearanceProbability);
             }
             else
             {

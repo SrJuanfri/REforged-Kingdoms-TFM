@@ -18,3 +18,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
   - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
   outputItemSO: {fileID: 11400000, guid: 4be3ed87322eb0d4dbf1a45d325e56ec, type: 2}
+  isWeapon: 1

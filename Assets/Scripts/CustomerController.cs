@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
-public class CustomerController : MonoBehaviour
+public class CustomerController : Interactable
 {
     public Transform shopDestination;
     private NavMeshAgent navMeshAgent;

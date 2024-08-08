@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6b8ca5dc851f74ba635fd4491dacce, type: 3}
   m_Name: Handle
   m_EditorClassIdentifier: 
-  itemName: Handle
+  itemName: pino
   inputItem: {fileID: 1849171192356266, guid: cb57e75ca0f930d47a4aa8be1c709671, type: 3}
   prefab: {fileID: 4408855321177182, guid: cb57e75ca0f930d47a4aa8be1c709671, type: 3}
   value: 1
+  itemType: 1

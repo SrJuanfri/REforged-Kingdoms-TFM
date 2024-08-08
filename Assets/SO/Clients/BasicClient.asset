@@ -14,19 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: {fileID: 0}
   ordersData:
-  - orderText: Espada de cobre y pino
-    design: 0
-    bladeMaterial: 0
-    handleMaterial: 0
+  - orderText: Daga
+    craftingRecipe: {fileID: 11400000, guid: 456263707424fda419ddcd0a6f04f4c0, type: 2}
     isCompleted: 0
     price: 10
-    isWeapon: 1
   currentOrder:
     orderText: Espada de cobre y pino
-    design: 0
-    bladeMaterial: 0
-    handleMaterial: 0
+    craftingRecipe: {fileID: 0}
     isCompleted: 0
-    isWeapon: 1
     price: 10
   appearanceProbability: 100

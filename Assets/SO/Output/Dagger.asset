@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6b8ca5dc851f74ba635fd4491dacce, type: 3}
   m_Name: Dagger
   m_EditorClassIdentifier: 
-  itemName: Dagger
+  itemName: daga
   inputItem: {fileID: 1852942662327352, guid: 507a40406fcf0d24d806435dea69f538, type: 3}
   prefab: {fileID: 4484283452704374, guid: 507a40406fcf0d24d806435dea69f538, type: 3}
   value: 10
+  itemType: 2

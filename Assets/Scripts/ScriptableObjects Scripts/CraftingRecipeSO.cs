@@ -2,10 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu()]
-public class CraftingRecipeSO : ScriptableObject 
+[CreateAssetMenu(fileName = "CraftingRecipe", menuName = "ScriptableObjects/CraftingRecipe", order = 1)]
+public class CraftingRecipeSO : ScriptableObject
 {
     public Sprite sprite;
     public List<ItemSO> inputItemSOList;
     public ItemSO outputItemSO;
+    public bool isWeapon;
+
+    // Propiedad para calcular el precio total
+    public int TotalPrice
+    {
+        get
+        {
+            int total = 0;
+            foreach (var item in inputItemSOList)
+            {
+                total += item.value;
+            }
+            return total;
+        }
+    }
+
+    // Propiedad para obtener los nombres de los materiales
+    public Dictionary<string, string> MaterialNames
+    {
+        get
+        {
+            string metalName = "metal desconocido";
+            string woodName = "madera desconocida";
+
+            foreach (var item in inputItemSOList)
+            {
+                if (item.itemType == ItemSO.ItemType.Metal)
+                {
+                    metalName = item.itemName;
+                }
+                else if (item.itemType == ItemSO.ItemType.Wood)
+                {
+                    woodName = item.itemName;
+                }
+            }
+
+            return new Dictionary<string, string> {
+                { "metal", metalName },
+                { "wood", woodName }
+            };
+        }
+    }
 }

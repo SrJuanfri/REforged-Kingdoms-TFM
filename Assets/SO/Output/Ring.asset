@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6b8ca5dc851f74ba635fd4491dacce, type: 3}
   m_Name: Ring
   m_EditorClassIdentifier: 
-  itemName: Ring
+  itemName: anillo
   inputItem: {fileID: 1959001367719646, guid: 325e038c8b1d10b45822620927776798, type: 3}
   prefab: {fileID: 4794318670642868, guid: 325e038c8b1d10b45822620927776798, type: 3}
   value: 13
+  itemType: 0
