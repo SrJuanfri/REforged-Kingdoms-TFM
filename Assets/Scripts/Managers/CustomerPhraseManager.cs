@@ -92,9 +92,6 @@ public class CustomerPhraseManager : MonoBehaviour
         }},
     };
 
-    [SerializeField]
-    private TextCorrectionManager textCorrectionManager;
-
     // Método para obtener una frase de pedido basada en el estado del cliente, el ítem, el metal y la madera
     public string GetOrderPhrase(CustomerState state, string item, string metal, string wood)
     {
@@ -108,7 +105,7 @@ public class CustomerPhraseManager : MonoBehaviour
                 .Replace("{wood}", wood);
 
             // Corregir el texto generado
-            return textCorrectionManager.FixText(generatedText);
+            return generatedText;
         }
         return "No hay frases de pedido disponibles para los parámetros especificados.";
     }

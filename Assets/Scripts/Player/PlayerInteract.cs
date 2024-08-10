@@ -7,49 +7,46 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private Transform playerCameraTransform;
     [SerializeField] private LayerMask customerLayerMask;
     [SerializeField] private LayerMask buttonLayerMask;
-    
-    private float customerDistance = 2.5f;
+
+    private float interactionDistance = 2.5f; // Distancia de interacción
 
     private void FixedUpdate()
     {
+        // Detectar interacción con clientes
         if (Input.GetKeyDown(KeyCode.E))
         {
+            // Raycast para detectar clientes
             if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward,
-                    out RaycastHit raycastHitCustomer, customerDistance, customerLayerMask))
+                    out RaycastHit hit, interactionDistance, customerLayerMask))
             {
-                if (raycastHitCustomer.transform.TryGetComponent(out Interaction interaction))
+                // Comprobar si el objeto tiene un CustomerController
+                if (hit.transform.TryGetComponent(out CustomerController customerController))
                 {
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        Debug.Log("Hit Customer");
-                        interaction.InteractNPC();
-                        
-                        interaction.SellNPC();
-                    }
+                    Debug.Log("Hit Customer");
+                    customerController.InteractNPC();
+                    customerController.SellNPC();
                 }
-
-                if (raycastHitCustomer.transform.TryGetComponent(out MerchantController merchantController))
+                // Comprobar si el objeto tiene un MerchantController
+                else if (hit.transform.TryGetComponent(out MerchantController merchantController))
                 {
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        Debug.Log("Hit Merchant");
-                        merchantController.InteractNPC();
-                    }
+                    Debug.Log("Hit Merchant");
+                    merchantController.InteractNPC();
                 }
             }
         }
 
+        // Detectar interacción con botones (u otros objetos de acción)
         if (Input.GetKeyDown(KeyCode.E))
         {
+            // Raycast para detectar botones
             if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward,
-                    out RaycastHit raycastHitButton, customerDistance, buttonLayerMask))
+                    out RaycastHit hit, interactionDistance, buttonLayerMask))
             {
-                if (raycastHitButton.transform.TryGetComponent(out ItemGenerator itemGenerator))
+                // Comprobar si el objeto tiene un ItemGenerator
+                if (hit.transform.TryGetComponent(out ItemGenerator itemGenerator))
                 {
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        itemGenerator.CreateItem();
-                    }
+                    Debug.Log("Hit Item Generator");
+                    itemGenerator.CreateItem();
                 }
             }
         }

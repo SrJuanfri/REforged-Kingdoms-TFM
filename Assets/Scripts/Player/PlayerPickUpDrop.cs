@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerPickUpDrop : MonoBehaviour
@@ -13,15 +12,14 @@ public class PlayerPickUpDrop : MonoBehaviour
     private ObjectGrabbable objectGrabbable;
     private Newspaper newspaper;
     private float pickUpDistance = 2.5f;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if(!objectGrabbable)
+            if (!objectGrabbable)
             {
-                //No llevamos objeto e intentamos cogerlo
-                
-                if (Physics.Raycast(playerCameraTransform.transform.position, playerCameraTransform.forward, out RaycastHit raycastHit, pickUpDistance, pickUpLayerMask))
+                if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out RaycastHit raycastHit, pickUpDistance, pickUpLayerMask))
                 {
                     if (raycastHit.transform.TryGetComponent(out objectGrabbable))
                     {
@@ -31,12 +29,11 @@ public class PlayerPickUpDrop : MonoBehaviour
             }
             else
             {
-                //Llevamos un objeto y lo intentamos tirar
                 objectGrabbable.Drop();
                 objectGrabbable = null;
             }
-            
         }
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (!newspaper)
@@ -58,5 +55,11 @@ public class PlayerPickUpDrop : MonoBehaviour
                 newspaper = null;
             }
         }
+    }
+
+    // Método para obtener el objeto que el jugador sostiene
+    public ObjectGrabbable GetHeldObject()
+    {
+        return objectGrabbable;
     }
 }

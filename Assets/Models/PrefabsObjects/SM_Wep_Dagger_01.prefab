@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 23473114736687360}
   - component: {fileID: 64986060482849468}
   - component: {fileID: -5197632001198845998}
-  - component: {fileID: 1585357180426202259}
   - component: {fileID: 3176705013617546067}
+  - component: {fileID: 8211574884271975128}
   m_Layer: 3
   m_Name: SM_Wep_Dagger_01
   m_TagString: Selectable
@@ -136,19 +136,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1585357180426202259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1852942662327352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 156c9e83a921bbb42b5e5b5aa45f8cb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemSO: {fileID: 11400000, guid: 4be3ed87322eb0d4dbf1a45d325e56ec, type: 2}
 --- !u!114 &3176705013617546067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,3 +150,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionPrompt: Coger
   actionKey: E
+--- !u!114 &8211574884271975128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852942662327352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f073e822f36f5241b4e368dc7622f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponOrToolSO: {fileID: 11400000, guid: 83ecc6aab84ffa24a9fddc20c67f760f, type: 2}

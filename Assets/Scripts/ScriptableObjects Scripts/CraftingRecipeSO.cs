@@ -7,7 +7,7 @@ public class CraftingRecipeSO : ScriptableObject
 {
     public Sprite sprite;
     public List<ItemSO> inputItemSOList;
-    public ItemSO outputItemSO;
+    public WeaponOrToolSO outputItemSO;
     public bool isWeapon;
 
     // Propiedad para calcular el precio total
@@ -20,6 +20,7 @@ public class CraftingRecipeSO : ScriptableObject
             {
                 total += item.value;
             }
+            outputItemSO.value = total;
             return total;
         }
     }
