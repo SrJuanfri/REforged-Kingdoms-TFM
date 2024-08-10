@@ -48,24 +48,24 @@ public class PlayerCrafting : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward,
                     out RaycastHit raycastHit, interactDistance, craftLayerMask))
             {
-                if (raycastHit.transform.TryGetComponent(out RecipeBlueprint recipeBlueprint))
+                if (raycastHit.transform.TryGetComponent(out RecipeCrafting recipeCrafting))
                 {
                     if (Input.GetKeyDown(KeyCode.E))
                     {
-                        recipeBlueprint.Craft();
+                        recipeCrafting.Craft();
                     }
+                }
 
+                if (raycastHit.transform.TryGetComponent(out RecipeSelection recipeSelection))
+                {
                     if (Input.GetMouseButtonDown(0))
                     {
-                        Debug.Log("NextRecipe");
-                        recipeBlueprint.NextRecipe();
+                        recipeSelection.NextRecipeWeapons();
                     }
-
                 }
             }
         }

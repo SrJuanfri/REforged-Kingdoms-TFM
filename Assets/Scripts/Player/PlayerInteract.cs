@@ -8,7 +8,7 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private LayerMask customerLayerMask;
     [SerializeField] private LayerMask buttonLayerMask;
     
-    private float customerDistance = 3f;
+    private float customerDistance = 2.5f;
 
     private void FixedUpdate()
     {

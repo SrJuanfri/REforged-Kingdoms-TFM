@@ -12,7 +12,7 @@ public class PlayerPickUpDrop : MonoBehaviour
 
     private ObjectGrabbable objectGrabbable;
     private Newspaper newspaper;
-    private float pickUpDistance = 2f;
+    private float pickUpDistance = 2.5f;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
