@@ -8,17 +8,11 @@ using UnityEngine.UI;
 
 public class RecipeCrafting : Interactable
 {
-    [SerializeField] private Image craftImage;
+    public Image craftImage;
     [SerializeField] private BoxCollider placeItemsAreaCollider;
     [SerializeField] private Transform itemSpawnPoint;
     [SerializeField] private Transform vfxSpawnItem;
-
-    public RecipeSelection recipeSelection;
-    
-    private void FixedUpdate()
-    {
-        craftImage.sprite = recipeSelection.recipeImage.sprite;
-    }
+    [HideInInspector] public CraftingRecipeSO craftingRecipeSO;
 
     public void Craft()
     {
@@ -27,7 +21,7 @@ public class RecipeCrafting : Interactable
         Collider[] colliderArray = Physics.OverlapBox(transform.position + placeItemsAreaCollider.center,
             placeItemsAreaCollider.size, placeItemsAreaCollider.transform.rotation);
 
-        List<ItemSO> inputItemList = new List<ItemSO>(recipeSelection.craftingRecipeSO.inputItemSOList);
+        List<ItemSO> inputItemList = new List<ItemSO>(craftingRecipeSO.inputItemSOList);
 
         List<GameObject> consumeItemGameObjectList = new List<GameObject>();
 
@@ -49,7 +43,7 @@ public class RecipeCrafting : Interactable
 
             Debug.Log("Yes");
 
-            Transform spawnedItemTransform = Instantiate(recipeSelection.craftingRecipeSO.outputItemSO.prefab, itemSpawnPoint.position,
+            Transform spawnedItemTransform = Instantiate(craftingRecipeSO.outputItemSO.prefab, itemSpawnPoint.position,
                 itemSpawnPoint.rotation);
 
             Instantiate(vfxSpawnItem, itemSpawnPoint.position, itemSpawnPoint.rotation);

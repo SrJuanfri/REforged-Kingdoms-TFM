@@ -62,9 +62,17 @@ public class PlayerCrafting : MonoBehaviour
 
                 if (raycastHit.transform.TryGetComponent(out RecipeSelection recipeSelection))
                 {
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButtonDown(0) && recipeSelection)
                     {
                         recipeSelection.NextRecipeWeapons();
+                    }
+                }
+
+                if (raycastHit.transform.TryGetComponent(out RecipeSelectionTool recipeSelectionTool))
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        recipeSelectionTool.NextRecipeTool();
                     }
                 }
             }
