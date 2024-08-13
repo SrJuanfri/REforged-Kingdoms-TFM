@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 23221784856384148}
   - component: {fileID: 64232305722889194}
   - component: {fileID: -6996743092310940357}
-  - component: {fileID: 3078456661656635246}
   - component: {fileID: -2777289908256833273}
+  - component: {fileID: -1073299396904958202}
   m_Layer: 3
   m_Name: SM_Item_Ring_07
   m_TagString: Selectable
@@ -136,19 +136,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3078456661656635246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959001367719646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 156c9e83a921bbb42b5e5b5aa45f8cb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemSO: {fileID: 11400000, guid: e049c5e05ea856247aa8a70e19089a10, type: 2}
 --- !u!114 &-2777289908256833273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,5 +148,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae04d4fdc02e0444e914e21dc190cb5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  value: 0
+  actionPrompt: Coger
+  actionKey: e
+--- !u!114 &-1073299396904958202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959001367719646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f073e822f36f5241b4e368dc7622f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponOrToolSO: {fileID: 11400000, guid: d3759d10834b3f040b88328c8e8b0d67, type: 2}

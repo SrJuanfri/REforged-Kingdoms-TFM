@@ -15,4 +15,5 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: bf46fe16fb1a7914e8a9c92ee3667c6c, type: 3}
   inputItemSOList:
   - {fileID: 11400000, guid: 233eaaf327dab6f499bdc9c9cd61559f, type: 2}
-  outputItemSO: {fileID: 11400000, guid: e049c5e05ea856247aa8a70e19089a10, type: 2}
+  outputItemSO: {fileID: 11400000, guid: d3759d10834b3f040b88328c8e8b0d67, type: 2}
+  isWeapon: 0

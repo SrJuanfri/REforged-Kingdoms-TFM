@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 23649486986122592}
   - component: {fileID: 64687011928791338}
   - component: {fileID: 3659969036080144861}
-  - component: {fileID: 8193161153629782022}
   - component: {fileID: -2040180269072979321}
+  - component: {fileID: 379127478090214501}
   m_Layer: 3
   m_Name: MiniDagger
   m_TagString: Selectable
@@ -136,19 +136,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8193161153629782022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199745710843566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 156c9e83a921bbb42b5e5b5aa45f8cb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemSO: {fileID: 11400000, guid: ece7dc4f247c0364c8571c4e16fa26e4, type: 2}
 --- !u!114 &-2040180269072979321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,3 +150,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionPrompt: Coger
   actionKey: E
+--- !u!114 &379127478090214501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199745710843566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f073e822f36f5241b4e368dc7622f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponOrToolSO: {fileID: 11400000, guid: 8d955311266b6094cbbf6c6218b06480, type: 2}
