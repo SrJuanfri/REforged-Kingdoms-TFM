@@ -16,6 +16,7 @@ public class RecipeSelection : Interactable
     {
         craftingRecipeSO = craftingRecipeSOListWeapons[0];
         recipeCrafting.craftingRecipeSO = craftingRecipeSO;
+        recipeCrafting.craftImage.sprite = recipeImage.sprite;
     }
 
     public void NextRecipeWeapons()

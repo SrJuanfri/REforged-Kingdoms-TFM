@@ -57,7 +57,7 @@ public class PlayerPickUpDrop : MonoBehaviour
         }
     }
 
-    // Método para obtener el objeto que el jugador sostiene
+    // MÃ©todo para obtener el objeto que el jugador sostiene
     public ObjectGrabbable GetHeldObject()
     {
         return objectGrabbable;

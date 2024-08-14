@@ -8,11 +8,11 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private LayerMask customerLayerMask;
     [SerializeField] private LayerMask buttonLayerMask;
 
-    private float interactionDistance = 2.5f; // Distancia de interacci髇
+    private float interactionDistance = 2.5f; // Distancia de interacci贸n
 
     private void FixedUpdate()
     {
-        // Detectar interacci髇 con clientes
+        // Detectar interacci贸n con clientes
         if (Input.GetKeyDown(KeyCode.E))
         {
             // Raycast para detectar clientes
@@ -35,7 +35,7 @@ public class PlayerInteract : MonoBehaviour
             }
         }
 
-        // Detectar interacci髇 con botones (u otros objetos de acci髇)
+        // Detectar interacci贸n con botones (u otros objetos de acci贸n)
         if (Input.GetKeyDown(KeyCode.E))
         {
             // Raycast para detectar botones
