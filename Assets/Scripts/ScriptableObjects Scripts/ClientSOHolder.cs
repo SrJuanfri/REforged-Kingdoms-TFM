@@ -34,7 +34,17 @@ public class ClientSOHolder : MonoBehaviour
         {
             // Configurar el CustomerController con la información de la orden actual
             customerController.craftingRecipeSO = clientSO.currentOrder.CraftingRecipe;
-            customerController.SetCustomerState(clientSO.currentOrder.CustomerState);
+
+            // Obtener y establecer el estado del cliente usando CustomerStateHandler
+            CustomerStateHandler stateHandler = GetComponent<CustomerStateHandler>();
+            if (stateHandler != null)
+            {
+                stateHandler.SetCustomerState(clientSO.currentOrder.CustomerState);
+            }
+            else
+            {
+                Debug.LogError("CustomerStateHandler no se encontró en " + gameObject.name);
+            }
         }
         else
         {
