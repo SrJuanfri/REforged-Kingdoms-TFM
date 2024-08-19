@@ -167,6 +167,7 @@ public class CustomerController : Interactable
     {
         if (!IsPlayerHoldingItem())
         {
+            UpdateSellText();
             ChatBubble.Create(transform, new Vector3(-0.6f, 1.7f, 0f), emotion, sellText);
             animator.SetTrigger("Talk");
         }
@@ -269,6 +270,23 @@ public class CustomerController : Interactable
         else
         {
             Debug.Log("Unhandled combination of match results.");
+        }
+    }
+
+    public void UpdateSellText()
+    {
+        string item = craftingRecipeSO.outputItemSO.itemName;
+        Dictionary<string, string> materials = craftingRecipeSO.MaterialNames;
+        string metal = materials.ContainsKey("metal") ? materials["metal"] : "desconocido";
+        string wood = materials.ContainsKey("wood") ? materials["wood"] : "desconocido";
+
+        sellText = phraseManager.GetOrderPhrase(customerStateHandler.GetCurrentCustomerState(), item, metal, wood);
+
+        CustomerManager customerManager = GetComponent<ClientSOHolder>().ClientSO;
+
+        if (customerManager.currentOrder != null)
+        {
+            customerManager.currentOrder.OrderText = sellText;
         }
     }
 

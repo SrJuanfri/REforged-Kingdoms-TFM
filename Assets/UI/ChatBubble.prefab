@@ -302,9 +302,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54850afab250f4744aad9d2510c46709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sadIconSprite: {fileID: 21300000, guid: 6c8e0b413c883d04b9a6004b7b07714c, type: 3}
-  happyIconSprite: {fileID: 21300000, guid: 6f514133f5bcf354f884cda10bf255e3, type: 3}
+  muyInsatisfechoIconSprite: {fileID: 21300000, guid: 6c8e0b413c883d04b9a6004b7b07714c,
+    type: 3}
+  insatisfechoIconSprite: {fileID: 21300000, guid: 6c8e0b413c883d04b9a6004b7b07714c,
+    type: 3}
   neutralIconSprite: {fileID: 21300000, guid: 6184019c05191224ab31d294db94b42b, type: 3}
+  contentoIconSprite: {fileID: 21300000, guid: 6f514133f5bcf354f884cda10bf255e3, type: 3}
+  muyFelizIconSprite: {fileID: 21300000, guid: 6f514133f5bcf354f884cda10bf255e3, type: 3}
 --- !u!1 &6994949077873287442
 GameObject:
   m_ObjectHideFlags: 0

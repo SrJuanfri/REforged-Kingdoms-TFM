@@ -21,7 +21,6 @@ public class MerchantController : Interactable
     
     public string sellText;
     public string endText;
-    public ChatBubble.IconType emotion;
 
     public enum State
     {
@@ -153,7 +152,7 @@ public class MerchantController : Interactable
     
     public void InteractNPC()
     {
-        ChatBubble.Create(transform.transform, new Vector3(-0.6f, 1.7f, 0f), emotion,
+        ChatBubble.Create(transform.transform, new Vector3(-0.6f, 1.7f, 0f),
             sellText);
     }
 }

@@ -11,11 +11,8 @@ public enum DayStages
 
 public class DayNightController : MonoBehaviour
 {
-
     [Header("Current World Time")]
-    public WorldTime
-        LocalTime;
-
+    public WorldTime LocalTime;
 
     /// <summary>
     /// The number of seconds in one full game day.
@@ -23,39 +20,33 @@ public class DayNightController : MonoBehaviour
     public int SecondsInFullDay = 120;
 
     [Header("Time Of Day")]
-    public WorldTime
-        StartTime;
+    public WorldTime StartTime;
     public WorldTime DawnTime;
     public WorldTime DayTime;
     public WorldTime DuskTime;
     public WorldTime NightTime;
 
     [Header("Ambient Colours")]
-    public Color
-        DuskAmbience;
+    public Color DuskAmbience;
     public Color DayAmbience;
     public Color DawnAmbience;
     public Color NightAmbience;
 
     [Header("Fog Colours")]
-    public Color
-        DawnFog;
+    public Color DawnFog;
     public Color DayFog;
     public Color DuskFog;
     public Color NightFog;
 
     [Header("Current Day Stage")]
-    public DayStages
-        _currentStage;
+    public DayStages _currentStage;
 
     [Header("Sun/Moon")]
-    public Transform
-        Player;
+    public Transform Player;
     public float SunMoonRotationRadius = 20;
 
     [Header("Sun")]
-    public Flare
-        SunFlare;
+    public Flare SunFlare;
     public float SunFlareBrightness = 0.5f;
     public float SunFlareFadeSpeed = 10f;
     public float MaxSunlightIntensity = 2.4f;
@@ -64,16 +55,12 @@ public class DayNightController : MonoBehaviour
     public Material SunMaterial;
 
     [Header("Moon")]
-    public Vector3
-        MoonScale;
+    public Vector3 MoonScale;
     public Material MoonMaterial;
 
     // A multiplier other scripts can use to speed up and slow down the passing of time.
     private float _timeMultiplier = 1f;
     public float TimeMultiplier { get { return _timeMultiplier; } set { _timeMultiplier = value; } }
-
-    private static readonly float _eigthDay = 0.125f;
-    private static readonly float _quarterDay = 0.25f;
 
     private float _dawnTime = 0.20f;
     private float _dayTime = 0.25f;
@@ -81,13 +68,11 @@ public class DayNightController : MonoBehaviour
     private float _nightTimePre = 0.23f;
     private float _nightTimePost = 0.75f;
 
-    private float _skyBoxBlend;
-
     private float _initialSunIntensity;
-
     private GameObject _sun, _moon;
-
     private float _currentTimeOfDay = 0;
+    private float _skyBoxBlend = 0;
+
     public float CurrentTimeOfDay { get { return _currentTimeOfDay; } set { _currentTimeOfDay = value; } }
 
     [HideInInspector]
@@ -96,10 +81,9 @@ public class DayNightController : MonoBehaviour
     [HideInInspector]
     public bool stop = false;
 
-
     private void Awake()
     {
-        _initialSunIntensity = MaxSunlightIntensity; //Sun.intensity;
+        _initialSunIntensity = MaxSunlightIntensity;
         LocalTime = new WorldTime();
 
         _dawnTime = WorldTimeToInt(DawnTime);
@@ -121,20 +105,15 @@ public class DayNightController : MonoBehaviour
         UpdateWorldTime();
 
         SetDayNightType();
-
         UpdateLightIntensity();
-
         UpdateFog();
-
         UpdateAmbientLightColour();
-
         UpdateSkyBox();
-
         UpdateSunPosition();
     }
+
     public void StartDayCycle()
     {
-        
         dayStarted = true;
     }
 
@@ -143,24 +122,18 @@ public class DayNightController : MonoBehaviour
         if (dayStarted && !stop)
         {
             UpdateWorldTime();
-
             SetDayNightType();
-
             UpdateLightIntensity();
-
             UpdateFog();
-
             UpdateAmbientLightColour();
-
-            UpdateSkyBox();
-
-            UpdateSunPosition();
+            UpdateSkyBox(); // Aquí se actualiza el Skybox
 
             _currentTimeOfDay += (Time.deltaTime / SecondsInFullDay) * _timeMultiplier;
 
             if (_currentTimeOfDay >= 1)
             {
-                _currentTimeOfDay = 0;
+                _currentTimeOfDay = 1;
+                stop = true;  // Detener el ciclo al finalizar el día
             }
         }
     }
@@ -181,18 +154,9 @@ public class DayNightController : MonoBehaviour
         renderer.material.color = Color.yellow;
         renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
-        /*if (SunMaterial)
-        {
-            renderer.material = SunMaterial;
-        }*/
-
         var light = _sun.AddComponent<Light>();
         light.enabled = false;
-        if (light.type != LightType.Directional)
-        {
-            light.type = LightType.Directional;
-        }
-        
+        light.type = LightType.Directional;
         light.shadows = LightShadows.Soft;
         light.color = SunLightColour;
         light.intensity = 2f;
@@ -218,18 +182,12 @@ public class DayNightController : MonoBehaviour
         renderer.material.color = new Color(0.75f, 0.75f, 0.75f);
         renderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
-        /*if (MoonMaterial)
-        {
-            renderer.material = MoonMaterial;
-        }*/
-
-        var light = _moon.AddComponent<Light> ();
-		light.type = LightType.Directional;
-		light.shadows = LightShadows.Soft;
-		light.color = new Color (0.5f, 0.5f, 0.5f);
-		light.intensity = 0.1f;
+        var light = _moon.AddComponent<Light>();
+        light.type = LightType.Directional;
+        light.shadows = LightShadows.Soft;
+        light.color = new Color(0.5f, 0.5f, 0.5f);
+        light.intensity = 0.1f;
     }
-
 
     private void SetDayNightType()
     {
@@ -257,14 +215,13 @@ public class DayNightController : MonoBehaviour
 
         float intensityMultiplier = 1;
 
-
         switch (_currentStage)
         {
             case DayStages.Dawn:
                 intensityMultiplier = Mathf.Clamp01((_currentTimeOfDay - _dawnTime) * (1 / 0.02f));
                 break;
             case DayStages.Day:
-                intensityMultiplier = Mathf.Clamp01 (1 - (CurrentTimeOfDay - 0.73f) * (1 / 0.02f));
+                intensityMultiplier = Mathf.Clamp01(1 - (CurrentTimeOfDay - 0.73f) * (1 / 0.02f));
                 break;
             case DayStages.Dusk:
                 intensityMultiplier = Mathf.Clamp01(1 - ((_currentTimeOfDay - _duskTime) * (1 / 0.02f)));
@@ -274,7 +231,6 @@ public class DayNightController : MonoBehaviour
                 break;
         }
 
-        // Multiply the intensity of the sun according to the time of day.
         _sun.GetComponent<Light>().intensity = _initialSunIntensity * intensityMultiplier;
     }
 
@@ -288,13 +244,13 @@ public class DayNightController : MonoBehaviour
                 break;
             case DayStages.Day:
                 relativeTime = _currentTimeOfDay - _dayTime;
-                RenderSettings.fogColor = Color.Lerp(DawnFog, DayFog, relativeTime / (_quarterDay + _eigthDay));
+                RenderSettings.fogColor = Color.Lerp(DawnFog, DayFog, relativeTime / (0.25f + 0.125f)); // Remplazando con valores directos
                 break;
             case DayStages.Dusk:
                 RenderSettings.fogColor = Color.Lerp(DayFog, DuskFog, Mathf.Clamp01(((_currentTimeOfDay - _duskTime) * (1 / 0.02f))));
                 break;
             case DayStages.Night:
-                relativeTime = (_currentTimeOfDay >= _nightTimePost) ? (_currentTimeOfDay - _nightTimePost) / _eigthDay : 1f;
+                relativeTime = (_currentTimeOfDay >= _nightTimePost) ? (_currentTimeOfDay - _nightTimePost) / 0.125f : 1f; // Remplazando con valores directos
                 RenderSettings.fogColor = Color.Lerp(DuskFog, NightFog, relativeTime);
                 break;
         }
@@ -310,13 +266,13 @@ public class DayNightController : MonoBehaviour
                 break;
             case DayStages.Day:
                 relativeTime = _currentTimeOfDay - _dayTime;
-                RenderSettings.ambientLight = Color.Lerp(DawnAmbience, DayAmbience, relativeTime / (_quarterDay + _eigthDay));
+                RenderSettings.ambientLight = Color.Lerp(DawnAmbience, DayAmbience, relativeTime / (0.25f + 0.125f)); // Remplazando con valores directos
                 break;
             case DayStages.Dusk:
                 RenderSettings.ambientLight = Color.Lerp(DayAmbience, DuskAmbience, Mathf.Clamp01(((_currentTimeOfDay - _duskTime) * (1 / 0.02f))));
                 break;
             case DayStages.Night:
-                relativeTime = (_currentTimeOfDay >= _nightTimePost) ? (_currentTimeOfDay - _nightTimePost) / _eigthDay : 1f;
+                relativeTime = (_currentTimeOfDay >= _nightTimePost) ? (_currentTimeOfDay - _nightTimePost) / 0.125f : 1f; // Remplazando con valores directos
                 RenderSettings.ambientLight = Color.Lerp(DuskAmbience, NightAmbience, relativeTime);
                 break;
         }
@@ -324,28 +280,13 @@ public class DayNightController : MonoBehaviour
 
     private void UpdateSkyBox()
     {
-        switch (_currentStage)
-        {
-            case DayStages.Dawn:
-                _skyBoxBlend = 1 - (Mathf.Clamp01((_currentTimeOfDay - _dawnTime) * (1 / 0.02f)));
-                break;
-            case DayStages.Day:
-                _skyBoxBlend = 0.0f;
-                break;
-            case DayStages.Dusk:
-                _skyBoxBlend = Mathf.Clamp01(((_currentTimeOfDay - _duskTime) * (1 / 0.02f)));
-                break;
-            case DayStages.Night:
-                _skyBoxBlend = 1.0f;
-                break;
-        }
-
+        float totalDayDuration = 1f - _dawnTime; // Duración total del día desde el amanecer hasta el final del día
+        _skyBoxBlend = Mathf.Clamp01((_currentTimeOfDay - _dawnTime) / totalDayDuration);
         RenderSettings.skybox.SetFloat("_Blend", _skyBoxBlend);
     }
 
     private void UpdateSunPosition()
     {
-
         Vector3 midpoint = Player.position;
         midpoint.y -= 0.5f;
 
@@ -356,7 +297,19 @@ public class DayNightController : MonoBehaviour
         float moonAngle = ((_currentTimeOfDay - _duskTime) * 360);
         _moon.transform.position = midpoint + Quaternion.Euler(0, 0, moonAngle) * (SunMoonRotationRadius * Vector3.right);
         _moon.transform.LookAt(midpoint);
+    }
 
+    public void ResetDayCycle()
+    {
+        _currentTimeOfDay = 0;
+        stop = false;
+        dayStarted = false;
+        UpdateWorldTime();
+        UpdateSkyBox();
+        UpdateSunPosition();
+        UpdateFog();
+        UpdateAmbientLightColour();
+        UpdateLightIntensity();
     }
 
     /// Updates the World-time hour based on the current time of day.  
@@ -367,7 +320,5 @@ public class DayNightController : MonoBehaviour
         var minutes = (int)(60 * (fHours - Mathf.Floor(fHours)));
 
         LocalTime.SetTime(hours, minutes);
-
     }
-
 }

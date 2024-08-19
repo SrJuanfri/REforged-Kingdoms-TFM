@@ -13,11 +13,34 @@ public class CustomerStateHandler : MonoBehaviour
         customerStateManager = FindObjectOfType<CustomerStateManager>();
         customerController = GetComponent<CustomerController>();
         indicatorManager = FindObjectOfType<IndicatorManager>();
+
+        // Verificar que las referencias se hayan inicializado correctamente
+        if (customerStateManager == null)
+        {
+            Debug.LogError("CustomerStateManager no encontrado. Asegúrate de que está en la escena.");
+        }
+
+        if (customerController == null)
+        {
+            Debug.LogError("CustomerController no encontrado en el objeto.");
+        }
+
+        if (indicatorManager == null)
+        {
+            Debug.LogError("IndicatorManager no encontrado. Asegúrate de que está en la escena.");
+        }
     }
 
     private void Start()
     {
-        UpdateCustomerState(50); // Inicializa el estado del cliente con un valor de satisfacción del 50%
+        if (customerStateManager != null)
+        {
+            UpdateCustomerState(50); // Inicializa el estado del cliente con un valor de satisfacción del 50%
+        }
+        else
+        {
+            Debug.LogError("No se puede actualizar el estado del cliente porque CustomerStateManager no está inicializado.");
+        }
     }
 
     public void SetCustomerState(CustomerState state)
@@ -28,13 +51,27 @@ public class CustomerStateHandler : MonoBehaviour
 
     public void UpdateCustomerState(int percentage)
     {
-        currentState = customerStateManager.GetCustomerStateFromPercentage(percentage);
-        UpdateCustomerEmotion();
+        if (customerStateManager != null)
+        {
+            currentState = customerStateManager.GetCustomerStateFromPercentage(percentage);
+            UpdateCustomerEmotion();
+        }
+        else
+        {
+            Debug.LogError("No se puede actualizar el estado del cliente porque CustomerStateManager no está inicializado.");
+        }
     }
 
     private void UpdateCustomerEmotion()
     {
-        customerController.SetEmotion(ConvertCustomerStateToEmotion(currentState));
+        if (customerController != null)
+        {
+            customerController.SetEmotion(ConvertCustomerStateToEmotion(currentState));
+        }
+        else
+        {
+            Debug.LogError("No se puede actualizar la emoción del cliente porque CustomerController no está inicializado.");
+        }
     }
 
     private ChatBubble.IconType ConvertCustomerStateToEmotion(CustomerState state)
@@ -61,15 +98,12 @@ public class CustomerStateHandler : MonoBehaviour
     {
         if (indicatorManager != null)
         {
-            // Procesa el ítem para actualizar los indicadores
             indicatorManager.ProcessItem(itemType, quality);
-
-            // Actualiza el estado del cliente basado en el nivel de satisfacción actual
             UpdateCustomerState(indicatorManager.Satisfaction);
         }
         else
         {
-            Debug.LogWarning("IndicatorManager not found.");
+            Debug.LogWarning("IndicatorManager no encontrado.");
         }
     }
 

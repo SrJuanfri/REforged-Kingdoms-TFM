@@ -65,7 +65,6 @@ public class DayCycleManager : MonoBehaviour
         dayNightController.stop = false;
         merchantController.setStateGoToShop();
         customerSelector.selectedCustomer = null;
-        // El mercader llega y muestra productos
         while (currentPhase == DayPhase.MerchantArrival)
         {
             yield return null;
@@ -97,13 +96,11 @@ public class DayCycleManager : MonoBehaviour
             }
             dayTimer -= Time.deltaTime;
 
-            // Comprobar si el cliente se está yendo
             CheckIfCustomerLeaving();
 
             yield return null;
         }
 
-        // Esperar a que todos los clientes hayan terminado antes de transicionar
         yield return StartCoroutine(WaitForCustomersToFinish());
 
         currentPhase = DayPhase.DayTransition;
@@ -138,10 +135,10 @@ public class DayCycleManager : MonoBehaviour
 
             if (allCustomersIdle)
             {
-                yield break; // Todos los clientes han terminado, salir de la corrutina
+                yield break;
             }
 
-            yield return null; // Esperar al siguiente frame
+            yield return null;
         }
     }
 
@@ -149,20 +146,26 @@ public class DayCycleManager : MonoBehaviour
     {
         Debug.Log("Day Transition Phase started.");
 
-        // Manejar la transición al siguiente día
         dayNumber++;
         transitionTextDay.SetActive(true);
         transitionTextDay.GetComponent<TextMeshProUGUI>().text = "Día " + dayNumber.ToString();
         GameObject fade = Initiate.Fade(Color.black, 1.0f);
         fade.transform.parent = transitionCanvas.transform;
         fade.transform.SetSiblingIndex(0);
+
+        // Detener el ciclo de día y noche al final del día
         dayNightController.stop = true;
-        yield return new WaitForSeconds(transitionTime); // Simular tiempo de transición
+
+        yield return new WaitForSeconds(transitionTime);
+
+        // Reiniciar el ciclo de día y noche
+        dayNightController.ResetDayCycle();
 
         Initiate.DoneFading();
         Debug.Log("Day Transition Phase ended.");
         fade.GetComponent<Fader>().OnLevelFinishedLoading();
         transitionTextDay.SetActive(false);
+
         dayTimer = 0;
         currentPhase = DayPhase.MerchantArrival;
 
@@ -174,7 +177,6 @@ public class DayCycleManager : MonoBehaviour
     {
         customerSelector.SelectRandomCustomer();
 
-        // Asegurarse de que el cliente seleccionado no haya sido seleccionado hoy
         while (selectedCustomersToday.Contains(customerSelector.selectedCustomer) && customerSelector.customers.Count > selectedCustomersToday.Count)
         {
             customerSelector.SelectRandomCustomer();
@@ -187,9 +189,8 @@ public class DayCycleManager : MonoBehaviour
             if (customerController != null)
             {
                 customerController.shouldGoToShop = true;
-                customerController.shouldReturnToStart = false; // Asegurarnos de que no se vayan automáticamente
+                customerController.shouldReturnToStart = false;
 
-                // Añadir el cliente seleccionado a la lista de clientes seleccionados hoy
                 selectedCustomersToday.Add(selectedCustomer);
             }
         }
