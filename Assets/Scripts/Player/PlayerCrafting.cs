@@ -43,6 +43,15 @@ public class PlayerCrafting : MonoBehaviour
                     raycastHit.collider.GetComponent<ItemSOHolder>().itemSO.value);
                 playerUI.infoUI.SetActive(true);
             }
+            
+            if (raycastHit.collider.GetComponent<WeaponOrToolSOHolder>())
+            {
+                //Update nombre y valor
+                
+                playerUI.UpdateInfoText(raycastHit.collider.GetComponent<WeaponOrToolSOHolder>().weaponOrToolSO.itemName, 
+                    raycastHit.collider.GetComponent<WeaponOrToolSOHolder>().weaponOrToolSO.value);
+                playerUI.infoUI.SetActive(true);
+            }
         }
     }
 

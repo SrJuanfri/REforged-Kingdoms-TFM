@@ -48,6 +48,12 @@ public class PlayerInteract : MonoBehaviour
                     Debug.Log("Hit Item Generator");
                     itemGenerator.CreateItem();
                 }
+
+                if (hit.transform.TryGetComponent(out PlaneGenerator planeGenerator))
+                {
+                    Debug.Log("Hit Plane Generator");
+                    planeGenerator.AddPlane();
+                }
             }
         }
     }
