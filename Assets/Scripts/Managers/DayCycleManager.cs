@@ -61,7 +61,7 @@ public class DayCycleManager : MonoBehaviour
 
     private IEnumerator MerchantArrivalPhase()
     {
-        Debug.Log("Merchant Arrival Phase started.");
+        //Debug.Log("Merchant Arrival Phase started.");
         dayNightController.stop = false;
         merchantController.setStateGoToShop();
         customerSelector.selectedCustomer = null;
@@ -69,7 +69,7 @@ public class DayCycleManager : MonoBehaviour
         {
             yield return null;
         }
-        Debug.Log("Merchant Arrival Phase ended.");
+        //Debug.Log("Merchant Arrival Phase ended.");
     }
 
     private void StartCustomerShoppingPhase()

@@ -1,0 +1,804 @@
+fileFormatVersion: 2
+guid: b290ce43ec7a74b4c8efe3606f2c780a
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Collar
+    second: {fileID: 2100000, guid: 75f735f45121f77468dbc0aad9143641, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ears
+    second: {fileID: 2100000, guid: 2f0e1d0f58d228345b449be9634e17c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EyeColor
+    second: {fileID: 2100000, guid: 43d29ef8203563245868aa9655338e9f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EyeHighlight
+    second: {fileID: 2100000, guid: ffd040b73833cdd4aada6930bbb92d97, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NormalBlackFur
+    second: {fileID: 2100000, guid: 475feff3b03117740a52dd7d5b793165, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NormalFur
+    second: {fileID: 2100000, guid: ed7ba503842d41c44b885d220c6869b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pupil
+    second: {fileID: 2100000, guid: 1448fa4f84e63ca4fa316c5b1293b330, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 1
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0
+    animationPositionError: 0
+    animationScaleError: 0
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: metarig.004|IdleNorm
+      takeName: metarig.004|IdleNorm
+      internalID: -5522936455027752468
+      firstFrame: 0
+      lastFrame: 21
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Camera
+        weight: 0
+      - path: Cat
+        weight: 1
+      - path: EyeRims
+        weight: 0
+      - path: Eyes
+        weight: 0
+      - path: Lamp
+        weight: 0
+      - path: metarig.004
+        weight: 0
+      - path: metarig.004/BackFootIK.L
+        weight: 1
+      - path: metarig.004/BackFootIK.L/BackFootIK.L_end
+        weight: 1
+      - path: metarig.004/BackFootIK.R
+        weight: 1
+      - path: metarig.004/BackFootIK.R/BackFootIK.R_end
+        weight: 1
+      - path: metarig.004/EyeTarget
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.L
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.L/EyeTarget.L_end
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.R
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.R/EyeTarget.R_end
+        weight: 1
+      - path: metarig.004/FootIK.L
+        weight: 1
+      - path: metarig.004/FootIK.L/FootIK.L_end
+        weight: 1
+      - path: metarig.004/FootIK.R
+        weight: 1
+      - path: metarig.004/FootIK.R/FootIK.R_end
+        weight: 1
+      - path: metarig.004/Root
+        weight: 1
+      - path: metarig.004/Root/spine.006
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L/foot.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L/foot.L/toe.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L/foot.L/toe.L/toe.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R/foot.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R/foot.R/toe.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R/foot.R/toe.R/toe.R_end
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2/Tail3
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2/Tail3/TailTip
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2/Tail3/TailTip/TailTip_end
+        weight: 1
+      - path: metarig.004/Root/spine.007
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L/front_foot.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L/front_foot.L/front_toe.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L/front_foot.L/front_toe.L/front_toe.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R/front_foot.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R/front_foot.R/front_toe.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R/front_foot.R/front_toe.R/front_toe.R_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.L/Ear1.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.L/Ear1.L/Ear1.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.R/Ear1.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.R/Ear1.R/Ear1.R_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.L/Eye.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.R/Eye.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: metarig.004|SitDown
+      takeName: metarig.004|SitDown
+      internalID: 5394310864777542625
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Camera
+        weight: 0
+      - path: Cat
+        weight: 1
+      - path: EyeRims
+        weight: 0
+      - path: Eyes
+        weight: 0
+      - path: Lamp
+        weight: 0
+      - path: metarig.004
+        weight: 0
+      - path: metarig.004/BackFootIK.L
+        weight: 1
+      - path: metarig.004/BackFootIK.L/BackFootIK.L_end
+        weight: 1
+      - path: metarig.004/BackFootIK.R
+        weight: 1
+      - path: metarig.004/BackFootIK.R/BackFootIK.R_end
+        weight: 1
+      - path: metarig.004/EyeTarget
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.L
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.L/EyeTarget.L_end
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.R
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.R/EyeTarget.R_end
+        weight: 1
+      - path: metarig.004/FootIK.L
+        weight: 1
+      - path: metarig.004/FootIK.L/FootIK.L_end
+        weight: 1
+      - path: metarig.004/FootIK.R
+        weight: 1
+      - path: metarig.004/FootIK.R/FootIK.R_end
+        weight: 1
+      - path: metarig.004/Root
+        weight: 1
+      - path: metarig.004/Root/spine.006
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L/foot.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L/foot.L/toe.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L/foot.L/toe.L/toe.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R/foot.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R/foot.R/toe.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R/foot.R/toe.R/toe.R_end
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2/Tail3
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2/Tail3/TailTip
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2/Tail3/TailTip/TailTip_end
+        weight: 1
+      - path: metarig.004/Root/spine.007
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L/front_foot.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L/front_foot.L/front_toe.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L/front_foot.L/front_toe.L/front_toe.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R/front_foot.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R/front_foot.R/front_toe.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R/front_foot.R/front_toe.R/front_toe.R_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.L/Ear1.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.L/Ear1.L/Ear1.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.R/Ear1.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.R/Ear1.R/Ear1.R_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.L/Eye.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.R/Eye.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: metarig.004|StandUp
+      takeName: metarig.004|StandUp
+      internalID: -6498767353179079829
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Camera
+        weight: 0
+      - path: Cat
+        weight: 1
+      - path: EyeRims
+        weight: 0
+      - path: Eyes
+        weight: 0
+      - path: Lamp
+        weight: 0
+      - path: metarig.004
+        weight: 0
+      - path: metarig.004/BackFootIK.L
+        weight: 1
+      - path: metarig.004/BackFootIK.L/BackFootIK.L_end
+        weight: 1
+      - path: metarig.004/BackFootIK.R
+        weight: 1
+      - path: metarig.004/BackFootIK.R/BackFootIK.R_end
+        weight: 1
+      - path: metarig.004/EyeTarget
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.L
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.L/EyeTarget.L_end
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.R
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.R/EyeTarget.R_end
+        weight: 1
+      - path: metarig.004/FootIK.L
+        weight: 1
+      - path: metarig.004/FootIK.L/FootIK.L_end
+        weight: 1
+      - path: metarig.004/FootIK.R
+        weight: 1
+      - path: metarig.004/FootIK.R/FootIK.R_end
+        weight: 1
+      - path: metarig.004/Root
+        weight: 1
+      - path: metarig.004/Root/spine.006
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L/foot.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L/foot.L/toe.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L/foot.L/toe.L/toe.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R/foot.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R/foot.R/toe.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R/foot.R/toe.R/toe.R_end
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2/Tail3
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2/Tail3/TailTip
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2/Tail3/TailTip/TailTip_end
+        weight: 1
+      - path: metarig.004/Root/spine.007
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L/front_foot.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L/front_foot.L/front_toe.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L/front_foot.L/front_toe.L/front_toe.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R/front_foot.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R/front_foot.R/front_toe.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R/front_foot.R/front_toe.R/front_toe.R_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.L/Ear1.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.L/Ear1.L/Ear1.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.R/Ear1.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.R/Ear1.R/Ear1.R_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.L/Eye.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.R/Eye.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: metarig.004|WalkCycle
+      takeName: metarig.004|WalkCycle
+      internalID: -2831563856452009890
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Camera
+        weight: 0
+      - path: Cat
+        weight: 1
+      - path: EyeRims
+        weight: 0
+      - path: Eyes
+        weight: 0
+      - path: Lamp
+        weight: 0
+      - path: metarig.004
+        weight: 0
+      - path: metarig.004/BackFootIK.L
+        weight: 1
+      - path: metarig.004/BackFootIK.L/BackFootIK.L_end
+        weight: 1
+      - path: metarig.004/BackFootIK.R
+        weight: 1
+      - path: metarig.004/BackFootIK.R/BackFootIK.R_end
+        weight: 1
+      - path: metarig.004/EyeTarget
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.L
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.L/EyeTarget.L_end
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.R
+        weight: 1
+      - path: metarig.004/EyeTarget/EyeTarget.R/EyeTarget.R_end
+        weight: 1
+      - path: metarig.004/FootIK.L
+        weight: 1
+      - path: metarig.004/FootIK.L/FootIK.L_end
+        weight: 1
+      - path: metarig.004/FootIK.R
+        weight: 1
+      - path: metarig.004/FootIK.R/FootIK.R_end
+        weight: 1
+      - path: metarig.004/Root
+        weight: 1
+      - path: metarig.004/Root/spine.006
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L/foot.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L/foot.L/toe.L
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.L/thigh.L/shin.L/foot.L/toe.L/toe.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R/foot.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R/foot.R/toe.R
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/pelvis.R/thigh.R/shin.R/foot.R/toe.R/toe.R_end
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2/Tail3
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2/Tail3/TailTip
+        weight: 1
+      - path: metarig.004/Root/spine.006/spine.005/spine.004/TailBase/Tail2/Tail3/TailTip/TailTip_end
+        weight: 1
+      - path: metarig.004/Root/spine.007
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L/front_foot.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L/front_foot.L/front_toe.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.L/front_thigh.L/front_shin.L/front_foot.L/front_toe.L/front_toe.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R/front_foot.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R/front_foot.R/front_toe.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/shoulder.R/front_thigh.R/front_shin.R/front_foot.R/front_toe.R/front_toe.R_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.L/Ear1.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.L/Ear1.L/Ear1.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.R/Ear1.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Ear.R/Ear1.R/Ear1.R_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.L
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.L/Eye.L_end
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.R
+        weight: 1
+      - path: metarig.004/Root/spine.007/spine.008/spine.009/spine.010/Head/Eye.R/Eye.R_end
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

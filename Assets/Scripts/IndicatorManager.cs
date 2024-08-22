@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class IndicatorManager : MonoBehaviour
@@ -10,6 +11,8 @@ public class IndicatorManager : MonoBehaviour
     [Header("Indicator Ranges")]
     [SerializeField] private int minIndicatorValue = 0;
     [SerializeField] private int maxIndicatorValue = 100;
+
+    [SerializeField] private TextMeshProUGUI textMeshProUGUI;
 
     public int Satisfaction { get; private set; }
     public int Danger { get; private set; }
@@ -27,6 +30,8 @@ public class IndicatorManager : MonoBehaviour
     {
         // Check for critical conditions
         CheckForBadEnding();
+
+        DisplayIndicators(textMeshProUGUI);
     }
 
     public void ProcessItem(string itemType, string quality)
@@ -204,5 +209,20 @@ public class IndicatorManager : MonoBehaviour
         LowOpinion,
         HighDanger,
         LowDanger
+    }
+
+    // Método para actualizar un TextMeshPro con los valores de los indicadores
+    public void DisplayIndicators(TextMeshProUGUI textMeshPro)
+    {
+        if (textMeshPro != null)
+        {
+            textMeshPro.text = $"Satisfacción: {Satisfaction}\n" +
+                               $"Peligrosidad: {Danger}\n" +
+                               $"Opinión: {Opinion}";
+        }
+        else
+        {
+            Debug.LogWarning("TextMeshProUGUI is not assigned.");
+        }
     }
 }

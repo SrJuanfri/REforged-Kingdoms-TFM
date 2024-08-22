@@ -97,7 +97,7 @@ public class MerchantController : Interactable
     private void EnterShowProducts()
     {
         animator.SetBool("Walk", false);
-        Debug.Log("Merchant is showing products.");
+        //Debug.Log("Merchant is showing products.");
         materialsMachine.SetActive(true);
         StartCoroutine(ShowProductsRoutine());
     }
