@@ -10,7 +10,6 @@ public class CustomerController : Interactable
     [Header("Interaction Settings")]
     [SerializeField] private BoxCollider placeItemsAreaCollider;
     [SerializeField] private Transform itemSpawnPoint;
-    public CraftingRecipeSO craftingRecipeSO;
 
     [Header("Chat Settings")]
     private string sellText;
@@ -26,6 +25,7 @@ public class CustomerController : Interactable
     private Transform player;
     private CustomerPhraseManager phraseManager;
     private Vector3 startPosition;
+    private Quaternion startRotation; // Store the initial rotation
     private PlayerPickUpDrop playerPickUpDrop;
     private Bank bank;
     private CustomerStateHandler customerStateHandler;
@@ -33,6 +33,8 @@ public class CustomerController : Interactable
     public State currentState { get; private set; }
     public bool shouldGoToShop { get; set; } = false;
     public bool shouldReturnToStart { get; set; } = false;
+
+    public event Action<CustomerController> OnCustomerReachedShop;
 
     public enum State
     {
@@ -48,6 +50,7 @@ public class CustomerController : Interactable
         navMeshAgent = GetComponent<NavMeshAgent>();
         phraseManager = FindObjectOfType<CustomerPhraseManager>();
         startPosition = transform.position;
+        startRotation = transform.rotation; // Capture the initial rotation
         player = GameObject.FindGameObjectWithTag("Player").transform;
         navMeshAgent.speed = walkingSpeed;
         customerStateHandler = GetComponent<CustomerStateHandler>();
@@ -129,6 +132,9 @@ public class CustomerController : Interactable
         if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance < 0.5f)
         {
             SetState(State.Shopping);
+
+            // Notificar que el cliente ha llegado a la tienda
+            OnCustomerReachedShop?.Invoke(this);
         }
     }
 
@@ -158,6 +164,8 @@ public class CustomerController : Interactable
     {
         if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance < 0.5f)
         {
+            // Restore the original rotation when the customer reaches the start position
+            transform.rotation = startRotation;
             SetState(State.Idle);
             shouldGoToShop = false;
         }
@@ -239,6 +247,7 @@ public class CustomerController : Interactable
 
     private void ProcessNonMatchingItem(ItemMatchResult result)
     {
+        CraftingRecipeSO craftingRecipeSO = GetComponent<ClientSOHolder>().ClientSO.currentOrder.craftingRecipe;
         if (result.TypeMatch && !result.MetalMatch && !result.WoodMatch)
         {
             customerStateHandler.UpdateIndicatorsAndState(craftingRecipeSO.outputItemSO.itemType.ToString(), "Mal Hecha (Diseño y Material)");
@@ -275,6 +284,7 @@ public class CustomerController : Interactable
 
     public void UpdateSellText()
     {
+        CraftingRecipeSO craftingRecipeSO = GetComponent<ClientSOHolder>().ClientSO.currentOrder.craftingRecipe;
         string item = craftingRecipeSO.outputItemSO.itemName;
         Dictionary<string, string> materials = craftingRecipeSO.MaterialNames;
         string metal = materials.ContainsKey("metal") ? materials["metal"] : "desconocido";
@@ -329,6 +339,7 @@ public class CustomerController : Interactable
     public ItemMatchResult CheckHeldItemMatch()
     {
         ItemMatchResult result = new ItemMatchResult();
+        CraftingRecipeSO craftingRecipeSO = GetComponent<ClientSOHolder>().ClientSO.currentOrder.craftingRecipe;
 
         if (playerPickUpDrop == null)
         {

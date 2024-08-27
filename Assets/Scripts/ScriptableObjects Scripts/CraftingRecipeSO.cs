@@ -10,12 +10,15 @@ public class CraftingRecipeSO : ScriptableObject
     public WeaponOrToolSO outputItemSO;
     public bool isWeapon;
 
+    // Campo para el precio base del diseño
+    public int designBasePrice;
+
     // Propiedad para calcular el precio total
     public int TotalPrice
     {
         get
         {
-            int total = 0;
+            int total = designBasePrice; // Incluir el precio base del diseño
             foreach (var item in inputItemSOList)
             {
                 total += item.value;

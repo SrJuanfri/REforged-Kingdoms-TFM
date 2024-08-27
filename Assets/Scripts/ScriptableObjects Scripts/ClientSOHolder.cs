@@ -33,7 +33,7 @@ public class ClientSOHolder : MonoBehaviour
         if (clientSO.currentOrder != null)
         {
             // Configurar el CustomerController con la información de la orden actual
-            customerController.craftingRecipeSO = clientSO.currentOrder.CraftingRecipe;
+            // Note: We no longer need to assign craftingRecipeSO, as the CustomerController gets it from clientSO
 
             // Obtener y establecer el estado del cliente usando CustomerStateHandler
             CustomerStateHandler stateHandler = GetComponent<CustomerStateHandler>();

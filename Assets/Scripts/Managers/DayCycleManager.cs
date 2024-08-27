@@ -10,10 +10,13 @@ public class DayCycleManager : MonoBehaviour
     public float transitionTime = 2f;
     public GameObject transitionCanvas;
     public GameObject transitionTextDay;
+
     private float dayTimer;
     private DayNightController dayNightController;
     private int dayNumber = 0;
     private List<GameObject> selectedCustomersToday = new List<GameObject>();
+
+    private bool isDayNightCycleActive = true;
 
     private enum DayPhase
     {
@@ -61,21 +64,21 @@ public class DayCycleManager : MonoBehaviour
 
     private IEnumerator MerchantArrivalPhase()
     {
-        //Debug.Log("Merchant Arrival Phase started.");
-        dayNightController.stop = false;
+        dayNightController.stop = !isDayNightCycleActive;
         merchantController.setStateGoToShop();
         customerSelector.selectedCustomer = null;
+
         while (currentPhase == DayPhase.MerchantArrival)
         {
             yield return null;
         }
-        //Debug.Log("Merchant Arrival Phase ended.");
     }
 
     private void StartCustomerShoppingPhase()
     {
         currentPhase = DayPhase.CustomerShopping;
-        if (!dayNightController.dayStarted)
+
+        if (isDayNightCycleActive && !dayNightController.dayStarted)
         {
             dayNightController.StartDayCycle();
         }
@@ -85,7 +88,6 @@ public class DayCycleManager : MonoBehaviour
 
     private IEnumerator CustomerShoppingPhase()
     {
-        Debug.Log("Customer Shopping Phase started.");
         dayTimer = customerShoppingDuration;
 
         while (dayTimer > 0)
@@ -94,6 +96,7 @@ public class DayCycleManager : MonoBehaviour
             {
                 SelectAndSendCustomer();
             }
+
             dayTimer -= Time.deltaTime;
 
             CheckIfCustomerLeaving();
@@ -104,7 +107,6 @@ public class DayCycleManager : MonoBehaviour
         yield return StartCoroutine(WaitForCustomersToFinish());
 
         currentPhase = DayPhase.DayTransition;
-        Debug.Log("Customer Shopping Phase ended.");
     }
 
     private void CheckIfCustomerLeaving()
@@ -124,6 +126,7 @@ public class DayCycleManager : MonoBehaviour
         while (true)
         {
             bool allCustomersIdle = true;
+
             foreach (var customer in FindObjectsOfType<CustomerController>())
             {
                 if (customer.currentState != CustomerController.State.Idle)
@@ -144,8 +147,6 @@ public class DayCycleManager : MonoBehaviour
 
     private IEnumerator DayTransitionPhase()
     {
-        Debug.Log("Day Transition Phase started.");
-
         dayNumber++;
         transitionTextDay.SetActive(true);
         transitionTextDay.GetComponent<TextMeshProUGUI>().text = "Día " + dayNumber.ToString();
@@ -154,7 +155,7 @@ public class DayCycleManager : MonoBehaviour
         fade.transform.SetSiblingIndex(0);
 
         // Detener el ciclo de día y noche al final del día
-        dayNightController.stop = true;
+        dayNightController.stop = !isDayNightCycleActive;
 
         yield return new WaitForSeconds(transitionTime);
 
@@ -162,7 +163,6 @@ public class DayCycleManager : MonoBehaviour
         dayNightController.ResetDayCycle();
 
         Initiate.DoneFading();
-        Debug.Log("Day Transition Phase ended.");
         fade.GetComponent<Fader>().OnLevelFinishedLoading();
         transitionTextDay.SetActive(false);
 
@@ -192,7 +192,28 @@ public class DayCycleManager : MonoBehaviour
                 customerController.shouldReturnToStart = false;
 
                 selectedCustomersToday.Add(selectedCustomer);
+
+                // Pausar el ciclo día-noche mientras el cliente se dirige a la tienda
+                ToggleDayNightCycle(false);
+
+                // Suscribirse al evento cuando el cliente llegue a la tienda
+                customerController.OnCustomerReachedShop += OnCustomerReachedShop;
             }
         }
+    }
+
+    private void OnCustomerReachedShop(CustomerController customerController)
+    {
+        // Reanudar el ciclo día-noche cuando el cliente llegue a la tienda
+        ToggleDayNightCycle(true);
+
+        // Desuscribirse del evento para evitar múltiples llamadas
+        customerController.OnCustomerReachedShop -= OnCustomerReachedShop;
+    }
+
+    public void ToggleDayNightCycle(bool isActive)
+    {
+        isDayNightCycleActive = isActive;
+        dayNightController.stop = !isActive; // Actualizar el estado del ciclo día-noche
     }
 }

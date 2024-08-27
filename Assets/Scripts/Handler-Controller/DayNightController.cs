@@ -58,7 +58,6 @@ public class DayNightController : MonoBehaviour
     public Vector3 MoonScale;
     public Material MoonMaterial;
 
-    // A multiplier other scripts can use to speed up and slow down the passing of time.
     private float _timeMultiplier = 1f;
     public float TimeMultiplier { get { return _timeMultiplier; } set { _timeMultiplier = value; } }
 
@@ -126,7 +125,7 @@ public class DayNightController : MonoBehaviour
             UpdateLightIntensity();
             UpdateFog();
             UpdateAmbientLightColour();
-            UpdateSkyBox(); // Aquí se actualiza el Skybox
+            UpdateSkyBox();
 
             _currentTimeOfDay += (Time.deltaTime / SecondsInFullDay) * _timeMultiplier;
 
