@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: fd7a8c0e6ce85644ead6d7236683245c
   - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: dd662aa526c2d544d8d106ba070d3c19
+  - enabled: 1
     path: Assets/Scenes/Demo Mini FPC.unity
     guid: 5f2b90ba65c7b244b875e239d5d42650
   - enabled: 1

@@ -858,7 +858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b875deeb79405604ab4754a8396da07f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedScene: Demo Mini FPC
+  selectedScene: Tutorial
 --- !u!1 &609389958
 GameObject:
   m_ObjectHideFlags: 0
