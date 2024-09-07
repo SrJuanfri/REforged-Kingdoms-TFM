@@ -5,54 +5,34 @@ using UnityEngine;
 public class PlayerPickUpDrop : MonoBehaviour
 {
     [SerializeField] private Transform playerCameraTransform;
-    [SerializeField] private Transform objectGrabPointTransform;
-    public Transform readPoint;
+    [SerializeField] private Transform objectGrabPointTransform;  // Punto donde se colocará cualquier objeto agarrado
     [SerializeField] private LayerMask pickUpLayerMask;
 
     private ObjectGrabbable objectGrabbable;
-    private Newspaper newspaper;
     private float pickUpDistance = 2.5f;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (!objectGrabbable)
+            if (!objectGrabbable)  // Si no se sostiene ningún objeto
             {
+                // Realizar raycast para detectar objetos
                 if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out RaycastHit raycastHit, pickUpDistance, pickUpLayerMask))
                 {
+                    // Intentar recoger un objeto
                     if (raycastHit.transform.TryGetComponent(out objectGrabbable))
                     {
+                        // Agarrar el objeto (independientemente de si es un periódico o no)
                         objectGrabbable.Grab(objectGrabPointTransform);
                     }
                 }
             }
             else
             {
+                // Soltar el objeto
                 objectGrabbable.Drop();
                 objectGrabbable = null;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (!newspaper)
-            {
-                if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward,
-                        out RaycastHit raycastHit, pickUpDistance, pickUpLayerMask))
-                {
-                    if (raycastHit.transform.TryGetComponent(out newspaper))
-                    {
-                        Debug.Log("Coger Periodico");
-                        newspaper.Read(readPoint);
-                    }
-                }
-            }
-            else
-            {
-                Debug.Log("Soltar Periodico");
-                newspaper.Drop();
-                newspaper = null;
             }
         }
     }
