@@ -21,6 +21,7 @@ public class ChatBubble : MonoBehaviour
     // Método para crear una burbuja de chat con icono
     public static void Create(Transform parent, Vector3 localPosition, IconType iconType, string text)
     {
+        Debug.Log("chat bubble");
         Transform chatBubbleTransform = Instantiate(GameAssets.i.pfChatBubble, parent);
         chatBubbleTransform.localPosition = localPosition;
 

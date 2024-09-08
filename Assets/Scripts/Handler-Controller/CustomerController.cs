@@ -29,6 +29,7 @@ public class CustomerController : Interactable
     private PlayerPickUpDrop playerPickUpDrop;
     private Bank bank;
     private CustomerStateHandler customerStateHandler;
+    private CustomerManager customerManager;  // Para gestionar los eventos y órdenes
 
     public State currentState { get; private set; }
     public bool shouldGoToShop { get; set; } = false;
@@ -54,6 +55,7 @@ public class CustomerController : Interactable
         player = GameObject.FindGameObjectWithTag("Player").transform;
         navMeshAgent.speed = walkingSpeed;
         customerStateHandler = GetComponent<CustomerStateHandler>();
+        customerManager = GetComponent<ClientSOHolder>().ClientSO;  // Obtener el CustomerManager asociado
         SetState(State.Idle);
     }
 
@@ -290,9 +292,12 @@ public class CustomerController : Interactable
         string metal = materials.ContainsKey("metal") ? materials["metal"] : "desconocido";
         string wood = materials.ContainsKey("wood") ? materials["wood"] : "desconocido";
 
-        sellText = phraseManager.GetOrderPhrase(customerStateHandler.GetCurrentCustomerState(), item, metal, wood);
+        // Obtener el índice de la orden actual
+        int currentOrderIndex = customerManager.ordersData.IndexOf(customerManager.currentOrder);
 
-        CustomerManager customerManager = GetComponent<ClientSOHolder>().ClientSO;
+        // Intentar obtener la frase de evento para la orden actual
+        sellText = customerManager.GetEventPhraseForOrder(currentOrderIndex, item, metal, wood) ??
+                   phraseManager.GetOrderPhrase(customerStateHandler.GetCurrentCustomerState(), item, metal, wood);
 
         if (customerManager.currentOrder != null)
         {

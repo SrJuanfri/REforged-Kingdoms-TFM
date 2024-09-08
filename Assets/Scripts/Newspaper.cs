@@ -27,17 +27,17 @@ public class Newspaper : Interactable
         if (firstChild != null)
         {
             firstChild.gameObject.SetActive(true);
-            Debug.Log("First child (vista normal) activado.");
+            //Debug.Log("First child (vista normal) activado.");
         }
         if (secondChild != null)
         {
             secondChild.gameObject.SetActive(false);
-            Debug.Log("Second child (modo lectura) desactivado.");
+            //Debug.Log("Second child (modo lectura) desactivado.");
         }
 
         // Guardar el padre original del conjunto
         originalParent = transform.parent;
-        Debug.Log("Original parent guardado.");
+        //Debug.Log("Original parent guardado.");
     }
 
     private void Update()
@@ -45,7 +45,7 @@ public class Newspaper : Interactable
         // Solo mostrar el prompt secundario si el periódico está siendo agarrado
         if (objectGrabbable != null && objectGrabbable.IsBeingGrabbed())
         {
-            Debug.Log("Periódico está siendo agarrado.");
+            //Debug.Log("Periódico está siendo agarrado.");
             playerUI.UpdateSecondaryActionText(actionPrompt, actionKey);  // Mantener esta línea
 
             // Solo detectar el primer frame en que se pulsa la tecla Q
@@ -57,7 +57,7 @@ public class Newspaper : Interactable
         }
         else
         {
-            Debug.Log("Periódico no está siendo agarrado.");
+            //Debug.Log("Periódico no está siendo agarrado.");
             playerUI.ClearSecondaryActionText();
         }
     }

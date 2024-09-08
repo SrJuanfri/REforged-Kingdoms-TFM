@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea2f6a1b0408b7f4aa5a78f367965710, type: 3}
+  m_Name: QueenData
+  m_EditorClassIdentifier: 
+  price: {fileID: 0}
+  ordersData:
+  - orderText: 
+    craftingRecipe: {fileID: 11400000, guid: 456263707424fda419ddcd0a6f04f4c0, type: 2}
+    customerState: 2
+    isCompleted: 0
+    price: 15
+  currentOrder:
+    orderText: 
+    craftingRecipe: {fileID: 0}
+    customerState: 0
+    isCompleted: 0
+    price: 0
+  appearanceProbability: 100

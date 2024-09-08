@@ -9,6 +9,9 @@ public class CustomerSelector : MonoBehaviour
     [HideInInspector]
     public GameObject selectedCustomer;
 
+    [SerializeField] private float decreasePercentage = 10f; // Porcentaje de reducción para el cliente seleccionado
+    [SerializeField] private float increasePercentage = 10f; // Porcentaje de aumento para los demás clientes
+
     // Selecciona un cliente aleatorio basado en las probabilidades de aparición
     public void SelectRandomCustomer()
     {
@@ -55,6 +58,10 @@ public class CustomerSelector : MonoBehaviour
             {
                 selectedCustomer = customers[i];
                 Debug.Log("Selected customer: " + selectedCustomer.name);
+
+                // Reducir la probabilidad del cliente seleccionado
+                AdjustProbabilities(i);
+
                 return;
             }
             else
@@ -63,4 +70,28 @@ public class CustomerSelector : MonoBehaviour
             }
         }
     }
+    private void AdjustProbabilities(int selectedIndex)
+    {
+        for (int i = 0; i < customers.Count; i++)
+        {
+            ClientSOHolder holder = customers[i].GetComponent<ClientSOHolder>();
+
+            if (holder != null && holder.ClientSO != null)
+            {
+                if (i == selectedIndex)
+                {
+                    // Reducir la probabilidad del cliente seleccionado
+                    float newProbability = holder.ClientSO.AppearanceProbability * (1 - decreasePercentage / 100);
+                    holder.ClientSO.SetAppearanceProbability(newProbability);
+                }
+                else
+                {
+                    // Aumentar la probabilidad de los otros clientes
+                    float newProbability = holder.ClientSO.AppearanceProbability * (1 + increasePercentage / 100);
+                    holder.ClientSO.SetAppearanceProbability(newProbability);
+                }
+            }
+        }
+    }
+
 }

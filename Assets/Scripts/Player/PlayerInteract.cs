@@ -5,42 +5,58 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private Transform playerCameraTransform;
-    [SerializeField] private LayerMask interactableLayerMask; // Combinar las capas en una sola
+    [SerializeField] private LayerMask interactableLayerMask; // Máscaras de capas combinadas para objetos interactuables
     private float interactionDistance = 2.5f; // Distancia de interacción
 
-    private void FixedUpdate()
+    private void Update()
     {
-        // Detectar interacción con objetos interactuables
+        // Detectar si se presiona la tecla E para interactuar
         if (Input.GetKeyDown(KeyCode.E))
         {
-            // Un único raycast que detecta tanto clientes como botones
-            if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward,
-                                out RaycastHit hit, interactionDistance, interactableLayerMask))
+            //Debug.Log("E key pressed, attempting interaction...");
+            PerformInteraction();
+        }
+    }
+
+    // Método que maneja la interacción utilizando raycast
+    private void PerformInteraction()
+    {
+        // Realizar un raycast desde la cámara del jugador hacia adelante
+        if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward,
+                            out RaycastHit hit, interactionDistance, interactableLayerMask))
+        {
+            //Debug.Log($"Raycast hit: {hit.transform.name} at distance {hit.distance}");
+
+            // Detectar y manejar la interacción según el tipo de objeto
+            if (hit.transform.TryGetComponent(out CustomerController customerController))
             {
-                // Primero, comprobamos si es un cliente o comerciante
-                if (hit.transform.TryGetComponent(out CustomerController customerController))
-                {
-                    Debug.Log("Hit Customer");
-                    customerController.InteractNPC();
-                    customerController.SellNPC();
-                }
-                else if (hit.transform.TryGetComponent(out MerchantController merchantController))
-                {
-                    Debug.Log("Hit Merchant");
-                    merchantController.InteractNPC();
-                }
-                // Si no es cliente, comprobamos si es un generador de items
-                else if (hit.transform.TryGetComponent(out ItemGenerator itemGenerator))
-                {
-                    Debug.Log("Hit Item Generator");
-                    itemGenerator.CreateItem();
-                }
-                else if (hit.transform.TryGetComponent(out PlaneGenerator planeGenerator))
-                {
-                    Debug.Log("Hit Plane Generator");
-                    planeGenerator.AddPlane();
-                }
+                //Debug.Log("Hit Customer, starting interaction.");
+                customerController.InteractNPC();
+                customerController.SellNPC();
             }
+            else if (hit.transform.TryGetComponent(out MerchantController merchantController))
+            {
+                //Debug.Log("Hit Merchant, starting interaction.");
+                merchantController.InteractNPC();
+            }
+            else if (hit.transform.TryGetComponent(out ItemGenerator itemGenerator))
+            {
+                //Debug.Log("Hit Item Generator, creating item.");
+                itemGenerator.CreateItem();
+            }
+            else if (hit.transform.TryGetComponent(out PlaneGenerator planeGenerator))
+            {
+                //Debug.Log("Hit Plane Generator, adding plane.");
+                planeGenerator.AddPlane();
+            }
+            else
+            {
+                //Debug.LogWarning("Hit object, but no interactable component found.");
+            }
+        }
+        else
+        {
+            //Debug.LogWarning("Raycast did not hit any object within range.");
         }
     }
 }
