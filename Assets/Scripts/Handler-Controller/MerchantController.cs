@@ -152,7 +152,6 @@ public class MerchantController : Interactable
     
     public void InteractNPC()
     {
-        Debug.Log("interaction");
         ChatBubble.Create(transform.transform, new Vector3(-0.6f, 1.7f, 0f),
             sellText);
     }

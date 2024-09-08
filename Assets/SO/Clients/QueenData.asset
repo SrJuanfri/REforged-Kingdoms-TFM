@@ -21,8 +21,11 @@ MonoBehaviour:
     price: 15
   currentOrder:
     orderText: 
-    craftingRecipe: {fileID: 0}
-    customerState: 0
+    craftingRecipe: {fileID: 11400000, guid: 456263707424fda419ddcd0a6f04f4c0, type: 2}
+    customerState: 2
     isCompleted: 0
-    price: 0
-  appearanceProbability: 100
+    price: 15
+  appearanceProbability: 33
+  hasEvent: 0
+  eventOrders: []
+  activeEvent: 

@@ -19,7 +19,7 @@ public class CustomerManager : ScriptableObject
     [SerializeField] private bool hasEvent = false;
 
     // Lista de órdenes que activan eventos, cada una con un índice y una frase especial
-    [SerializeField] private List<EventOrder> eventOrders = new List<EventOrder>();  // Lista de pares (índice, frase de evento)
+    [SerializeField] public List<EventOrder> eventOrders = new List<EventOrder>();  // Lista de pares (índice, frase de evento)
 
     // Evento activo para este cliente
     [SerializeField]
@@ -148,6 +148,9 @@ public class EventOrder
     public int orderIndex;      // Índice de la orden
     public string eventPhrase;  // Frase que se activará cuando esta orden esté activa
 
+    [SerializeField]
+    private string eventInfo;   // Texto informativo del evento (modificable desde el Inspector)
+
     // Validar que la frase tenga los marcadores requeridos
     public bool IsValid()
     {
@@ -160,7 +163,20 @@ public class EventOrder
 
         return eventPhrase.Contains("{item}") && eventPhrase.Contains("{metal}") && eventPhrase.Contains("{wood}");
     }
+
+    // Método para acceder a la información del evento
+    public string GetEventInfo()
+    {
+        return eventInfo;
+    }
+
+    // Método para actualizar la información del evento
+    public void SetEventInfo(string info)
+    {
+        eventInfo = info;
+    }
 }
+
 
 
 [System.Serializable]

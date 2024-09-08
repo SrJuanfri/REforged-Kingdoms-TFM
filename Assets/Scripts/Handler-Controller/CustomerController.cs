@@ -188,6 +188,64 @@ public class CustomerController : Interactable
         return playerPickUpDrop != null && playerPickUpDrop.GetHeldObject() != null;
     }
 
+    public bool CheckEventOrderCompletion(EventOrder eventOrder)
+    {
+        if (playerPickUpDrop == null || customerManager == null)
+        {
+            Debug.LogError("PlayerPickUpDrop or CustomerManager reference is missing.");
+            return false;
+        }
+
+        ObjectGrabbable heldObject = playerPickUpDrop.GetHeldObject();
+        if (heldObject == null)
+        {
+            Debug.LogWarning("The player is not holding any valid object.");
+            return false;
+        }
+
+        WeaponOrToolSOHolder holder = heldObject.GetComponentInChildren<WeaponOrToolSOHolder>();
+        if (holder == null || holder.weaponOrToolSO == null)
+        {
+            Debug.LogWarning("The held object does not have a valid WeaponOrToolSOHolder or WeaponOrToolSO.");
+            return false;
+        }
+
+        WeaponOrToolSO heldWeaponOrTool = holder.weaponOrToolSO;
+
+        // Verificar si el EventOrder coincide con la orden actual
+        int currentOrderIndex = customerManager.ordersData.IndexOf(customerManager.currentOrder);
+        if (eventOrder == null || eventOrder.orderIndex != currentOrderIndex)
+        {
+            Debug.Log("No event associated with this order.");
+            return false; // No hay evento para este pedido
+        }
+
+        // Verificar si el ítem entregado es un arma
+        bool isWeapon = heldWeaponOrTool.itemType == WeaponOrToolSO.ItemType.Weapon;
+
+        // Verificar si el tipo de ítem entregado coincide con el esperado en la orden
+        if (heldWeaponOrTool.itemType == customerManager.currentOrder.craftingRecipe.outputItemSO.itemType)
+        {
+            // Pedido completado correctamente con el ítem correcto
+            customerManager.currentOrder.IsCompleted = true;
+
+            if (isWeapon)
+            {
+                Debug.Log($"Evento completado con un arma: {heldWeaponOrTool.itemName}. Frase del evento: {eventOrder.eventPhrase}");
+                return true; // Pedido completado con un arma
+            }
+            else
+            {
+                Debug.Log("El pedido fue completado con una herramienta.");
+                return false; // Se completó con una herramienta, pero no es un arma
+            }
+        }
+
+        Debug.Log("El ítem entregado no coincide con el tipo esperado en el pedido.");
+        return false;
+    }
+
+
     public void SellNPC()
     {
         if (playerPickUpDrop == null || bank == null)
@@ -240,6 +298,18 @@ public class CustomerController : Interactable
         {
             ProcessNonMatchingItem(result);
         }
+
+        // Asumimos que tienes una lista de EventOrders en el CustomerManager
+        foreach (EventOrder eventOrder in customerManager.eventOrders)
+        {
+            if (CheckEventOrderCompletion(eventOrder))
+            {
+                //Debug.Log("Pedido de evento completado correctamente con un arma.");
+                Newspaper newspaper = FindFirstObjectByType<Newspaper>();
+                newspaper.UpdateEventInfo(eventOrder.eventPhrase); // Cambiar el texto del periódico
+            }
+        }
+
 
         Destroy(heldObject.gameObject);
         UpdateEndText();

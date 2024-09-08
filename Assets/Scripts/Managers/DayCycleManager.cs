@@ -18,6 +18,9 @@ public class DayCycleManager : MonoBehaviour
 
     private bool isDayNightCycleActive = true;
 
+    [SerializeField] private Newspaper newspaper;  // Referencia al script del periódico
+    [SerializeField] private IndicatorManager indicatorManager;  // Referencia al gestor de indicadores
+
     private enum DayPhase
     {
         MerchantArrival,
@@ -162,6 +165,9 @@ public class DayCycleManager : MonoBehaviour
         // Reiniciar el ciclo de día y noche
         dayNightController.ResetDayCycle();
 
+        // Actualizar el periódico y restablecerlo para el nuevo día
+        ResetAndUpdateNewspaper();
+
         Initiate.DoneFading();
         fade.GetComponent<Fader>().OnLevelFinishedLoading();
         transitionTextDay.SetActive(false);
@@ -216,4 +222,114 @@ public class DayCycleManager : MonoBehaviour
         isDayNightCycleActive = isActive;
         dayNightController.stop = !isActive; // Actualizar el estado del ciclo día-noche
     }
+
+    // Método para reiniciar y actualizar el periódico con indicadores implícitos
+    private void ResetAndUpdateNewspaper()
+    {
+        newspaper.ResetToOriginalTransform(); // Restablecer el transform del periódico a su posición original
+        string implicitIndicators = GenerateImplicitIndicatorsText();
+        newspaper.UpdateEventInfo(implicitIndicators);
+    }
+
+    // Método para generar texto implícito basado en los indicadores sin números literales, con variación diaria
+    private string GenerateImplicitIndicatorsText()
+    {
+        // Introducciones posibles
+        string[] introductions = {
+        "Las noticias del día revelan el estado del pueblo.",
+        "Los rumores del día comienzan a circular entre los ciudadanos.",
+        "Los eventos recientes han dejado una huella en la población."
+    };
+
+        // Conclusiones posibles
+        string[] conclusions = {
+        "El día termina con incertidumbre en el aire.",
+        "El futuro parece incierto, todos están atentos a lo que vendrá.",
+        "Parece que la situación no cambiará pronto, pero todo puede suceder."
+    };
+
+        // Descripciones posibles para Satisfacción
+        string[] highSatisfactionDescriptions = {
+        "La felicidad del pueblo se siente en cada rincón.",
+        "El pueblo está contento y el ambiente es alegre.",
+        "La satisfacción es palpable, los ciudadanos están muy complacidos."
+    };
+
+        string[] neutralSatisfactionDescriptions = {
+        "El pueblo sigue su ritmo habitual, sin grandes cambios.",
+        "La estabilidad reina en el ánimo de los ciudadanos.",
+        "No parece haber cambios significativos en la satisfacción general."
+    };
+
+        string[] lowSatisfactionDescriptions = {
+        "El malestar comienza a extenderse entre los habitantes.",
+        "Hay descontento en el aire, algo no va bien.",
+        "La insatisfacción está creciendo, algunos murmuran que no están felices."
+    };
+
+        // Descripciones posibles para Opinión Pública
+        string[] highOpinionDescriptions = {
+        "La gente confía en tu trabajo, tu reputación está en su punto más alto.",
+        "Los habitantes tienen una opinión muy favorable sobre ti.",
+        "Tu prestigio entre la gente es excelente, te consideran un héroe local."
+    };
+
+        string[] neutralOpinionDescriptions = {
+        "Los ciudadanos mantienen una opinión neutral sobre ti.",
+        "Tu reputación se mantiene estable, ni muy alta ni baja.",
+        "El pueblo parece indeciso sobre su opinión, algunos te apoyan, otros dudan."
+    };
+
+        string[] lowOpinionDescriptions = {
+        "La opinión pública no es favorable, muchos comienzan a cuestionar tu labor.",
+        "Tu reputación ha caído, los habitantes empiezan a perder la confianza en ti.",
+        "La gente empieza a hablar mal de ti, la confianza en tu trabajo está en declive."
+    };
+
+        // Descripciones posibles para el Nivel de Peligro
+        string[] highDangerDescriptions = {
+        "El peligro en la región está aumentando rápidamente. Los ciudadanos están asustados.",
+        "Los rumores sobre extraños peligros circulan por el pueblo. La tensión es palpable.",
+        "El ambiente es cada vez más peligroso, algunos ya no se atreven a salir de casa."
+    };
+
+        string[] neutralDangerDescriptions = {
+        "El nivel de peligro no parece haber cambiado, la vida sigue con normalidad.",
+        "Todo parece en calma por ahora, aunque algunos mantienen la guardia alta.",
+        "El pueblo sigue tranquilo, sin señales de peligro inminente."
+    };
+
+        string[] lowDangerDescriptions = {
+        "Los peligros han disminuido considerablemente. La seguridad del pueblo mejora.",
+        "El peligro parece haber desaparecido, los ciudadanos se sienten más seguros.",
+        "La calma ha regresado, no hay amenazas visibles en el horizonte."
+    };
+
+        // Selección de las descripciones dependiendo del valor de los indicadores
+        string satisfactionText = (indicatorManager.Satisfaction > 75)
+            ? highSatisfactionDescriptions[Random.Range(0, highSatisfactionDescriptions.Length)]
+            : (indicatorManager.Satisfaction < 25)
+            ? lowSatisfactionDescriptions[Random.Range(0, lowSatisfactionDescriptions.Length)]
+            : neutralSatisfactionDescriptions[Random.Range(0, neutralSatisfactionDescriptions.Length)];
+
+        string opinionText = (indicatorManager.Opinion > 75)
+            ? highOpinionDescriptions[Random.Range(0, highOpinionDescriptions.Length)]
+            : (indicatorManager.Opinion < 25)
+            ? lowOpinionDescriptions[Random.Range(0, lowOpinionDescriptions.Length)]
+            : neutralOpinionDescriptions[Random.Range(0, neutralOpinionDescriptions.Length)];
+
+        string dangerText = (indicatorManager.Danger > 75)
+            ? highDangerDescriptions[Random.Range(0, highDangerDescriptions.Length)]
+            : (indicatorManager.Danger < 25)
+            ? lowDangerDescriptions[Random.Range(0, lowDangerDescriptions.Length)]
+            : neutralDangerDescriptions[Random.Range(0, neutralDangerDescriptions.Length)];
+
+        // Seleccionar una introducción y conclusión aleatoriamente
+        string introduction = introductions[Random.Range(0, introductions.Length)];
+        string conclusion = conclusions[Random.Range(0, conclusions.Length)];
+
+        // Retornar el texto generado con introducción, indicadores y conclusión
+        return $"{introduction}\n{satisfactionText}\n{opinionText}\n{dangerText}\n{conclusion}";
+    }
+
 }
