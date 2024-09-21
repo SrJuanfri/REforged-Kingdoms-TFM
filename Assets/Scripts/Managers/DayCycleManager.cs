@@ -20,6 +20,7 @@ public class DayCycleManager : MonoBehaviour
 
     [SerializeField] private Newspaper newspaper;  // Referencia al script del periódico
     [SerializeField] private IndicatorManager indicatorManager;  // Referencia al gestor de indicadores
+    [SerializeField] private TextMeshProUGUI dayTextPauseMenu;
 
     private enum DayPhase
     {
@@ -33,6 +34,8 @@ public class DayCycleManager : MonoBehaviour
 
     private void Start()
     {
+        dayTextPauseMenu.text = "Día: " + dayNumber;
+
         dayTimer = 0;
         transitionTextDay.SetActive(false);
 
@@ -151,6 +154,7 @@ public class DayCycleManager : MonoBehaviour
     private IEnumerator DayTransitionPhase()
     {
         dayNumber++;
+        dayTextPauseMenu.text = "Día: " + dayNumber.ToString();
         transitionTextDay.SetActive(true);
         transitionTextDay.GetComponent<TextMeshProUGUI>().text = "Día " + dayNumber.ToString();
         GameObject fade = Initiate.Fade(Color.black, 1.0f);

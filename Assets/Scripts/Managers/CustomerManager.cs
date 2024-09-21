@@ -108,14 +108,14 @@ public class CustomerManager : ScriptableObject
     {
         activeEvent = eventName;
         hasEvent = true;
-        Debug.Log($"Evento '{eventName}' activado para el cliente.");
+        //Debug.Log($"Evento '{eventName}' activado para el cliente.");
     }
 
     public void DeactivateCustomerEvent()
     {
         activeEvent = null;
         hasEvent = false;
-        Debug.Log("Evento desactivado para el cliente.");
+        //Debug.Log("Evento desactivado para el cliente.");
     }
 
     // Mostrar la lista de eventos solo si hasEvent es true
