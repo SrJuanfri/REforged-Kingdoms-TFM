@@ -62,6 +62,11 @@ public class Newspaper : Interactable
         }
     }
 
+    public bool getIsReading()
+    {
+        return isReading;
+    }
+
     private void ToggleReadingMode()
     {
         if (!isReading)
@@ -115,11 +120,20 @@ public class Newspaper : Interactable
         {
             if (objectGrabbable.IsBeingGrabbed())
             {
+                if (objectGrabbable.gameObject.layer != LayerMask.NameToLayer("Objects"))
+                {
+                    objectGrabbable.gameObject.layer = LayerMask.NameToLayer("Objects");
+                }
                 objectGrabbable.Drop();  // Soltar el periódico
+
             }
             else
             {
                 objectGrabbable.Grab(transform);  // Agarrar el periódico
+                if (objectGrabbable.gameObject.layer != LayerMask.NameToLayer("IgnorePlayer"))
+                {
+                    objectGrabbable.gameObject.layer = LayerMask.NameToLayer("IgnorePlayer");
+                }
             }
         }
     }

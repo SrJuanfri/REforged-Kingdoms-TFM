@@ -14,6 +14,9 @@ public class RecipeCrafting : Interactable
     [SerializeField] private Transform vfxSpawnItem;
     [HideInInspector] public CraftingRecipeSO craftingRecipeSO;
 
+    // Variable para almacenar el último objeto instanciado
+    private WeaponOrToolSO lastCreatedItemSO;
+
     public void Craft()
     {
         Debug.Log("Craft");
@@ -41,10 +44,13 @@ public class RecipeCrafting : Interactable
         {
             //Tenemos todos los items requeridos 
 
-            Debug.Log("Yes");
+            //Debug.Log("Yes");
 
             Transform spawnedItemTransform = Instantiate(craftingRecipeSO.outputItemSO.prefab, itemSpawnPoint.position,
                 itemSpawnPoint.rotation);
+
+            // Guardamos el ItemSO del objeto instanciado como el último creado
+            lastCreatedItemSO = craftingRecipeSO.outputItemSO;
 
             Instantiate(vfxSpawnItem, itemSpawnPoint.position, itemSpawnPoint.rotation);
 
@@ -54,6 +60,37 @@ public class RecipeCrafting : Interactable
             }
         }
         
+    }
+
+
+    // Función para obtener el último ItemSO creado
+    public WeaponOrToolSO GetLastCreatedItem()
+    {
+        return lastCreatedItemSO;
+    }
+    public List<ItemSO> GetItemsInCollider()
+    {
+        //Debug.Log("GetItemsInCollider");
+        // Usamos Physics.OverlapBox para detectar todos los colliders en el área del BoxCollider
+        Collider[] colliderArray = Physics.OverlapBox(transform.position + placeItemsAreaCollider.center,
+    placeItemsAreaCollider.size, placeItemsAreaCollider.transform.rotation);
+
+        // Lista para almacenar los ItemSO detectados
+        List<ItemSO> itemList = new List<ItemSO>();
+
+        // Iteramos sobre los colliders encontrados
+        foreach (Collider collider in colliderArray)
+        {
+            // Comprobamos si el objeto tiene un componente ItemSOHolder
+            if (collider.TryGetComponent(out ItemSOHolder itemSOHolder))
+            {
+                // Añadimos el ItemSO a la lista
+                itemList.Add(itemSOHolder.itemSO);
+            }
+        }
+
+        // Devolvemos la lista de ItemSO
+        return itemList;
     }
 
 
