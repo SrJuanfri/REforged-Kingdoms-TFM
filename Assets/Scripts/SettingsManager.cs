@@ -209,7 +209,7 @@ public class SettingsManager : MonoBehaviour
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen, resolution.refreshRate);
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
     // Función para configurar el volumen maestro

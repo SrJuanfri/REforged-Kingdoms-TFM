@@ -19,7 +19,11 @@ public class Storage : MonoBehaviour
     {
         UpdateNumberText();
 
-        nameText.text = itemStoragedSO.itemName;
+        if (nameText != null)
+        {
+            nameText.text = itemStoragedSO.itemName;
+        }
+
     }
 
     void OnTriggerEnter(Collider other)
@@ -53,13 +57,17 @@ public class Storage : MonoBehaviour
 
     void UpdateNumberText()
     {
-        countText.text = "Número: " + objectsNumber;
-
-        if (itemStoragedSO.itemName == "10 Coins")
+        if (countText != null)
         {
-            
-            countText.text = ( objectsNumber * 10) +" Monedas.";
-            Debug.Log(objectsNumber + " Monedas");
+            countText.text = "Número: " + objectsNumber;
+
+            if (itemStoragedSO.itemName == "10 Coins")
+            {
+
+                countText.text = (objectsNumber * 10) + " Monedas.";
+                Debug.Log(objectsNumber + " Monedas");
+            }
         }
+
     }
 }
