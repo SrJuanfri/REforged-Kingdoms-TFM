@@ -14,6 +14,7 @@ public class DayCycleManager : MonoBehaviour
     private float dayTimer;
     private DayNightController dayNightController;
     private int dayNumber = 0;
+    private int firstDayNumber = 0; // Día en que comienza el juego
     private List<GameObject> selectedCustomersToday = new List<GameObject>();
 
     private bool isDayNightCycleActive = true;
@@ -34,6 +35,7 @@ public class DayCycleManager : MonoBehaviour
 
     private void Start()
     {
+        firstDayNumber = dayNumber;
         dayTextPauseMenu.text = "Día: " + dayNumber;
 
         dayTimer = 0;
@@ -334,6 +336,11 @@ public class DayCycleManager : MonoBehaviour
 
         // Retornar el texto generado con introducción, indicadores y conclusión
         return $"{introduction}\n{satisfactionText}\n{opinionText}\n{dangerText}\n{conclusion}";
+    }
+    // Verifica si es el primer día
+    public bool IsFirstDay()
+    {
+        return dayNumber == firstDayNumber;
     }
 
 }
