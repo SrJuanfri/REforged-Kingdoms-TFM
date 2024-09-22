@@ -71,7 +71,7 @@ public class PlayerCrafting : MonoBehaviour
 
                 if (raycastHit.transform.TryGetComponent(out RecipeSelection recipeSelection))
                 {
-                    if (Input.GetMouseButtonDown(0) && recipeSelection)
+                    if (Input.GetKeyDown(KeyCode.E) && recipeSelection)
                     {
                         recipeSelection.NextRecipeWeapons();
                     }
@@ -79,7 +79,7 @@ public class PlayerCrafting : MonoBehaviour
 
                 if (raycastHit.transform.TryGetComponent(out RecipeSelectionTool recipeSelectionTool))
                 {
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
                         recipeSelectionTool.NextRecipeTool();
                     }

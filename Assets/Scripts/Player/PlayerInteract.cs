@@ -49,6 +49,11 @@ public class PlayerInteract : MonoBehaviour
                 //Debug.Log("Hit Plane Generator, adding plane.");
                 planeGenerator.AddPlane();
             }
+            else if (hit.transform.TryGetComponent(out BellClickHandler bellClickHandler))
+            {
+                //Debug.Log("Hit Plane Generator, adding plane.");
+                bellClickHandler.OnBellClicked();
+            }
             else
             {
                 //Debug.LogWarning("Hit object, but no interactable component found.");

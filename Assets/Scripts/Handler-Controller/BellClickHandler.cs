@@ -14,15 +14,7 @@ public class BellClickHandler : Interactable
         customerControllers = FindObjectsOfType<CustomerController>();
     }
 
-    void OnMouseDown()
-    {
-        if (gameObject.name == "Bell")
-        {
-            OnBellClicked();
-        }
-    }
-
-    private void OnBellClicked()
+    public void OnBellClicked()
     {
         Debug.Log("Bell clicked. Merchant or customer leaving.");
 
