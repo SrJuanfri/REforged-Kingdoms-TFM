@@ -68,8 +68,8 @@ public class ChatBubble : MonoBehaviour
     private void Setup(IconType iconType, string text)
     {
         text = InsertLineBreaks(text, 30); // Inserta saltos de línea si la frase es muy larga
-        textMeshPro.SetText(text);
-        textMeshPro.ForceMeshUpdate();
+        StartCoroutine(TypeText(text));
+
         Vector2 textSize = textMeshPro.GetRenderedValues(false);
 
         Vector2 padding = new Vector2(7f, 3f);
@@ -86,8 +86,8 @@ public class ChatBubble : MonoBehaviour
     private void Setup(string text)
     {
         text = InsertLineBreaks(text, 30); // Inserta saltos de línea si la frase es muy larga
-        textMeshPro.SetText(text);
-        textMeshPro.ForceMeshUpdate();
+        StartCoroutine(TypeText(text));  // Escribe el texto letra a letra
+
         Vector2 textSize = textMeshPro.GetRenderedValues(false);
 
         Vector2 padding = new Vector2(7f, 3f);
@@ -99,6 +99,44 @@ public class ChatBubble : MonoBehaviour
         // Desactiva el icono si no es necesario
         iconSpriteRenderer.gameObject.SetActive(false);
     }
+
+    private IEnumerator TypeText(string text)
+    {
+        textMeshPro.text = "";
+
+        // Forzar la actualización del mesh para asegurar que el tamaño se ajuste correctamente desde el inicio
+        textMeshPro.ForceMeshUpdate();
+
+        // Definir márgenes a la izquierda y derecha
+        float leftMargin = 5f;  // Ajusta el margen izquierdo
+        float rightMargin = 3f; // Ajusta el margen derecho
+
+        Vector2 padding = new Vector2(leftMargin + rightMargin, 3f); // Ajustar el padding para ambos lados
+        Vector2 initialSize = textMeshPro.GetRenderedValues(false);
+        backgroundSpriteRenderer.size = initialSize + padding;
+
+        // Ajustar la posición inicial del fondo para que comience más a la izquierda
+        Vector3 initialPosition = backgroundSpriteRenderer.transform.localPosition;
+        backgroundSpriteRenderer.transform.localPosition = new Vector3(initialPosition.x - leftMargin, initialPosition.y, initialPosition.z);
+
+        foreach (char c in text)
+        {
+            textMeshPro.text += c;
+
+            // Actualizar el tamaño del texto en cada iteración
+            textMeshPro.ForceMeshUpdate();
+            Vector2 textSize = textMeshPro.GetRenderedValues(false);
+
+            // Actualizar el tamaño del fondo según el texto
+            backgroundSpriteRenderer.size = textSize + padding;
+
+            // Mantener el fondo alineado a la izquierda, con margen en ambos lados
+            backgroundSpriteRenderer.transform.localPosition = new Vector3((backgroundSpriteRenderer.size.x / 2f) - leftMargin, initialPosition.y, initialPosition.z);
+
+            yield return new WaitForSeconds(0.05f);  // Controla la velocidad del tipeo
+        }
+    }
+
 
     private Sprite GetIconSprite(IconType iconType)
     {

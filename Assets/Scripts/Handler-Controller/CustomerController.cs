@@ -25,17 +25,23 @@ public class CustomerController : Interactable
     private Transform player;
     private CustomerPhraseManager phraseManager;
     private Vector3 startPosition;
-    private Quaternion startRotation; // Store the initial rotation
+    private Quaternion startRotation;
     private PlayerPickUpDrop playerPickUpDrop;
     private Bank bank;
     private CustomerStateHandler customerStateHandler;
-    private CustomerManager customerManager;  // Para gestionar los eventos y órdenes
+    private CustomerManager customerManager;
 
     public State currentState { get; private set; }
     public bool shouldGoToShop { get; set; } = false;
     public bool shouldReturnToStart { get; set; } = false;
 
     public event Action<CustomerController> OnCustomerReachedShop;
+
+    [Header("Character Voice")]
+    private CharacterVoice characterVoice;  // Referencia al script CharacterVoice
+
+    // Referencia al CapsuleCollider
+    private CapsuleCollider capsuleCollider;
 
     public enum State
     {
@@ -55,7 +61,14 @@ public class CustomerController : Interactable
         player = GameObject.FindGameObjectWithTag("Player").transform;
         navMeshAgent.speed = walkingSpeed;
         customerStateHandler = GetComponent<CustomerStateHandler>();
-        customerManager = GetComponent<ClientSOHolder>().ClientSO;  // Obtener el CustomerManager asociado
+        customerManager = GetComponent<ClientSOHolder>().ClientSO;
+
+        // Obtener el CharacterVoice
+        characterVoice = GetComponent<CharacterVoice>();
+
+        // Obtener el CapsuleCollider del cliente
+        capsuleCollider = GetComponent<CapsuleCollider>();
+
         SetState(State.Idle);
     }
 
@@ -166,7 +179,6 @@ public class CustomerController : Interactable
     {
         if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance < 0.5f)
         {
-            // Restore the original rotation when the customer reaches the start position
             transform.rotation = startRotation;
             SetState(State.Idle);
             shouldGoToShop = false;
@@ -177,9 +189,36 @@ public class CustomerController : Interactable
     {
         if (!IsPlayerHoldingItem())
         {
-            UpdateSellText();
-            ChatBubble.Create(transform, new Vector3(-0.6f, 1.7f, 0f), emotion, sellText);
+            StartCoroutine(DisplayTextWithVoice(sellText));  // Muestra el texto y reproduce la voz
+
             animator.SetTrigger("Talk");
+        }
+    }
+
+    private IEnumerator DisplayTextWithVoice(string text)
+    {
+        // Desactiva el CapsuleCollider
+        if (capsuleCollider != null)
+        {
+            capsuleCollider.enabled = false;
+        }
+
+        // Reproducir la voz
+        if (characterVoice != null)
+        {
+            characterVoice.PlayVoice();
+        }
+
+        // Muestra el texto mientras reproduce la voz
+        ChatBubble.Create(transform, new Vector3(-0.6f, 1.7f, 0f), emotion, text);
+
+        // Esperar hasta que termine la frase
+        yield return new WaitForSeconds(text.Length * 0.1f);  // Ajustar la duración en función de la longitud del texto
+
+        // Reactivar el CapsuleCollider
+        if (capsuleCollider != null)
+        {
+            capsuleCollider.enabled = true;
         }
     }
 
@@ -187,6 +226,7 @@ public class CustomerController : Interactable
     {
         return playerPickUpDrop != null && playerPickUpDrop.GetHeldObject() != null;
     }
+
 
     public bool CheckEventOrderCompletion(EventOrder eventOrder)
     {

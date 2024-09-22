@@ -9,6 +9,7 @@ public class MerchantController : Interactable
     private Transform player; // Referencia al jugador
     public Transform exitPoint; // Punto de salida del mercader
     [SerializeField] private GameObject materialsMachine;
+    [SerializeField] private GameObject bellObject; // Objeto Bell para controlar su BoxCollider
 
     private NavMeshAgent navMeshAgent;
     private Animator animator;
@@ -33,6 +34,12 @@ public class MerchantController : Interactable
 
     private ChatBubble currentChatBubble;
 
+    [Header("Character Voice")]
+    private CharacterVoice characterVoice;  // Referencia al script CharacterVoice para reproducir el sonido
+
+    // Referencia al CapsuleCollider del mercader
+    private CapsuleCollider capsuleCollider;
+
     public enum State
     {
         GoToShop,
@@ -47,10 +54,24 @@ public class MerchantController : Interactable
         materialsMachine.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player").transform; // Buscar el jugador por el tag
 
-        // Si es el primer día, añadir y activar el Outline azul
-        if (IsFirstDay())
+        // No activamos el Outline aquí, lo activamos cuando el mercader llegue
+        outline = GetComponent<Outline>();
+        if (outline == null)
         {
-            AddAndEnableOutline();
+            outline = gameObject.AddComponent<Outline>();
+            outline.enabled = false;  // Desactivado por defecto
+        }
+
+        // Obtener la referencia al script CharacterVoice
+        characterVoice = GetComponent<CharacterVoice>();
+
+        // Obtener el CapsuleCollider del mercader
+        capsuleCollider = GetComponent<CapsuleCollider>();
+
+        // Desactivar el BoxCollider del objeto "Bell" si es el primer día
+        if (IsFirstDay() && bellObject != null)
+        {
+            bellObject.GetComponent<BoxCollider>().enabled = false;
         }
     }
 
@@ -112,6 +133,9 @@ public class MerchantController : Interactable
         animator.SetBool("Walk", false);
         materialsMachine.SetActive(true);
         StartCoroutine(ShowProductsRoutine());
+
+        // Activar el Outline ahora que el mercader ha llegado
+        ActivateOutline();
     }
 
     private void UpdateShowProducts()
@@ -145,6 +169,12 @@ public class MerchantController : Interactable
         navMeshAgent.destination = exitPoint.position;
         animator.SetBool("Walk", true);
         materialsMachine.SetActive(false);
+
+        // Desactivar el Outline cuando el mercader se va
+        if (outline != null)
+        {
+            outline.enabled = false;
+        }
     }
 
     private void UpdateLeave()
@@ -169,6 +199,7 @@ public class MerchantController : Interactable
         else
         {
             // Interactúa con el NPC (mercader) y muestra el texto de venta normal
+            PlayVoice();  // Reproduce la voz al inicio de cada frase
             ChatBubble.Create(transform, new Vector3(-0.6f, 1.7f, 0f), sellText);
         }
 
@@ -180,24 +211,14 @@ public class MerchantController : Interactable
         }
     }
 
-    // Método para agregar y habilitar/modificar el outline del mercader
-    private void AddAndEnableOutline()
+    // Método para activar el Outline cuando el mercader llega a la tienda
+    private void ActivateOutline()
     {
-        // Comprobar si el objeto ya tiene un componente Outline
-        outline = GetComponent<Outline>();
-
-        // Si no tiene un componente Outline, añadirlo
-        if (outline == null)
-        {
-            outline = gameObject.AddComponent<Outline>();
-        }
-
-        // Ahora, sea nuevo o existente, configurar el Outline
         if (outline != null)
         {
-            outline.enabled = true;
-            outline.OutlineColor = Color.blue;  // Cambia el color del outline a azul
-            outline.OutlineWidth = 5f; // Ajustar el ancho del Outline (puedes cambiar este valor)
+            outline.OutlineColor = new Color(0.4f, 0.7f, 1f);  // Color azul más claro
+            outline.OutlineWidth = 5f;  // Ajustar el ancho del Outline
+            outline.enabled = true;  // Activar el Outline
             outlineEnabled = true;
         }
     }
@@ -212,6 +233,12 @@ public class MerchantController : Interactable
     // Corrutina para mostrar las frases del primer día con un retardo entre ellas y evitar superposición
     private IEnumerator DisplayFirstDayPhrases()
     {
+        // Desactivar el CapsuleCollider mientras se muestran las frases
+        if (capsuleCollider != null)
+        {
+            capsuleCollider.enabled = false;
+        }
+
         for (int i = 0; i < firstDayPhrases.Count; i++)
         {
             string phrase = firstDayPhrases[i];
@@ -224,6 +251,9 @@ public class MerchantController : Interactable
 
             // Si es la última frase, destruir en 6 segundos (por defecto), de lo contrario usar el tiempo entre frases
             float destroyTime = (i == firstDayPhrases.Count - 1) ? 6f : timeBetweenPhrases;
+
+            // Reproduce la voz al inicio de cada frase
+            PlayVoice();
 
             // Mostrar cada frase en un chat bubble y guardar la referencia
             currentChatBubble = ChatBubble.Create(transform, new Vector3(-0.6f, 1.7f, 0f), phrase, destroyTime);
@@ -241,6 +271,26 @@ public class MerchantController : Interactable
         // Para la última burbuja, espera a que se destruya completamente (después de 6 segundos)
         yield return new WaitForSeconds(6f);
         currentChatBubble = null;
+
+        // Reactivar el CapsuleCollider después de que terminen las frases
+        if (capsuleCollider != null)
+        {
+            capsuleCollider.enabled = true;
+        }
+
+        // Activar el BoxCollider del objeto "Bell" después de mostrar todas las frases
+        if (bellObject != null)
+        {
+            bellObject.GetComponent<BoxCollider>().enabled = true;
+        }
     }
 
+    // Método para reproducir la voz antes de cada frase
+    private void PlayVoice()
+    {
+        if (characterVoice != null)
+        {
+            characterVoice.PlayVoice();  // Usar el método de CharacterVoice para reproducir el sonido correspondiente
+        }
+    }
 }
