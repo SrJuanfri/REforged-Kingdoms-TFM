@@ -19,7 +19,7 @@ public class RecipeCrafting : Interactable
 
     public void Craft()
     {
-        Debug.Log("Craft");
+        //Debug.Log("Craft");
 
         Collider[] colliderArray = Physics.OverlapBox(transform.position + placeItemsAreaCollider.center,
             placeItemsAreaCollider.size, placeItemsAreaCollider.transform.rotation);

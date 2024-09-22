@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class IndicatorManager : MonoBehaviour
 {
@@ -158,18 +159,22 @@ public class IndicatorManager : MonoBehaviour
             case BadEndingType.LowSatisfaction:
                 Debug.Log("Satisfaction has reached a critical low. Triggering bad ending: Low Satisfaction.");
                 // Implement bad ending logic for low satisfaction
+                SceneManager.LoadScene("FinalFelicidad0");
                 break;
             case BadEndingType.LowOpinion:
                 Debug.Log("Opinion has reached a critical low. Triggering bad ending: Low Opinion.");
                 // Implement bad ending logic for low opinion
+                SceneManager.LoadScene("FinalOpinion0");
                 break;
             case BadEndingType.HighDanger:
                 Debug.Log("Danger level has reached a critical high. Triggering bad ending: High Danger.");
                 // Implement bad ending logic for high danger
+                SceneManager.LoadScene("FinalPeligrosidad100");
                 break;
             case BadEndingType.LowDanger:
                 Debug.Log("Danger level has reached a critical low. Triggering bad ending: Low Danger.");
                 // Implement bad ending logic for low danger
+                SceneManager.LoadScene("FinalPeligrosidad0");
                 break;
             default:
                 Debug.LogWarning("Unknown bad ending type.");

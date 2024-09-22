@@ -16,11 +16,11 @@ public class BellClickHandler : Interactable
 
     public void OnBellClicked()
     {
-        Debug.Log("Bell clicked. Merchant or customer leaving.");
+        //Debug.Log("Bell clicked. Merchant or customer leaving.");
 
         if (merchantController != null && merchantController.currentState == MerchantController.State.ShowProducts)
         {
-            Debug.Log("Bell clicked. Merchant leaving.");
+            //Debug.Log("Bell clicked. Merchant leaving.");
             merchantController.Leave();
         }
 

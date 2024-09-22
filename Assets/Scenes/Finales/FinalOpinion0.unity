@@ -321,14 +321,16 @@ MonoBehaviour:
   Charstype: 1
   MultiStrings:
   - 
-  - "Las guerras se aproximan y la demanda de armas y herramientas aumenta cada d\xEDa."
-  - "El viejo herrero ha ca\xEDdo, y ahora el reino necesita un nuevo maestro para
-    la forja."
-  - "Tu forja no es solo un taller, es el coraz\xF3n que bombea vida al reino."
-  - "Cada martillazo que des forjar\xE1 no solo metal, sino el futuro de quienes
-    conf\xEDan en tus habilidades."
-  - "El reino te necesita. \xBFEst\xE1s listo para tomar el martillo y labrar tu
-    propio legado?"
+  - "En lugar de clientes, solo rumores llenan el aire, murmurando sobre la ruina
+    que cay\xF3 sobre este lugar anta\xF1o pr\xF3spero."
+  - "\"El desprecio del pueblo es ahora m\xE1s pesado que el oro, y la tienda, que
+    una vez resplandec\xEDa, yace ahora en la sombra del desd\xE9n."
+  - "La voz del pueblo, antes dispuesta a alabar, ahora solo trae palabras de burla
+    y desprecio hacia lo que aqu\xED se comercia."
+  - "Sin la aprobaci\xF3n de los corazones del pueblo, la tienda no pudo sobrevivir,
+    y las puertas cerraron sin esperanza de volver a abrirse."
+  - "\"As\xED termin\xF3 la fama de esta tienda, no por falta de mercanc\xEDas, sino
+    porque la confianza en su due\xF1o fue rota para siempre."
   ORIGINAL_TEXT: 
   typingSound: {fileID: 8300000, guid: 9e80f903869e41341afc59fcc205561c, type: 3}
 --- !u!114 &990245615
@@ -364,7 +366,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "El reino est\xE1 en crisis."
+  m_Text: "La confianza del pueblo se desvaneci\xF3 como humo en el viento, dejando
+    la tienda vac\xEDa y olvidada."
 --- !u!222 &990245616
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -386,6 +389,7 @@ GameObject:
   - component: {fileID: 1057098658}
   - component: {fileID: 1057098657}
   - component: {fileID: 1057098661}
+  - component: {fileID: 1057098662}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -490,7 +494,103 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomPointer: {fileID: 990245614}
-  selectedSceneIndex: 1
+  selectedSceneIndex: 0
+--- !u!82 &1057098662
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057098656}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 5e883075c4c2ae148970f3c0a0cc4b15, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.312
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1330817584
 GameObject:
   m_ObjectHideFlags: 0
