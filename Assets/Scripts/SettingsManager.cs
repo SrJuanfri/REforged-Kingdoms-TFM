@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
-using TMPro; // Asegúrate de usar TextMeshPro
+using TMPro; // AsegÃºrate de usar TextMeshPro
 
 public class SettingsManager : MonoBehaviour
 {
@@ -35,13 +35,13 @@ public class SettingsManager : MonoBehaviour
 
     private Dictionary<string, string> translationDictionary = new Dictionary<string, string>()
     {
-        // Diccionario de traducción ampliado
+        // Diccionario de traducciÃ³n ampliado
         {"Play", "Jugar"},
-        {"Settings", "Configuración"},
+        {"Settings", "ConfiguraciÃ³n"},
         {"Exit", "Salir"},
-        {"Graphics", "Gráficos"},
+        {"Graphics", "GrÃ¡ficos"},
         {"Audio", "Audio"},
-        {"Resolution", "Resolución"},
+        {"Resolution", "ResoluciÃ³n"},
         {"Quality", "Calidad"},
         {"Low", "Bajo"},
         {"Medium", "Medio"},
@@ -50,8 +50,8 @@ public class SettingsManager : MonoBehaviour
         {"Ultra", "Ultra"},
         {"Custom", "Personalizado"},
         {"Apply", "Aplicar"},
-        {"Back", "Atrás"},
-        {"Main Menu", "Menú Principal"},
+        {"Back", "AtrÃ¡s"},
+        {"Main Menu", "MenÃº Principal"},
         {"Continue", "Continuar"},
         {"New Game", "Nuevo Juego"},
         {"Load Game", "Cargar Juego"},
@@ -61,9 +61,9 @@ public class SettingsManager : MonoBehaviour
         {"Quit", "Salir"},
         {"Options", "Opciones"},
         {"Help", "Ayuda"},
-        {"Credits", "Créditos"},
+        {"Credits", "CrÃ©ditos"},
         {"Tutorial", "Tutorial"},
-        {"Yes", "Sí"},
+        {"Yes", "SÃ­"},
         {"No", "No"},
         {"OK", "Aceptar"},
         {"Cancel", "Cancelar"},
@@ -73,34 +73,34 @@ public class SettingsManager : MonoBehaviour
         {"Bloom", "Brillo"},
         {"Shadows", "Sombras"},
         {"Antialiasing", "Antialiasing"},
-        {"VSync", "Sincronización Vertical"},
+        {"VSync", "SincronizaciÃ³n Vertical"},
         {"Textures", "Texturas"},
         {"Shadows Quality", "Calidad de Sombras"},
         {"Anti-Aliasing", "Anti-Aliasing"},
-        {"Anisotropic Filtering", "Filtrado Anisotrópico"},
+        {"Anisotropic Filtering", "Filtrado AnisotrÃ³pico"},
         {"Shadow Distance", "Distancia de Sombra"},
-        {"Ambient Occlusion", "Oclusión Ambiental"},
+        {"Ambient Occlusion", "OclusiÃ³n Ambiental"},
         {"Motion Blur", "Desenfoque de Movimiento"},
-        {"Field of View", "Campo de Visión"},
+        {"Field of View", "Campo de VisiÃ³n"},
         {"Render Distance", "Distancia de Renderizado"},
         {"Master Volume", "Volumen Maestro"},
-        {"Music Volume", "Volumen de Música"},
+        {"Music Volume", "Volumen de MÃºsica"},
         {"SFX Volume", "Volumen de Efectos"},
         {"Voice Volume", "Volumen de Voces"},
         {"Mute", "Silencio"},
         {"Unmute", "Quitar Silencio"},
         {"Audio Output", "Salida de Audio"},
-        {"Stereo", "Estéreo"},
+        {"Stereo", "EstÃ©reo"},
         {"Mono", "Mono"},
         {"Surround", "Sonido Envolvente"},
         {"Controls", "Controles"},
         {"Sensitivity", "Sensibilidad"},
         {"Invert Y-Axis", "Invertir Eje Y"},
         {"Invert X-Axis", "Invertir Eje X"},
-        {"Mouse Sensitivity", "Sensibilidad del Ratón"},
+        {"Mouse Sensitivity", "Sensibilidad del RatÃ³n"},
         {"Gamepad", "Gamepad"},
         {"Keyboard", "Teclado"},
-        {"Mouse", "Ratón"},
+        {"Mouse", "RatÃ³n"},
         {"Loading", "Cargando"},
         {"Saving", "Guardando"},
         {"Paused", "Pausado"},
@@ -109,21 +109,21 @@ public class SettingsManager : MonoBehaviour
         {"Defeat", "Derrota"},
         {"Warning", "Advertencia"},
         {"Error", "Error"},
-        {"Success", "Éxito"},
+        {"Success", "Ã‰xito"},
         {"Retry", "Reintentar"},
         {"Next", "Siguiente"},
         {"Previous", "Anterior"},
         {"Select", "Seleccionar"},
         {"Deselect", "Deseleccionar"},
         {"Confirm Exit", "Confirmar Salida"},
-        {"Are you sure?", "¿Estás seguro?"},
-        {"Yes, Exit", "Sí, Salir"},
+        {"Are you sure?", "Â¿EstÃ¡s seguro?"},
+        {"Yes, Exit", "SÃ­, Salir"},
         {"No, Stay", "No, Quedarme"}
     };
 
     private void Awake()
     {
-        // Buscar un AudioMixer existente si no está asignado
+        // Buscar un AudioMixer existente si no estÃ¡ asignado
         if (audioMixer == null)
         {
             AudioMixer[] mixers = Resources.FindObjectsOfTypeAll<AudioMixer>();
@@ -134,20 +134,20 @@ public class SettingsManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("No se encontró ningún AudioMixer en el proyecto. Por favor, cree uno en el Editor de Unity y asígnelo.");
+                Debug.LogError("No se encontrÃ³ ningÃºn AudioMixer en el proyecto. Por favor, cree uno en el Editor de Unity y asÃ­gnelo.");
             }
         }
     }
 
     private void Start()
     {
-        // Configuración de calidad
+        // ConfiguraciÃ³n de calidad
         qualityDropdown.ClearOptions();
         qualityDropdown.AddOptions(new List<string>(QualitySettings.names));
         qualityDropdown.value = QualitySettings.GetQualityLevel();
         qualityDropdown.RefreshShownValue();
 
-        // Configuración de resolución
+        // ConfiguraciÃ³n de resoluciÃ³n
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
         List<string> options = new List<string>();
@@ -169,7 +169,7 @@ public class SettingsManager : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        // Configuración de volumen
+        // ConfiguraciÃ³n de volumen
         masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 0.75f);
         musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0.75f);
         sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.75f);
@@ -188,14 +188,14 @@ public class SettingsManager : MonoBehaviour
         resetButton.onClick.AddListener(ResetSettings);
         saveButton.onClick.AddListener(SaveSettings);
 
-        // Realizar traducción automática de textos si está activado
+        // Realizar traducciÃ³n automÃ¡tica de textos si estÃ¡ activado
         if (autoTranslateTexts)
         {
             TranslateAllTextsInScene();
         }
     }
 
-    // Función para aplicar configuración gráfica
+    // FunciÃ³n para aplicar configuraciÃ³n grÃ¡fica
     public void ApplyGraphicsSettings()
     {
         QualitySettings.SetQualityLevel(qualityDropdown.value);
@@ -205,14 +205,14 @@ public class SettingsManager : MonoBehaviour
         QualitySettings.vSyncCount = vsyncToggle.isOn ? 1 : 0;
     }
 
-    // Función para cambiar la resolución
+    // FunciÃ³n para cambiar la resoluciÃ³n
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen, resolution.refreshRate);
     }
 
-    // Función para configurar el volumen maestro
+    // FunciÃ³n para configurar el volumen maestro
     public void SetMasterVolume(float volume)
     {
         if (audioMixer != null)
@@ -222,7 +222,7 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    // Función para configurar el volumen de la música
+    // FunciÃ³n para configurar el volumen de la mÃºsica
     public void SetMusicVolume(float volume)
     {
         if (audioMixer != null)
@@ -232,7 +232,7 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    // Función para configurar el volumen de los efectos de sonido
+    // FunciÃ³n para configurar el volumen de los efectos de sonido
     public void SetSFXVolume(float volume)
     {
         if (audioMixer != null)
@@ -242,7 +242,7 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    // Función para configurar el volumen de las voces
+    // FunciÃ³n para configurar el volumen de las voces
     public void SetVoiceVolume(float volume)
     {
         if (audioMixer != null)
@@ -252,13 +252,13 @@ public class SettingsManager : MonoBehaviour
         }
     }
 
-    // Función para cerrar el menú de configuración
+    // FunciÃ³n para cerrar el menÃº de configuraciÃ³n
     public void CloseSettings()
     {
         //this.gameObject.SetActive(false);
     }
 
-    // Función para restablecer las configuraciones a los valores predeterminados
+    // FunciÃ³n para restablecer las configuraciones a los valores predeterminados
     public void ResetSettings()
     {
         qualityDropdown.value = QualitySettings.names.Length - 1;
@@ -284,7 +284,7 @@ public class SettingsManager : MonoBehaviour
         SetVoiceVolume(voiceVolumeSlider.value);
     }
 
-    // Función para guardar las configuraciones actuales
+    // FunciÃ³n para guardar las configuraciones actuales
     public void SaveSettings()
     {
         PlayerPrefs.SetInt("QualityLevel", qualityDropdown.value);
@@ -301,7 +301,7 @@ public class SettingsManager : MonoBehaviour
         Debug.Log("Configuraciones guardadas.");
     }
 
-    // Función para traducir todos los textos en la escena
+    // FunciÃ³n para traducir todos los textos en la escena
     private void TranslateAllTextsInScene()
     {
         // Encontrar todos los TextMeshProUGUI componentes en la escena
@@ -312,7 +312,7 @@ public class SettingsManager : MonoBehaviour
         }
     }
    
-    // Función que traduce el texto si está en inglés y existe en el diccionario
+    // FunciÃ³n que traduce el texto si estÃ¡ en inglÃ©s y existe en el diccionario
     private void TranslateText(TextMeshProUGUI tmpText)
     {
         if (translationDictionary.ContainsKey(tmpText.text))

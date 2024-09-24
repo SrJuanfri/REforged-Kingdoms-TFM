@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b6b8ca5dc851f74ba635fd4491dacce, type: 3}
-  m_Name: Handle
+  m_Name: Steel
   m_EditorClassIdentifier: 
-  itemName: pino
-  inputItem: {fileID: 1849171192356266, guid: cb57e75ca0f930d47a4aa8be1c709671, type: 3}
-  prefab: {fileID: 4408855321177182, guid: cb57e75ca0f930d47a4aa8be1c709671, type: 3}
-  value: 1
-  itemType: 1
+  itemName: acero
+  inputItem: {fileID: 4748042279657592548, guid: 5cfbe7eacbb07714ebf561a0689dda15,
+    type: 3}
+  prefab: {fileID: 1448569682502635173, guid: 5cfbe7eacbb07714ebf561a0689dda15, type: 3}
+  value: 7
+  itemType: 0

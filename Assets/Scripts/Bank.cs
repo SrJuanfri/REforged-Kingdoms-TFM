@@ -16,7 +16,7 @@ public class Bank : MonoBehaviour
 
     private void Awake()
     {
-        // Inicializa el diccionario con los valores y los ítems correspondientes
+        // Inicializa el diccionario con los valores y los Ã­tems correspondientes
         coins.Add(1, coin1);
         coins.Add(5, coin5);
         coins.Add(10, coin10);
