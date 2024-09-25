@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6b8ca5dc851f74ba635fd4491dacce, type: 3}
+  m_Name: MangoPino
+  m_EditorClassIdentifier: 
+  itemName: pino
+  inputItem: {fileID: 1849171192356266, guid: cb57e75ca0f930d47a4aa8be1c709671, type: 3}
+  prefab: {fileID: 4408855321177182, guid: cb57e75ca0f930d47a4aa8be1c709671, type: 3}
+  value: 1
+  itemType: 1

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6b8ca5dc851f74ba635fd4491dacce, type: 3}
+  m_Name: Bronze
+  m_EditorClassIdentifier: 
+  itemName: bronce
+  inputItem: {fileID: 4748042279657592548, guid: a8620e0d98f6a984986b7818108f23dc,
+    type: 3}
+  prefab: {fileID: 1448569682502635173, guid: a8620e0d98f6a984986b7818108f23dc, type: 3}
+  value: 3
+  itemType: 0
