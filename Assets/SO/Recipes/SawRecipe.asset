@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a639b3d6f45946a2a3297db3755bf, type: 3}
   m_Name: SawRecipe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: f614b412855f1154d93eadfb44c04640, type: 3}
+  sprite: {fileID: 21300000, guid: d9b3855df16a50344943543b0260a551, type: 3}
   inputItemSOList:
   - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
   - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
