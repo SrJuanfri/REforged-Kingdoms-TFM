@@ -19,12 +19,12 @@ public class PlaneGenerator : Interactable
             {
                 if (recipeSelection.craftingRecipeSOListWeapons[i] == craftingRecipeSO)
                 {
-                    Debug.Log("Plano No Añadido");
+                    Debug.Log("Plano No AÃ±adido");
                     return;
                 }
             }
             recipeSelection.craftingRecipeSOListWeapons.Add(craftingRecipeSO);
-            Debug.Log("Plano Añadido");
+            Debug.Log("Plano AÃ±adido");
 
             registradora.countText.text = (registradora.moneyNumber - value).ToString();
             registradora.moneyNumber -= value;
