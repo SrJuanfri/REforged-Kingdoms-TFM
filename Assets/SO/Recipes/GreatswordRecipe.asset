@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 667f5004dfe7ebb43b73ac5b93630771, type: 3}
   inputItemSOList:
-  - {fileID: 11400000, guid: 8910d1b6bec3d8c4b8a3ffcd2d9f54d2, type: 2}
-  - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
+  - {fileID: 11400000, guid: ad6340ade1b32bc4e884ecf3128592ab, type: 2}
+  - {fileID: 11400000, guid: e8aa3d5e7d5c1af408a7bff152a28803, type: 2}
   - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
   - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
   - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}

@@ -15,9 +15,9 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 8df86c03921b1514cabdd7d208b3ac79, type: 3}
   inputItemSOList:
   - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
-  - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
-  - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
-  - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
+  - {fileID: 11400000, guid: 1626bace5f24d6d41bdca41e349d7668, type: 2}
+  - {fileID: 11400000, guid: 370525f19a810c347883f123cb282ba4, type: 2}
+  - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
   outputItemSO: {fileID: 11400000, guid: 64a22f95c09472e4d851acc3f4d0a3bd, type: 2}
   isWeapon: 0
   designBasePrice: 50

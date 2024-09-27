@@ -543,6 +543,7 @@ MonoBehaviour:
   firstChild: {fileID: 102654971225793740}
   secondChild: {fileID: 6689439195861325219}
   readPoint: {fileID: 0}
+  eventInfoText: {fileID: 0}
 --- !u!1001 &497099491097838375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -701,7 +702,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1

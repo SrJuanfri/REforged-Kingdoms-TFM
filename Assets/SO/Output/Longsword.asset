@@ -18,4 +18,4 @@ MonoBehaviour:
   prefab: {fileID: 4718907677275056, guid: 2ba61d7eeb729254888777620f2209cd, type: 3}
   value: 40
   metal: {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
-  wood: {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
+  wood: {fileID: 11400000, guid: a47c2bc810c51b043bf1e56f0b99af5c, type: 2}

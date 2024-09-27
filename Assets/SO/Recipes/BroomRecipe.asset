@@ -18,4 +18,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
   outputItemSO: {fileID: 11400000, guid: 63892bc58af0bbe4f941df9f7b7b3e96, type: 2}
   isWeapon: 0
-  designBasePrice: 10
+  designBasePrice: 3

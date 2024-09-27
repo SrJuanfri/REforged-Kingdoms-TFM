@@ -16,8 +16,8 @@ MonoBehaviour:
   inputItemSOList:
   - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
   - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
-  - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
-  - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
+  - {fileID: 11400000, guid: a47c2bc810c51b043bf1e56f0b99af5c, type: 2}
+  - {fileID: 11400000, guid: 1626bace5f24d6d41bdca41e349d7668, type: 2}
   outputItemSO: {fileID: 11400000, guid: 05fbcf64dd149f94fbe38ed4a7a037d4, type: 2}
   isWeapon: 0
   designBasePrice: 50

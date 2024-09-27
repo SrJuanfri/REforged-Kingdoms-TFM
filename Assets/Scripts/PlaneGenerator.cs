@@ -13,16 +13,8 @@ public class PlaneGenerator : Interactable
     {
         int value = craftingRecipeSO.designBasePrice; // Obtener el valor de la receta
         
-        if (registradora.moneyNumber >= value)
+        if ((registradora.moneyNumber >= value))
         {
-            for (int i = 0; i <= recipeSelection.craftingRecipeSOListWeapons.Count; i++)
-            {
-                if (recipeSelection.craftingRecipeSOListWeapons[i] == craftingRecipeSO)
-                {
-                    Debug.Log("Plano No Añadido");
-                    return;
-                }
-            }
             recipeSelection.craftingRecipeSOListWeapons.Add(craftingRecipeSO);
             Debug.Log("Plano Añadido");
 

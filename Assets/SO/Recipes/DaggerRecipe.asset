@@ -16,7 +16,7 @@ MonoBehaviour:
   inputItemSOList:
   - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
   - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
-  - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
+  - {fileID: 11400000, guid: 8910d1b6bec3d8c4b8a3ffcd2d9f54d2, type: 2}
   outputItemSO: {fileID: 11400000, guid: 83ecc6aab84ffa24a9fddc20c67f760f, type: 2}
   isWeapon: 1
   designBasePrice: 0
