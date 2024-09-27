@@ -52,6 +52,24 @@ public class PlayerCrafting : MonoBehaviour
                     raycastHit.collider.GetComponent<WeaponOrToolSOHolder>().weaponOrToolSO.value);
                 playerUI.infoUI.SetActive(true);
             }
+            
+            if (raycastHit.collider.GetComponent<ItemGenerator>())
+            {
+                //Update nombre y valor
+                
+                playerUI.UpdateInfoText(raycastHit.collider.GetComponent<ItemGenerator>().itemSO.itemName, 
+                    raycastHit.collider.GetComponent<ItemGenerator>().itemSO.value);
+                playerUI.infoUI.SetActive(true);
+            }
+            
+            if (raycastHit.collider.GetComponent<PlaneGenerator>())
+            {
+                //Update nombre y valor
+                
+                playerUI.UpdateInfoText(raycastHit.collider.GetComponent<PlaneGenerator>().craftingRecipeSO.outputItemSO.itemName, 
+                    raycastHit.collider.GetComponent<PlaneGenerator>().craftingRecipeSO.designBasePrice);
+                playerUI.infoUI.SetActive(true);
+            }
         }
     }
 

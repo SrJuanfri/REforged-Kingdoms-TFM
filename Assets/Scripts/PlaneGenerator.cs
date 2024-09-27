@@ -6,7 +6,7 @@ using UnityEngine.Rendering.Universal;
 public class PlaneGenerator : Interactable
 {
     [SerializeField] private Registradora registradora;
-    [SerializeField] private CraftingRecipeSO craftingRecipeSO;
+    public CraftingRecipeSO craftingRecipeSO;
     [SerializeField] private RecipeSelection recipeSelection;
 
     public void AddPlane()

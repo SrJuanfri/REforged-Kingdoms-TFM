@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class ItemGenerator : Interactable
 {
-    [SerializeField] private Registradora registradora;
-    [SerializeField] private ItemSO itemSO;
+    [SerializeField] private Registradora registradora; 
+    public ItemSO itemSO;
     [SerializeField] private Transform itemSpawnPoint;
 
 
