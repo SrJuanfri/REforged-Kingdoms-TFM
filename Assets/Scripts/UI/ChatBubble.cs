@@ -6,6 +6,21 @@ using UnityEngine;
 
 public class ChatBubble : MonoBehaviour
 {
+
+    private void Awake()
+    {
+        backgroundSpriteRenderer = transform.Find("Background")?.GetComponent<SpriteRenderer>();
+        iconSpriteRenderer = transform.Find("Icon")?.GetComponent<SpriteRenderer>();
+        textMeshPro = transform.Find("Text")?.GetComponent<TextMeshPro>();
+
+        if (backgroundSpriteRenderer == null)
+            Debug.LogError("Background SpriteRenderer not found!");
+        if (iconSpriteRenderer == null)
+            Debug.LogError("Icon SpriteRenderer not found!");
+        if (textMeshPro == null)
+            Debug.LogError("TextMeshPro component not found!");
+    }
+
     public static ChatBubble Create(Transform parent, Vector3 localPosition, string text, float destroyTime = 6f)
     {
         Transform chatBubbleTransform = Instantiate(GameAssets.i.pfChatBubble, parent);
@@ -57,16 +72,16 @@ public class ChatBubble : MonoBehaviour
     private SpriteRenderer iconSpriteRenderer;
     private TextMeshPro textMeshPro;
 
-    private void Awake()
-    {
-        backgroundSpriteRenderer = transform.Find("Background").GetComponent<SpriteRenderer>();
-        iconSpriteRenderer = transform.Find("Icon").GetComponent<SpriteRenderer>();
-        textMeshPro = transform.Find("Text").GetComponent<TextMeshPro>();
-    }
 
     // Configuración para burbuja con icono
     private void Setup(IconType iconType, string text)
     {
+        if (string.IsNullOrEmpty(text))
+        {
+            Debug.LogError("Text is null or empty in Setup with IconType!");
+            return;
+        }
+
         text = InsertLineBreaks(text, 30); // Inserta saltos de línea si la frase es muy larga
         StartCoroutine(TypeText(text));
 
@@ -85,6 +100,12 @@ public class ChatBubble : MonoBehaviour
     // Configuración para burbuja sin icono
     private void Setup(string text)
     {
+        if (string.IsNullOrEmpty(text))
+        {
+            Debug.LogError("Text is null or empty in Setup!");
+            return;
+        }
+
         text = InsertLineBreaks(text, 30); // Inserta saltos de línea si la frase es muy larga
         StartCoroutine(TypeText(text));  // Escribe el texto letra a letra
 
@@ -99,6 +120,7 @@ public class ChatBubble : MonoBehaviour
         // Desactiva el icono si no es necesario
         iconSpriteRenderer.gameObject.SetActive(false);
     }
+
 
     private IEnumerator TypeText(string text)
     {
@@ -159,6 +181,12 @@ public class ChatBubble : MonoBehaviour
     // Método para insertar saltos de línea automáticos si la frase es muy larga
     private string InsertLineBreaks(string text, int maxCharactersPerLine)
     {
+        if (string.IsNullOrEmpty(text))
+        {
+            Debug.LogError("Text is null or empty in InsertLineBreaks!");
+            return "";
+        }
+
         string[] words = text.Split(' ');
         string result = "";
         int currentLineLength = 0;
@@ -178,4 +206,5 @@ public class ChatBubble : MonoBehaviour
 
         return result.TrimEnd(); // Eliminar el espacio final
     }
+
 }

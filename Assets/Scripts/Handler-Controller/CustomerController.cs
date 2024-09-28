@@ -187,16 +187,25 @@ public class CustomerController : Interactable
 
     public void InteractNPC()
     {
+        // Asegúrate de actualizar el sellText antes de interactuar
+        UpdateSellText();
+
         if (!IsPlayerHoldingItem())
         {
             StartCoroutine(DisplayTextWithVoice(sellText));  // Muestra el texto y reproduce la voz
-
             animator.SetTrigger("Talk");
         }
     }
 
+
     private IEnumerator DisplayTextWithVoice(string text)
     {
+        if (string.IsNullOrEmpty(text))
+        {
+            Debug.LogError("DisplayTextWithVoice: text is null or empty!");
+            yield break; // Salir del coroutine si el texto es nulo o vacío
+        }
+
         // Desactiva el CapsuleCollider
         if (capsuleCollider != null)
         {
@@ -221,6 +230,7 @@ public class CustomerController : Interactable
             capsuleCollider.enabled = true;
         }
     }
+
 
     public bool IsPlayerHoldingItem()
     {
@@ -402,12 +412,15 @@ public class CustomerController : Interactable
         string metal = materials.ContainsKey("metal") ? materials["metal"] : "desconocido";
         string wood = materials.ContainsKey("wood") ? materials["wood"] : "desconocido";
 
-        // Obtener el índice de la orden actual
         int currentOrderIndex = customerManager.ordersData.IndexOf(customerManager.currentOrder);
 
-        // Intentar obtener la frase de evento para la orden actual
         sellText = customerManager.GetEventPhraseForOrder(currentOrderIndex, item, metal, wood) ??
                    phraseManager.GetOrderPhrase(customerStateHandler.GetCurrentCustomerState(), item, metal, wood);
+
+        if (string.IsNullOrEmpty(sellText))
+        {
+            Debug.LogError("sellText is null or empty in UpdateSellText!");
+        }
 
         if (customerManager.currentOrder != null)
         {
@@ -415,10 +428,17 @@ public class CustomerController : Interactable
         }
     }
 
+
     private void UpdateEndText()
     {
         endText = phraseManager.GetFarewellPhrase(customerStateHandler.GetCurrentCustomerState());
+
+        if (string.IsNullOrEmpty(endText))
+        {
+            Debug.LogError("endText is null or empty in UpdateEndText!");
+        }
     }
+
 
     public void SetEmotion(ChatBubble.IconType newEmotion)
     {
