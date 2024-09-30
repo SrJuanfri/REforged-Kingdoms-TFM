@@ -1,7 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEditor.Compilation;
 
 // if you want to delete this file delete all Gentleland "Utils" folder 
 // you can then delete GentlelandSettings folder too
