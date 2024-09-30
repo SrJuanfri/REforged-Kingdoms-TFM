@@ -80,7 +80,7 @@ public class checksManager : MonoBehaviour
         // Recorremos todos los items para comprobar si hay de tipo Metal y Wood
         foreach (ItemSO item in itemSOs)
         {
-            if (item.itemType == ItemSO.ItemType.Metal)
+            if (item.itemType == ItemSO.ItemType.Metal && item.name.Contains("C"))
             {
                 hasMetal = true;
             }

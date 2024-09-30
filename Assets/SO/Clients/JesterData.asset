@@ -15,6 +15,11 @@ MonoBehaviour:
   price: {fileID: 0}
   ordersData:
   - orderText: 
+    craftingRecipe: {fileID: 11400000, guid: cab84b3deb037c84cb7ba4f9c2d5f61f, type: 2}
+    customerState: 2
+    isCompleted: 0
+    price: 15
+  - orderText: 
     craftingRecipe: {fileID: 11400000, guid: 8a3bad2b4184d874aa5012be4ce33c1c, type: 2}
     customerState: 2
     isCompleted: 0

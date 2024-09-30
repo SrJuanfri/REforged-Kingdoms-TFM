@@ -109,15 +109,39 @@ public class CustomerPhraseManager : MonoBehaviour
         if (matchingPhrases.Count > 0)
         {
             int randomIndex = Random.Range(0, matchingPhrases.Count);
-            string generatedText = matchingPhrases[randomIndex].phrase
-                .Replace("{item}", item)
-                .Replace("{metal}", metal)
-                .Replace("{wood}", wood);
 
-            return generatedText;
+            // Obtener la frase correspondiente
+            string phrase = matchingPhrases[randomIndex].phrase;
+
+            // Determinar el artículo correcto según el género del item
+            string articulo = DeterminarArticulo(item);
+
+            // Reemplazar cualquier "un" o "una" en la frase con el artículo correcto antes del {item}
+            // Esto asume que las frases tienen "un {item}" o "una {item}"
+            if (phrase.Contains("un {item}"))
+            {
+                phrase = phrase.Replace("un {item}", $"{articulo} {item}");
+            }
+            else if (phrase.Contains("una {item}"))
+            {
+                phrase = phrase.Replace("una {item}", $"{articulo} {item}");
+            }
+            else
+            {
+                // Si no tiene un artículo explícito, solo reemplazamos el {item}
+                phrase = phrase.Replace("{item}", $"{articulo} {item}");
+            }
+
+            // Reemplazar los marcadores de {metal} y {wood}
+            phrase = phrase.Replace("{metal}", metal);
+            phrase = phrase.Replace("{wood}", wood);
+
+            return phrase;
         }
+
         return "No hay frases de pedido disponibles para los parámetros especificados.";
     }
+
 
     // Método para obtener una frase de despedida basada en el estado del cliente
     public string GetFarewellPhrase(CustomerState state)
@@ -132,4 +156,18 @@ public class CustomerPhraseManager : MonoBehaviour
         }
         return "No hay frases de despedida disponibles para el estado especificado.";
     }
+
+    public string DeterminarArticulo(string item)
+    {
+        // Regla básica: Si termina en 'a', usamos "una", si no, usamos "un".
+        if (item.EndsWith("a"))
+        {
+            return "una";
+        }
+        else
+        {
+            return "un";
+        }
+    }
+
 }

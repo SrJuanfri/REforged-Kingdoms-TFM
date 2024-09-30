@@ -191,6 +191,9 @@ public class MerchantController : Interactable
 
     public void InteractNPC()
     {
+        // Activar la animación de hablar
+        animator.SetTrigger("Talk");
+
         // Si es el primer día, usar las frases de la lista
         if (IsFirstDay() && firstDayPhrases.Count > 0)
         {
@@ -210,6 +213,7 @@ public class MerchantController : Interactable
             outlineEnabled = false;
         }
     }
+
 
     // Método para activar el Outline cuando el mercader llega a la tienda
     private void ActivateOutline()
@@ -255,6 +259,9 @@ public class MerchantController : Interactable
             // Reproduce la voz al inicio de cada frase
             PlayVoice();
 
+            // Activar la animación de hablar
+            animator.SetTrigger("Talk");
+
             // Mostrar cada frase en un chat bubble y guardar la referencia
             currentChatBubble = ChatBubble.Create(transform, new Vector3(-0.6f, 1.7f, 0f), phrase, destroyTime);
 
@@ -278,12 +285,16 @@ public class MerchantController : Interactable
             capsuleCollider.enabled = true;
         }
 
+        // Desactivar la animación de hablar después de que se hayan mostrado todas las frases
+        animator.ResetTrigger("Talk");
+
         // Activar el BoxCollider del objeto "Bell" después de mostrar todas las frases
         if (bellObject != null)
         {
             bellObject.GetComponent<BoxCollider>().enabled = true;
         }
     }
+
 
     // Método para reproducir la voz antes de cada frase
     private void PlayVoice()

@@ -63,6 +63,9 @@ public class CustomerController : Interactable
         customerStateHandler = GetComponent<CustomerStateHandler>();
         customerManager = GetComponent<ClientSOHolder>().ClientSO;
 
+        // Establecer la emoción inicial en Neutral
+        emotion = ChatBubble.IconType.Neutral;
+
         // Obtener el CharacterVoice
         characterVoice = GetComponent<CharacterVoice>();
 
@@ -71,6 +74,7 @@ public class CustomerController : Interactable
 
         SetState(State.Idle);
     }
+
 
     private void Start()
     {
@@ -100,6 +104,19 @@ public class CustomerController : Interactable
         {
             transform.rotation = Quaternion.LookRotation(navMeshAgent.velocity.normalized);
         }
+
+        if (navMeshAgent.velocity.sqrMagnitude > 0.1f)
+        {
+            // Si el cliente se está moviendo, activa la animación de caminar
+            animator.SetBool("Walk", true);
+            transform.rotation = Quaternion.LookRotation(navMeshAgent.velocity.normalized);
+        }
+        else
+        {
+            // Si el cliente está quieto, desactiva la animación de caminar
+            animator.SetBool("Walk", false);
+        }
+
     }
 
     private void SetState(State newState)
@@ -179,11 +196,19 @@ public class CustomerController : Interactable
     {
         if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance < 0.5f)
         {
+            // Cuando llega al punto de inicio, desactiva la animación de caminar
+            animator.SetBool("Walk", false);
             transform.rotation = startRotation;
             SetState(State.Idle);
             shouldGoToShop = false;
         }
+        else
+        {
+            // Si aún está caminando, asegúrate de que la animación de caminar esté activa
+            animator.SetBool("Walk", true);
+        }
     }
+
 
     public void InteractNPC()
     {
