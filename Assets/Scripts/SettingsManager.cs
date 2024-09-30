@@ -35,90 +35,12 @@ public class SettingsManager : MonoBehaviour
 
     private Dictionary<string, string> translationDictionary = new Dictionary<string, string>()
     {
-        // Diccionario de traducción ampliado
-        {"Play", "Jugar"},
-        {"Settings", "Configuración"},
-        {"Exit", "Salir"},
-        {"Graphics", "Gráficos"},
-        {"Audio", "Audio"},
-        {"Resolution", "Resolución"},
-        {"Quality", "Calidad"},
-        {"Low", "Bajo"},
-        {"Medium", "Medio"},
-        {"High", "Alto"},
-        {"Very High", "Muy Alto"},
-        {"Ultra", "Ultra"},
-        {"Custom", "Personalizado"},
-        {"Apply", "Aplicar"},
-        {"Back", "Atrás"},
-        {"Main Menu", "Menú Principal"},
-        {"Continue", "Continuar"},
-        {"New Game", "Nuevo Juego"},
-        {"Load Game", "Cargar Juego"},
-        {"Save Game", "Guardar Juego"},
-        {"Pause", "Pausa"},
-        {"Resume", "Reanudar"},
-        {"Quit", "Salir"},
-        {"Options", "Opciones"},
-        {"Help", "Ayuda"},
-        {"Credits", "Créditos"},
-        {"Tutorial", "Tutorial"},
-        {"Yes", "Sí"},
-        {"No", "No"},
-        {"OK", "Aceptar"},
-        {"Cancel", "Cancelar"},
-        {"Confirm", "Confirmar"},
-        {"Default", "Predeterminado"},
-        {"Fog", "Niebla"},
-        {"Bloom", "Brillo"},
-        {"Shadows", "Sombras"},
-        {"Antialiasing", "Antialiasing"},
-        {"VSync", "Sincronización Vertical"},
-        {"Textures", "Texturas"},
-        {"Shadows Quality", "Calidad de Sombras"},
-        {"Anti-Aliasing", "Anti-Aliasing"},
-        {"Anisotropic Filtering", "Filtrado Anisotrópico"},
-        {"Shadow Distance", "Distancia de Sombra"},
-        {"Ambient Occlusion", "Oclusión Ambiental"},
-        {"Motion Blur", "Desenfoque de Movimiento"},
-        {"Field of View", "Campo de Visión"},
-        {"Render Distance", "Distancia de Renderizado"},
-        {"Master Volume", "Volumen Maestro"},
-        {"Music Volume", "Volumen de Música"},
-        {"SFX Volume", "Volumen de Efectos"},
-        {"Voice Volume", "Volumen de Voces"},
-        {"Mute", "Silencio"},
-        {"Unmute", "Quitar Silencio"},
-        {"Audio Output", "Salida de Audio"},
-        {"Stereo", "Estéreo"},
-        {"Mono", "Mono"},
-        {"Surround", "Sonido Envolvente"},
-        {"Controls", "Controles"},
-        {"Sensitivity", "Sensibilidad"},
-        {"Invert Y-Axis", "Invertir Eje Y"},
-        {"Invert X-Axis", "Invertir Eje X"},
-        {"Mouse Sensitivity", "Sensibilidad del Ratón"},
-        {"Gamepad", "Gamepad"},
-        {"Keyboard", "Teclado"},
-        {"Mouse", "Ratón"},
-        {"Loading", "Cargando"},
-        {"Saving", "Guardando"},
-        {"Paused", "Pausado"},
-        {"Game Over", "Fin del Juego"},
-        {"Victory", "Victoria"},
-        {"Defeat", "Derrota"},
-        {"Warning", "Advertencia"},
-        {"Error", "Error"},
-        {"Success", "Éxito"},
-        {"Retry", "Reintentar"},
-        {"Next", "Siguiente"},
-        {"Previous", "Anterior"},
-        {"Select", "Seleccionar"},
-        {"Deselect", "Deseleccionar"},
-        {"Confirm Exit", "Confirmar Salida"},
-        {"Are you sure?", "¿Estás seguro?"},
-        {"Yes, Exit", "Sí, Salir"},
-        {"No, Stay", "No, Quedarme"}
+        {"Play", "Jugar"}, {"Settings", "Configuración"}, {"Exit", "Salir"},
+        {"Graphics", "Gráficos"}, {"Audio", "Audio"}, {"Resolution", "Resolución"},
+        {"Quality", "Calidad"}, {"Low", "Bajo"}, {"Medium", "Medio"}, {"High", "Alto"},
+        {"Master Volume", "Volumen Maestro"}, {"Music Volume", "Volumen de Música"},
+        {"SFX Volume", "Volumen de Efectos"}, {"Voice Volume", "Volumen de Voces"}
+        // ... Añade otras traducciones aquí
     };
 
     private void Awake()
@@ -141,6 +63,32 @@ public class SettingsManager : MonoBehaviour
 
     private void Start()
     {
+        // Verificar y conectar sliders a los eventos correctos
+        if (masterVolumeSlider != null)
+        {
+            masterVolumeSlider.onValueChanged.AddListener(SetMasterVolume);
+        }
+
+        if (musicVolumeSlider != null)
+        {
+            Debug.Log("Music Volume Slider is assigned.");
+            musicVolumeSlider.onValueChanged.AddListener(SetMusicVolume);
+        }
+        else
+        {
+            Debug.LogError("Music Volume Slider is NOT assigned!");
+        }
+
+        if (sfxVolumeSlider != null)
+        {
+            sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+        }
+
+        if (voiceVolumeSlider != null)
+        {
+            voiceVolumeSlider.onValueChanged.AddListener(SetVoiceVolume);
+        }
+
         // Configuración de calidad
         qualityDropdown.ClearOptions();
         qualityDropdown.AddOptions(new List<string>(QualitySettings.names));
@@ -151,15 +99,12 @@ public class SettingsManager : MonoBehaviour
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
         List<string> options = new List<string>();
-
         int currentResolutionIndex = 0;
         for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height + " @ " + resolutions[i].refreshRate + "Hz";
             options.Add(option);
-
-            if (resolutions[i].width == Screen.currentResolution.width &&
-                resolutions[i].height == Screen.currentResolution.height)
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
             {
                 currentResolutionIndex = i;
             }
@@ -175,7 +120,7 @@ public class SettingsManager : MonoBehaviour
         sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.75f);
         voiceVolumeSlider.value = PlayerPrefs.GetFloat("VoiceVolume", 0.75f);
 
-        // Llamada a funciones para aplicar configuraciones actuales
+        // Aplicar configuraciones actuales
         ApplyGraphicsSettings();
         SetResolution(currentResolutionIndex);
         SetMasterVolume(masterVolumeSlider.value);
@@ -187,12 +132,6 @@ public class SettingsManager : MonoBehaviour
         closeButton.onClick.AddListener(CloseSettings);
         resetButton.onClick.AddListener(ResetSettings);
         saveButton.onClick.AddListener(SaveSettings);
-
-        // Realizar traducción automática de textos si está activado
-        if (autoTranslateTexts)
-        {
-            TranslateAllTextsInScene();
-        }
     }
 
     // Función para aplicar configuración gráfica
@@ -215,60 +154,123 @@ public class SettingsManager : MonoBehaviour
     // Función para configurar el volumen maestro
     public void SetMasterVolume(float volume)
     {
+        Debug.Log("Master Volume Slider value: " + volume);
+
         if (audioMixer != null)
         {
-            audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+            if (volume <= 0.0001f)
+            {
+                audioMixer.SetFloat("MasterVolume", -80f);  // Silencio total
+                Debug.Log("Master volume set to -80dB (muted).");
+            }
+            else
+            {
+                float dbValue = Mathf.Log10(volume) * 20;
+                audioMixer.SetFloat("MasterVolume", dbValue);
+                Debug.Log("Master volume set to: " + dbValue + " dB.");
+            }
             PlayerPrefs.SetFloat("MasterVolume", volume);
+        }
+        else
+        {
+            Debug.LogError("AudioMixer is null!");
         }
     }
 
     // Función para configurar el volumen de la música
     public void SetMusicVolume(float volume)
     {
+        Debug.Log("Music Volume Slider value: " + volume);
+
         if (audioMixer != null)
         {
-            audioMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
+            if (volume <= 0.0001f)
+            {
+                audioMixer.SetFloat("MusicVolume", -80f);  // Silencio total
+                Debug.Log("Music volume set to -80dB (muted).");
+            }
+            else
+            {
+                float dbValue = Mathf.Log10(volume) * 20;
+                audioMixer.SetFloat("MusicVolume", dbValue);
+                Debug.Log("Music volume set to: " + dbValue + " dB.");
+            }
             PlayerPrefs.SetFloat("MusicVolume", volume);
+        }
+        else
+        {
+            Debug.LogError("AudioMixer is null!");
         }
     }
 
     // Función para configurar el volumen de los efectos de sonido
     public void SetSFXVolume(float volume)
     {
+        Debug.Log("SFX Volume Slider value: " + volume);
+
         if (audioMixer != null)
         {
-            audioMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
+            if (volume <= 0.0001f)
+            {
+                audioMixer.SetFloat("SFXVolume", -80f);  // Silencio total
+                Debug.Log("SFX volume set to -80dB (muted).");
+            }
+            else
+            {
+                float dbValue = Mathf.Log10(volume) * 20;
+                audioMixer.SetFloat("SFXVolume", dbValue);
+                Debug.Log("SFX volume set to: " + dbValue + " dB.");
+            }
             PlayerPrefs.SetFloat("SFXVolume", volume);
+        }
+        else
+        {
+            Debug.LogError("AudioMixer is null!");
         }
     }
 
     // Función para configurar el volumen de las voces
     public void SetVoiceVolume(float volume)
     {
+        Debug.Log("Voice Volume Slider value: " + volume);
+
         if (audioMixer != null)
         {
-            audioMixer.SetFloat("VoiceVolume", Mathf.Log10(volume) * 20);
+            if (volume <= 0.0001f)
+            {
+                audioMixer.SetFloat("VoiceVolume", -80f);  // Silencio total
+                Debug.Log("Voice volume set to -80dB (muted).");
+            }
+            else
+            {
+                float dbValue = Mathf.Log10(volume) * 20;
+                audioMixer.SetFloat("VoiceVolume", dbValue);
+                Debug.Log("Voice volume set to: " + dbValue + " dB.");
+            }
             PlayerPrefs.SetFloat("VoiceVolume", volume);
+        }
+        else
+        {
+            Debug.LogError("AudioMixer is null!");
         }
     }
 
     // Función para cerrar el menú de configuración
     public void CloseSettings()
     {
-        //this.gameObject.SetActive(false);
+        Debug.Log("Settings menu closed.");
+        // Puedes agregar lógica para cerrar el menú aquí
     }
 
     // Función para restablecer las configuraciones a los valores predeterminados
     public void ResetSettings()
     {
         qualityDropdown.value = QualitySettings.names.Length - 1;
-
         fogToggle.isOn = true;
         bloomToggle.isOn = true;
         shadowsToggle.isOn = true;
         antialiasingToggle.isOn = true;
         vsyncToggle.isOn = true;
-
         resolutionDropdown.value = resolutions.Length - 1;
 
         masterVolumeSlider.value = 0.75f;
@@ -293,12 +295,10 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetInt("ShadowsEnabled", shadowsToggle.isOn ? 1 : 0);
         PlayerPrefs.SetInt("AntialiasingEnabled", antialiasingToggle.isOn ? 1 : 0);
         PlayerPrefs.SetInt("VSyncEnabled", vsyncToggle.isOn ? 1 : 0);
-
         PlayerPrefs.SetInt("ResolutionIndex", resolutionDropdown.value);
-
         PlayerPrefs.Save();
 
-        Debug.Log("Configuraciones guardadas.");
+        Debug.Log("Settings saved.");
     }
 
     // Función para traducir todos los textos en la escena
@@ -311,7 +311,7 @@ public class SettingsManager : MonoBehaviour
             TranslateText(tmpText);
         }
     }
-   
+
     // Función que traduce el texto si está en inglés y existe en el diccionario
     private void TranslateText(TextMeshProUGUI tmpText)
     {

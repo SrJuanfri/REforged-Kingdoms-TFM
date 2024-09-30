@@ -6914,7 +6914,7 @@ MonoBehaviour:
   antialiasingToggle: {fileID: 152333431}
   vsyncToggle: {fileID: 144037734}
   resolutionDropdown: {fileID: 1391165633}
-  audioMixer: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: f73ef370bedc29a46a2fc91cb0fd4ec6, type: 2}
   masterVolumeSlider: {fileID: 1443134134}
   musicVolumeSlider: {fileID: 107359711}
   sfxVolumeSlider: {fileID: 1148452371}
