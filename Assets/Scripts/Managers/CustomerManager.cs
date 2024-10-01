@@ -56,15 +56,19 @@ public class CustomerManager : ScriptableObject
 
     private OrderData GetLastUncompletedOrder()
     {
-        for (int i = ordersData.Count - 1; i >= 0; i--)
+        // Recorre la lista de pedidos desde el principio hacia el final
+        for (int i = 0; i < ordersData.Count; i++)
         {
+            // Si el pedido no está completado, lo devuelve
             if (!ordersData[i].IsCompleted)
             {
                 return ordersData[i];
             }
         }
+        // Si no encuentra ningún pedido sin completar, devuelve null
         return null;
     }
+
 
     // Método para comprobar si la orden actual activa un evento
     private void CheckForEventActivation()

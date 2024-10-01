@@ -74,25 +74,53 @@ public class TW_MultiStrings_RandomPointer : MonoBehaviour
 
     public void NextString()
     {
-        start = true;
-        hasFinished = false;
-        сharIndex = 0;
-        time = 0f;
-        if (index_of_string + 1 < MultiStrings.Length)
+        // Si aún no se ha terminado de escribir la frase actual, la completamos
+        if (сharIndex < ORIGINAL_TEXT.Length)
         {
-            index_of_string++;
+            CompleteCurrentPhrase();
+            // Después de completar la frase, volvemos a llamar a NextString para procesar la siguiente
+            //NextString();
         }
         else
         {
-            index_of_string = 0;
-        }
-        ORIGINAL_TEXT = MultiStrings[index_of_string];
+            // Si ya está completa, seguimos con el comportamiento habitual de pasar a la siguiente frase
+            start = true;
+            hasFinished = false;
+            сharIndex = 0;
+            time = 0f;
+            if (index_of_string + 1 < MultiStrings.Length)
+            {
+                index_of_string++;
+            }
+            else
+            {
+                index_of_string = 0;
+            }
+            ORIGINAL_TEXT = MultiStrings[index_of_string];
 
-        // Si el audio ha terminado y aún hay texto, lo reiniciamos
-        if (!audioSource.isPlaying)
-        {
-            audioSource.Play();
+            // Si el audio ha terminado y aún hay texto, lo reiniciamos
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
         }
+    }
+
+    // Método para completar la frase actual instantáneamente
+    private void CompleteCurrentPhrase()
+    {
+        // Configuramos el índice del carácter al final del texto original para completar la frase
+        сharIndex = ORIGINAL_TEXT.Length;
+
+        // Mostrar inmediatamente la frase completa
+        gameObject.GetComponent<Text>().text = ORIGINAL_TEXT;
+
+        // Parar el sonido de escribir, ya que hemos terminado
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
     }
 
     public void LastString()
