@@ -355,6 +355,7 @@ public class CustomerController : Interactable
         {
             int itemValue = heldWeaponOrTool.value;
             List<ItemSO> coinsToInstantiate = GetCoinsForValue(itemValue);
+            Debug.Log(coinsToInstantiate.Count);
             if (coinsToInstantiate != null)
             {
                 foreach (ItemSO coin in coinsToInstantiate)
