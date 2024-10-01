@@ -103,7 +103,6 @@ public class CustomerPhraseManager : MonoBehaviour
     };
 
     // Método para obtener una frase de pedido basada en el estado del cliente, el ítem, el metal y la madera
-    // Método para obtener una frase de pedido basada en el estado del cliente, el ítem, el metal y la madera
     public string GetOrderPhrase(CustomerState state, string item, string metal, string wood)
     {
         var matchingPhrases = orderPhrases.FindAll(phrase => phrase.state == state);
@@ -117,7 +116,8 @@ public class CustomerPhraseManager : MonoBehaviour
             // Determinar el artículo correcto según el género del item
             string articulo = DeterminarArticulo(item);
 
-            // Reemplazar "un" o "una" en la frase con el artículo correcto antes del {item}
+            // Reemplazar cualquier "un" o "una" en la frase con el artículo correcto antes del {item}
+            // Esto asume que las frases tienen "un {item}" o "una {item}"
             if (phrase.Contains("un {item}"))
             {
                 phrase = phrase.Replace("un {item}", $"{articulo} {item}");
@@ -132,35 +132,15 @@ public class CustomerPhraseManager : MonoBehaviour
                 phrase = phrase.Replace("{item}", $"{articulo} {item}");
             }
 
-            // Comprobamos si hay metal o madera antes de reemplazar
-            if (!string.IsNullOrEmpty(metal))
-            {
-                phrase = phrase.Replace("{metal}", metal);
-            }
-            else
-            {
-                // Si no hay metal, eliminamos la referencia al metal
-                phrase = phrase.Replace(" de {metal}", "");
-                phrase = phrase.Replace("{metal}", "material desconocido");
-            }
-
-            if (!string.IsNullOrEmpty(wood))
-            {
-                phrase = phrase.Replace("{wood}", wood);
-            }
-            else
-            {
-                // Si no hay madera, eliminamos la referencia a la madera
-                phrase = phrase.Replace(" con mango de {wood}", "");
-                phrase = phrase.Replace("{wood}", "material desconocido");
-            }
+            // Reemplazar los marcadores de {metal} y {wood}
+            phrase = phrase.Replace("{metal}", metal);
+            phrase = phrase.Replace("{wood}", wood);
 
             return phrase;
         }
 
         return "No hay frases de pedido disponibles para los parámetros especificados.";
     }
-
 
 
     // Método para obtener una frase de despedida basada en el estado del cliente
