@@ -3,31 +3,32 @@ using TMPro;
 
 public class Newspaper : Interactable
 {
-    private ObjectGrabbable objectGrabbable;  // Para detectar si el periódico está siendo agarrado
-    private PlayerUI playerUI;  // Referencia a PlayerUI para actualizar los prompts
+    private ObjectGrabbable objectGrabbable;  // To detect if the newspaper is being grabbed
+    private PlayerUI playerUI;  // Reference to PlayerUI to update prompts
 
-    [SerializeField] private Transform firstChild;  // El primer hijo (vista normal del periódico)
-    [SerializeField] private Transform secondChild; // El segundo hijo (modo lectura del periódico)
-    [SerializeField] private Transform readPoint;   // Punto donde se moverá el conjunto cuando el segundo hijo esté activo (Asignado desde el Inspector)
-    [SerializeField] private TextMeshProUGUI eventInfoText;  // El componente TextMeshProUGUI para mostrar la información del evento
+    [SerializeField] private Transform firstChild;  // The first child (normal view of the newspaper)
+    [SerializeField] private Transform secondChild; // The second child (reading mode of the newspaper)
+    [SerializeField] private Transform readPoint;   // Point where the set will move when the second child is active (Assigned from the Inspector)
+    [SerializeField] private TextMeshProUGUI eventInfoText;  // TextMeshProUGUI component to display event information
 
-    private Transform originalParent;  // Guardar el padre original del periódico
-    private Vector3 originalPosition;  // Guardar la posición original
-    private Quaternion originalRotation;  // Guardar la rotación original
-    private bool isReading = false;  // Estado para saber si estamos leyendo el periódico
+    private Transform originalParent;  // Save the original parent of the newspaper
+    private Vector3 originalPosition;  // Save the original position
+    private Quaternion originalRotation;  // Save the original rotation
+    private bool isReading = false;  // State to know if we are reading the newspaper
+    private bool isGrabbed = false;  // Track if the newspaper is currently grabbed
 
     private void Awake()
     {
-        // Obtener el componente ObjectGrabbable desde los hijos del objeto padre
+        // Get the ObjectGrabbable component from the children of the parent object
         objectGrabbable = GetComponentInChildren<ObjectGrabbable>();
-        playerUI = FindObjectOfType<PlayerUI>();  // Obtener la referencia a PlayerUI
+        playerUI = FindObjectOfType<PlayerUI>();  // Get reference to PlayerUI
 
         if (objectGrabbable == null)
         {
             Debug.LogError("No ObjectGrabbable component found in children of " + gameObject.name);
         }
 
-        // Asegurarse de que el primer hijo está activo y el segundo hijo está desactivado al iniciar
+        // Ensure the first child is active and the second child is deactivated on start
         if (firstChild != null)
         {
             firstChild.gameObject.SetActive(true);
@@ -37,7 +38,7 @@ public class Newspaper : Interactable
             secondChild.gameObject.SetActive(false);
         }
 
-        // Guardar el padre, posición y rotación originales
+        // Save the original parent, position, and rotation
         originalParent = transform.parent;
         originalPosition = transform.localPosition;
         originalRotation = transform.localRotation;
@@ -45,13 +46,16 @@ public class Newspaper : Interactable
 
     private void Update()
     {
-        // Solo mostrar el prompt secundario si el periódico está siendo agarrado
+        // Only show secondary prompt if the newspaper is being grabbed
         if (objectGrabbable != null && objectGrabbable.IsBeingGrabbed())
         {
-            playerUI.UpdateSecondaryActionText(actionPrompt, actionKey);  // Mantener esta línea
+            if (!isReading)  // Show prompt only if not in reading mode
+            {
+                playerUI.UpdateSecondaryActionText(actionPrompt, actionKey);
+            }
 
-            // Solo detectar el primer frame en que se pulsa la tecla Q
-            if (Input.GetKeyDown(KeyCode.Q))  // Si se presiona la tecla de acción (por ejemplo, 'Q')
+            // Detect first frame where Q is pressed to toggle reading mode
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 ToggleReadingMode();
             }
@@ -67,50 +71,58 @@ public class Newspaper : Interactable
         return isReading;
     }
 
+    public void SetGrabbed(bool grabbed)
+    {
+        isGrabbed = grabbed;
+        Debug.Log("Newspaper grabbed state set to: " + isGrabbed);
+    }
+
+    public bool IsGrabbed()
+    {
+        return isGrabbed;
+    }
+
     private void ToggleReadingMode()
     {
         if (!isReading)
         {
-            // Si no estamos leyendo, activar el segundo hijo (modo lectura) y desactivar el primero
+            Debug.Log("Switching to reading mode.");
             firstChild.gameObject.SetActive(false);
             secondChild.gameObject.SetActive(true);
 
-            // Mover el padre bajo ReadPoint y resetear la posición y rotación
             transform.SetParent(readPoint);
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
 
-            actionPrompt = "Cerrar";  // Cambiar el prompt a "Cerrar"
+            actionPrompt = "Close";  // Change prompt to "Close"
         }
         else
         {
-            // Si estamos leyendo, activar el primer hijo y desactivar el segundo
+            Debug.Log("Switching out of reading mode.");
             firstChild.gameObject.SetActive(true);
             secondChild.gameObject.SetActive(false);
 
-            // Restablecer el transform original
             ResetToOriginalTransform();
-
-            actionPrompt = "Leer";  // Cambiar el prompt de nuevo a "Leer"
+            actionPrompt = "Read";  // Change prompt back to "Read"
         }
 
-        isReading = !isReading;  // Cambiar el estado de lectura
+        isReading = !isReading;
+        Debug.Log("Newspaper isReading state is now: " + isReading);
     }
 
-    // Método para restablecer el transform original
     public void ResetToOriginalTransform()
     {
-        transform.SetParent(originalParent);       // Restablecer el padre original
-        transform.localPosition = originalPosition;  // Restablecer la posición original
-        transform.localRotation = originalRotation;  // Restablecer la rotación original
+        transform.SetParent(originalParent);
+        transform.localPosition = originalPosition;
+        transform.localRotation = originalRotation;
+        Debug.Log("Newspaper reset to original position.");
     }
 
-    // Método para actualizar el texto del evento en el periódico
     public void UpdateEventInfo(string eventInfo)
     {
         if (eventInfoText != null)
         {
-            eventInfoText.text = eventInfo;  // Actualizar el texto con la información del evento
+            eventInfoText.text = eventInfo;
         }
     }
 
@@ -120,20 +132,22 @@ public class Newspaper : Interactable
         {
             if (objectGrabbable.IsBeingGrabbed())
             {
-                if (objectGrabbable.gameObject.layer != LayerMask.NameToLayer("Objects"))
+                if (!isReading)
                 {
-                    objectGrabbable.gameObject.layer = LayerMask.NameToLayer("Objects");
+                    Debug.Log("Dropping the newspaper.");
+                    objectGrabbable.Drop();
+                    SetGrabbed(false);
                 }
-                objectGrabbable.Drop();  // Soltar el periódico
-
+                else
+                {
+                    Debug.Log("Cannot drop the newspaper while reading.");
+                }
             }
             else
             {
-                objectGrabbable.Grab(transform);  // Agarrar el periódico
-                if (objectGrabbable.gameObject.layer != LayerMask.NameToLayer("IgnorePlayer"))
-                {
-                    objectGrabbable.gameObject.layer = LayerMask.NameToLayer("IgnorePlayer");
-                }
+                Debug.Log("Picking up the newspaper.");
+                objectGrabbable.Grab(transform);
+                SetGrabbed(true);
             }
         }
     }
