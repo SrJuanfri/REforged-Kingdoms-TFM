@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 public class PlaneGenerator : Interactable
 {
@@ -12,15 +11,21 @@ public class PlaneGenerator : Interactable
     public void AddPlane()
     {
         int value = craftingRecipeSO.designBasePrice; // Obtener el valor de la receta
-        
-        if ((registradora.moneyNumber >= value))
+
+        // Check if the player has enough money to purchase the recipe
+        if (registradora.moneyNumber >= value)
         {
-            recipeSelection.craftingRecipeSOListWeapons.Add(craftingRecipeSO);
+            // Use the new AddRecipe method to add the recipe to the list and update the UI
+            recipeSelection.AddRecipe(craftingRecipeSO);
             Debug.Log("Plano Añadido");
 
-            registradora.countText.text = (registradora.moneyNumber - value).ToString();
+            // Deduct the value of the recipe from the player's money and update the display
             registradora.moneyNumber -= value;
+            registradora.countText.text = registradora.moneyNumber.ToString();
         }
-        
+        else
+        {
+            Debug.Log("Not enough money to add this recipe.");
+        }
     }
 }
