@@ -40,6 +40,9 @@ public class CustomerController : Interactable
     [Header("Character Voice")]
     private CharacterVoice characterVoice;  // Referencia al script CharacterVoice
 
+    // Referencia a la burbuja de chat activa
+    private ChatBubble activeChatBubble;
+
     // Referencia al CapsuleCollider
     private CapsuleCollider capsuleCollider;
 
@@ -209,7 +212,6 @@ public class CustomerController : Interactable
         }
     }
 
-
     public void InteractNPC()
     {
         // Asegúrate de actualizar el sellText antes de interactuar
@@ -231,28 +233,38 @@ public class CustomerController : Interactable
             yield break; // Salir del coroutine si el texto es nulo o vacío
         }
 
-        // Desactiva el CapsuleCollider
+        // Desactivar el CapsuleCollider
         if (capsuleCollider != null)
         {
             capsuleCollider.enabled = false;
         }
 
-        // Reproducir la voz
+        // Reproducir la voz del cliente
         if (characterVoice != null)
         {
             characterVoice.PlayVoice();
         }
 
-        // Muestra el texto mientras reproduce la voz
-        ChatBubble.Create(transform, new Vector3(-0.6f, 1.7f, 0f), emotion, text);
+        // Crear la burbuja de chat
+        activeChatBubble = ChatBubble.Create(transform, new Vector3(-0.6f, 1.7f, 0f), emotion, text);
 
         // Esperar hasta que termine la frase
-        yield return new WaitForSeconds(text.Length * 0.1f);  // Ajustar la duración en función de la longitud del texto
+        yield return new WaitForSeconds(text.Length * 0.1f);  // Ajustar la duración según la longitud del texto
 
         // Reactivar el CapsuleCollider
         if (capsuleCollider != null)
         {
             capsuleCollider.enabled = true;
+        }
+    }
+
+    // Método para destruir la burbuja de chat cuando el cliente se va
+    public void DestroyChatBubble()
+    {
+        if (activeChatBubble != null)
+        {
+            Destroy(activeChatBubble);
+            activeChatBubble = null; // Resetear la referencia
         }
     }
 
@@ -557,6 +569,7 @@ public class CustomerController : Interactable
     {
         if (currentState == State.Shopping)
         {
+            DestroyChatBubble(); // Destruir la burbuja de chat cuando el cliente se va
             SetState(State.ReturnToStart);
         }
     }
