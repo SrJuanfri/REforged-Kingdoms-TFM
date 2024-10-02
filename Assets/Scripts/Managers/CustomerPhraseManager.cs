@@ -101,8 +101,6 @@ public class CustomerPhraseManager : MonoBehaviour
             "¡Qué desastre, no pienso regresar!"
         }},
     };
-
-    // Método para obtener una frase de pedido basada en el estado del cliente, el ítem, el metal y la madera
     public string GetOrderPhrase(CustomerState state, string item, string metal, string wood)
     {
         var matchingPhrases = orderPhrases.FindAll(phrase => phrase.state == state);
@@ -114,45 +112,34 @@ public class CustomerPhraseManager : MonoBehaviour
             string phrase = matchingPhrases[randomIndex].phrase;
 
             // Determinar el artículo correcto según el género del item
-            string articulo = DeterminarArticulo(item);
+            string articuloCorrecto = DeterminarArticulo(item);
 
-            // Reemplazar "un" o "una" en la frase con el artículo correcto antes del {item}
-            string lowerPhrase = phrase.ToLower();
-            string lowerItemPlaceholder = $"un {item.ToLower()}";
-            string lowerItemPlaceholder2 = $"una {item.ToLower()}";
+            // Asegurarse de que {item} siempre se reemplace correctamente
+            phrase = ReemplazarYCorregirArticulo(phrase, item, articuloCorrecto);
 
-            if (lowerPhrase.Contains(lowerItemPlaceholder))
-            {
-                phrase = phrase.Replace($"un {item}", $"{articulo} {item}");
-            }
-            else if (lowerPhrase.Contains(lowerItemPlaceholder2))
-            {
-                phrase = phrase.Replace($"una {item}", $"{articulo} {item}");
-            }
-            else
-            {
-                // Si no tiene un artículo explícito, solo reemplazamos el {item}
-                phrase = phrase.Replace("{item}", $"{articulo} {item}");
-            }
+            // Eliminar las frases que contienen "un/una metal desconocido" o "un/una madera desconocida"
+            phrase = EliminarFrasesDesconocidas(phrase, "metal");
+            phrase = EliminarFrasesDesconocidas(phrase, "madera");
 
-            // Eliminar la parte de la frase que contiene metal si está vacío
+            // Reemplazar los placeholders de {metal} y {wood}
             if (string.IsNullOrEmpty(metal))
             {
-                // Buscar la parte que incluye el artículo y el metal
-                phrase = phrase.Replace("un {metal}", "").Replace("una {metal}", "");
-                phrase = phrase.Replace("{metal}", ""); // Si no hay artículo
+                // Eliminar cualquier parte de la frase que contenga el artículo y el metal
+                phrase = phrase.Replace("un {metal}", "").Replace("una {metal}", "")
+                               .Replace("Un {metal}", "").Replace("Una {metal}", "")
+                               .Replace("{metal}", "");  // Si no hay artículo
             }
             else
             {
                 phrase = phrase.Replace("{metal}", metal);
             }
 
-            // Eliminar la parte de la frase que contiene madera si está vacío
             if (string.IsNullOrEmpty(wood))
             {
-                // Buscar la parte que incluye el artículo y la madera
-                phrase = phrase.Replace("un {wood}", "").Replace("una {wood}", "");
-                phrase = phrase.Replace("{wood}", ""); // Si no hay artículo
+                // Eliminar cualquier parte de la frase que contenga el artículo y la madera
+                phrase = phrase.Replace("un {wood}", "").Replace("una {wood}", "")
+                               .Replace("Un {wood}", "").Replace("Una {wood}", "")
+                               .Replace("{wood}", "");  // Si no hay artículo
             }
             else
             {
@@ -162,15 +149,72 @@ public class CustomerPhraseManager : MonoBehaviour
             // Limpiar espacios en blanco adicionales que puedan quedar
             phrase = phrase.Replace("  ", " ").Trim();
 
-            // Eliminar espacios adicionales antes de '{item}' si se eliminó un artículo
-            phrase = phrase.Replace("  ", " ").Trim();
-
             return phrase;
         }
 
         return "No hay frases de pedido disponibles para los parámetros especificados.";
     }
 
+    // Método para reemplazar y corregir el artículo antes de {item}, si es necesario
+    private string ReemplazarYCorregirArticulo(string phrase, string item, string articuloCorrecto)
+    {
+        // Crear una lista de posibles combinaciones de "un/una" y el item
+        string[] posiblesPlaceholders = { "{item}" };
+
+        foreach (string placeholder in posiblesPlaceholders)
+        {
+            if (phrase.Contains(placeholder))
+            {
+                // Verificar si ya existe un artículo antes del {item} y corregirlo si es incorrecto
+                phrase = CorregirArticulo(phrase, item, articuloCorrecto);
+
+                // Reemplazar el placeholder {item} con el artículo correcto y el item
+                phrase = phrase.Replace(placeholder, $"{articuloCorrecto} {item}");
+            }
+        }
+
+        return phrase;
+    }
+
+    // Método auxiliar para verificar y corregir el artículo antes del {item}
+    private string CorregirArticulo(string phrase, string item, string articuloCorrecto)
+    {
+        // Verificar si ya existe un artículo antes del {item} y si es incorrecto
+        string[] articulosIncorrectos = { "un", "una", "Un", "Una" };
+
+        foreach (string articulo in articulosIncorrectos)
+        {
+            // Si encuentra el artículo antes del {item}, lo reemplaza con el correcto
+            if (phrase.Contains($"{articulo} {item}"))
+            {
+                phrase = phrase.Replace($"{articulo} {item}", $"{articuloCorrecto} {item}");
+            }
+        }
+
+        return phrase;
+    }
+
+    // Método auxiliar para eliminar frases que contengan "un/una metal desconocido" o "un/una madera desconocida"
+    private string EliminarFrasesDesconocidas(string phrase, string material)
+    {
+        // Crear una lista de combinaciones posibles
+        string[] placeholders = new string[]
+        {
+        $"un {material} desconocido",
+        $"una {material} desconocida",
+        $"Un {material} desconocido",
+        $"Una {material} desconocida"
+        };
+
+        // Reemplazar todas las combinaciones encontradas
+        foreach (string placeholder in placeholders)
+        {
+            phrase = phrase.Replace(placeholder, "");
+        }
+
+        // Limpiar los espacios en blanco adicionales que puedan quedar
+        return phrase.Replace("  ", " ").Trim();
+    }
 
 
     // Método para obtener una frase de despedida basada en el estado del cliente

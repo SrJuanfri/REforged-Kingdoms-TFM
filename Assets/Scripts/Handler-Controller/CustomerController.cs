@@ -50,6 +50,9 @@ public class CustomerController : Interactable
 
     private DayProgressManager dayProgressManager; // Referencia al DayProgressManager
 
+    // Referencia al Rigidbody
+    private Rigidbody rb;
+
     public enum State
     {
         Idle,
@@ -79,6 +82,12 @@ public class CustomerController : Interactable
 
         // Obtener el CapsuleCollider del cliente
         capsuleCollider = GetComponent<CapsuleCollider>();
+
+        // Obtener el Rigidbody del objeto
+        rb = GetComponent<Rigidbody>();
+
+        // Asegurarse de que todas las rotaciones estén desbloqueadas al inicio
+        rb.constraints = RigidbodyConstraints.None;
 
         SetState(State.Idle);
     }
@@ -194,9 +203,22 @@ public class CustomerController : Interactable
     {
         if (player != null)
         {
+            // Bloquear todas las rotaciones mientras se está en UpdateShopping
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+
             Vector3 direction = (player.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+
+            // Solo aplica la rotación si la dirección ha cambiado significativamente
+            if (Quaternion.Angle(transform.rotation, lookRotation) > 10f) // Umbral para evitar pequeñas vibraciones
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+            }
+        }
+        else
+        {
+            // Desbloquear la rotación en el eje Y y mantener bloqueadas las rotaciones en X y Z
+            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         }
     }
 
@@ -595,6 +617,8 @@ public class CustomerController : Interactable
         // Si el cliente está en el estado de Shopping, proceder con la salida
         if (currentState == State.Shopping)
         {
+            // Desbloquear la rotación en el eje Y y mantener bloqueadas las rotaciones en X y Z
+            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             // Mostrar el texto de despedida si es el momento de irse
             UpdateEndText();
             DisplayFarewellText(); // Mostrar el texto de despedida
