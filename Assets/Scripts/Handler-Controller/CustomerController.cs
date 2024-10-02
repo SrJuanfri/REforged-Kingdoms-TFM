@@ -48,6 +48,8 @@ public class CustomerController : Interactable
     // Referencia al CapsuleCollider
     private CapsuleCollider capsuleCollider;
 
+    private DayProgressManager dayProgressManager; // Referencia al DayProgressManager
+
     public enum State
     {
         Idle,
@@ -67,6 +69,7 @@ public class CustomerController : Interactable
         navMeshAgent.speed = walkingSpeed;
         customerStateHandler = GetComponent<CustomerStateHandler>();
         customerManager = GetComponent<ClientSOHolder>().ClientSO;
+        dayProgressManager = FindObjectOfType<DayProgressManager>(); // Encuentra el DayProgressManager en la escena
 
         // Establecer la emoción inicial en Neutral
         emotion = ChatBubble.IconType.Neutral;
@@ -179,6 +182,12 @@ public class CustomerController : Interactable
     {
         animator.SetBool("Walk", false);
         transform.rotation = shopDestination.rotation;
+
+        // Aquí puedes registrar la asistencia al cliente
+        if (currentState == State.Shopping)
+        {
+            dayProgressManager.RecordClientAttendance(); // Registra la asistencia al cliente
+        }
     }
 
     private void UpdateShopping()
@@ -383,10 +392,12 @@ public class CustomerController : Interactable
             }
 
             customerStateHandler.UpdateIndicatorsAndState(heldWeaponOrTool.itemType.ToString(), "Bien Hecha");
+            dayProgressManager.RecordCorrectOrder();
         }
         else
         {
             ProcessNonMatchingItem(result);
+            dayProgressManager.RecordIncorrectOrder();
         }
 
         // Asumimos que tienes una lista de EventOrders en el CustomerManager

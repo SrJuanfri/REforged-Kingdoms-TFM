@@ -10,6 +10,7 @@ public class DayCycleManager : MonoBehaviour
     public float transitionTime = 2f;
     public GameObject transitionCanvas;
     public GameObject transitionTextDay;
+    public GameObject transitionTextSummaryDay;
 
     private float dayTimer;
     private DayNightController dayNightController;
@@ -23,6 +24,8 @@ public class DayCycleManager : MonoBehaviour
     [SerializeField] private IndicatorManager indicatorManager;  // Referencia al gestor de indicadores
     [SerializeField] private TextMeshProUGUI dayTextPauseMenu;
 
+    private DayProgressManager dayProgressManager; // Referencia al DayProgressManager
+
     private enum DayPhase
     {
         MerchantArrival,
@@ -35,6 +38,7 @@ public class DayCycleManager : MonoBehaviour
 
     private void Start()
     {
+        dayProgressManager = FindObjectOfType<DayProgressManager>(); // Encuentra el DayProgressManager en la escena
         firstDayNumber = dayNumber;
         dayTextPauseMenu.text = "Día: " + dayNumber;
 
@@ -159,6 +163,19 @@ public class DayCycleManager : MonoBehaviour
         dayTextPauseMenu.text = "Día: " + dayNumber.ToString();
         transitionTextDay.SetActive(true);
         transitionTextDay.GetComponent<TextMeshProUGUI>().text = "Día " + dayNumber.ToString();
+
+        // Obtener el progreso del día
+        var progress = dayProgressManager.GetCurrentProgress();
+        int clientsAttended = progress.Item1;
+        int correctOrders = progress.Item2;
+        int incorrectOrders = progress.Item3;
+
+        // Crear el resumen
+        transitionTextSummaryDay.GetComponent<TextMeshProUGUI>().text = $"Clientes atendidos: {clientsAttended}\n" +
+                           $"Pedidos correctos: {correctOrders}\n" +
+                           $"Pedidos incorrectos: {incorrectOrders}";
+
+
         GameObject fade = Initiate.Fade(Color.black, 1.0f);
         fade.transform.parent = transitionCanvas.transform;
         fade.transform.SetSiblingIndex(0);
