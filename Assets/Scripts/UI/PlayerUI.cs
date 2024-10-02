@@ -44,9 +44,22 @@ public class PlayerUI : MonoBehaviour
     // Método para actualizar la información adicional
     public void UpdateInfoText(string nameInfo, int valueInfo)
     {
-        infoName.text = nameInfo;
+        // Asignación capitalizando la primera letra
+        infoName.text = CapitalizeFirstLetter(nameInfo);
+
         infoValue.text = valueInfo.ToString();
     }
+
+    // Método para capitalizar la primera letra de una cadena
+    private string CapitalizeFirstLetter(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+            return text; // Retorna el texto sin cambios si es nulo o vacío
+
+        // Capitaliza la primera letra y concatena el resto de la cadena
+        return char.ToUpper(text[0]) + text.Substring(1);
+    }
+
 
     // Método para ocultar los prompts secundarios cuando no sean necesarios
     public void ClearSecondaryActionText()

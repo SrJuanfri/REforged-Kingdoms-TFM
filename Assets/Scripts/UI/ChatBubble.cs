@@ -149,8 +149,6 @@ public class ChatBubble : MonoBehaviour
         // Desactiva el icono si no es necesario
         iconSpriteRenderer.gameObject.SetActive(false);
     }
-
-
     private IEnumerator TypeText(string text)
     {
         textMeshPro.text = "";
@@ -178,16 +176,18 @@ public class ChatBubble : MonoBehaviour
             textMeshPro.ForceMeshUpdate();
             Vector2 textSize = textMeshPro.GetRenderedValues(false);
 
-            // Actualizar el tamaño del fondo según el texto
-            backgroundSpriteRenderer.size = textSize + padding;
+            // Solo actualizar el tamaño del fondo si el tamaño del texto ha cambiado
+            if (backgroundSpriteRenderer.size != textSize + padding)
+            {
+                backgroundSpriteRenderer.size = textSize + padding;
 
-            // Mantener el fondo alineado a la izquierda, con margen en ambos lados
-            backgroundSpriteRenderer.transform.localPosition = new Vector3((backgroundSpriteRenderer.size.x / 2f) - leftMargin, initialPosition.y, initialPosition.z);
+                // Mantener el fondo alineado a la izquierda, con margen en ambos lados
+                backgroundSpriteRenderer.transform.localPosition = new Vector3((backgroundSpriteRenderer.size.x / 2f) - leftMargin, initialPosition.y, initialPosition.z);
+            }
 
             yield return new WaitForSeconds(0.05f);  // Controla la velocidad del tipeo
         }
     }
-
 
     private Sprite GetIconSprite(IconType iconType)
     {

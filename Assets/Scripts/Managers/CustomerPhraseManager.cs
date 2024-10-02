@@ -116,15 +116,18 @@ public class CustomerPhraseManager : MonoBehaviour
             // Determinar el artículo correcto según el género del item
             string articulo = DeterminarArticulo(item);
 
-            // Reemplazar cualquier "un" o "una" en la frase con el artículo correcto antes del {item}
-            // Esto asume que las frases tienen "un {item}" o "una {item}"
-            if (phrase.Contains("un {item}"))
+            // Reemplazar "un" o "una" en la frase con el artículo correcto antes del {item}
+            string lowerPhrase = phrase.ToLower();
+            string lowerItemPlaceholder = $"un {item.ToLower()}";
+            string lowerItemPlaceholder2 = $"una {item.ToLower()}";
+
+            if (lowerPhrase.Contains(lowerItemPlaceholder))
             {
-                phrase = phrase.Replace("un {item}", $"{articulo} {item}");
+                phrase = phrase.Replace($"un {item}", $"{articulo} {item}");
             }
-            else if (phrase.Contains("una {item}"))
+            else if (lowerPhrase.Contains(lowerItemPlaceholder2))
             {
-                phrase = phrase.Replace("una {item}", $"{articulo} {item}");
+                phrase = phrase.Replace($"una {item}", $"{articulo} {item}");
             }
             else
             {
@@ -132,15 +135,42 @@ public class CustomerPhraseManager : MonoBehaviour
                 phrase = phrase.Replace("{item}", $"{articulo} {item}");
             }
 
-            // Reemplazar los marcadores de {metal} y {wood}
-            phrase = phrase.Replace("{metal}", metal);
-            phrase = phrase.Replace("{wood}", wood);
+            // Eliminar la parte de la frase que contiene metal si está vacío
+            if (string.IsNullOrEmpty(metal))
+            {
+                // Buscar la parte que incluye el artículo y el metal
+                phrase = phrase.Replace("un {metal}", "").Replace("una {metal}", "");
+                phrase = phrase.Replace("{metal}", ""); // Si no hay artículo
+            }
+            else
+            {
+                phrase = phrase.Replace("{metal}", metal);
+            }
+
+            // Eliminar la parte de la frase que contiene madera si está vacío
+            if (string.IsNullOrEmpty(wood))
+            {
+                // Buscar la parte que incluye el artículo y la madera
+                phrase = phrase.Replace("un {wood}", "").Replace("una {wood}", "");
+                phrase = phrase.Replace("{wood}", ""); // Si no hay artículo
+            }
+            else
+            {
+                phrase = phrase.Replace("{wood}", wood);
+            }
+
+            // Limpiar espacios en blanco adicionales que puedan quedar
+            phrase = phrase.Replace("  ", " ").Trim();
+
+            // Eliminar espacios adicionales antes de '{item}' si se eliminó un artículo
+            phrase = phrase.Replace("  ", " ").Trim();
 
             return phrase;
         }
 
         return "No hay frases de pedido disponibles para los parámetros especificados.";
     }
+
 
 
     // Método para obtener una frase de despedida basada en el estado del cliente
