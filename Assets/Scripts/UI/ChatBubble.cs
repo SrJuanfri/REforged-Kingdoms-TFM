@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ChatBubble : MonoBehaviour
 {
+    private static ChatBubble activeChatBubble;  // Guardar referencia a la burbuja de chat activa
 
     private void Awake()
     {
@@ -23,12 +24,22 @@ public class ChatBubble : MonoBehaviour
 
     public static ChatBubble Create(Transform parent, Vector3 localPosition, string text, float destroyTime = 6f)
     {
+        // Si ya existe una burbuja activa, destruirla antes de crear una nueva
+        if (activeChatBubble != null)
+        {
+            Destroy(activeChatBubble.gameObject);  // Destruye la burbuja anterior
+        }
+
+        // Crear una nueva burbuja de chat
         Transform chatBubbleTransform = Instantiate(GameAssets.i.pfChatBubble, parent);
         chatBubbleTransform.localPosition = localPosition;
 
         // Configurar la burbuja de chat
         ChatBubble chatBubble = chatBubbleTransform.GetComponent<ChatBubble>();
         chatBubble.Setup(text);
+
+        // Establecer la burbuja creada como la burbuja activa
+        activeChatBubble = chatBubble;
 
         // Destruir la burbuja después del tiempo especificado (o 6 segundos si no se pasa el valor)
         Destroy(chatBubbleTransform.gameObject, destroyTime);
@@ -37,20 +48,38 @@ public class ChatBubble : MonoBehaviour
         return chatBubble;
     }
 
-    // Método para crear una burbuja de chat con icono y un parámetro opcional para el tiempo de destrucción
     public static ChatBubble Create(Transform parent, Vector3 localPosition, IconType iconType, string text, float destroyTime = 6f)
     {
-        Debug.Log("chat bubble");
+        // Si ya existe una burbuja activa, destruirla antes de crear una nueva
+        if (activeChatBubble != null)
+        {
+            Destroy(activeChatBubble.gameObject);  // Destruye la burbuja anterior
+        }
+
+        // Crear una nueva burbuja de chat con icono
         Transform chatBubbleTransform = Instantiate(GameAssets.i.pfChatBubble, parent);
         chatBubbleTransform.localPosition = localPosition;
 
         // Configurar la burbuja de chat con icono
-        chatBubbleTransform.GetComponent<ChatBubble>().Setup(iconType, text);
+        ChatBubble chatBubble = chatBubbleTransform.GetComponent<ChatBubble>();
+        chatBubble.Setup(iconType, text);
+
+        // Establecer la burbuja creada como la burbuja activa
+        activeChatBubble = chatBubble;
 
         // Destruir la burbuja después del tiempo especificado (o 6 segundos si no se pasa el valor)
         Destroy(chatBubbleTransform.gameObject, destroyTime);
 
-        return chatBubbleTransform.GetComponent<ChatBubble>();
+        return chatBubble;
+    }
+
+    private void OnDestroy()
+    {
+        // Si la burbuja activa es esta, restablecer la referencia
+        if (activeChatBubble == this)
+        {
+            activeChatBubble = null;
+        }
     }
 
     public enum IconType

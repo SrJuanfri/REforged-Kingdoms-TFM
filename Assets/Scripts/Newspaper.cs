@@ -74,7 +74,7 @@ public class Newspaper : Interactable
     public void SetGrabbed(bool grabbed)
     {
         isGrabbed = grabbed;
-        Debug.Log("Newspaper grabbed state set to: " + isGrabbed);
+        //Debug.Log("Newspaper grabbed state set to: " + isGrabbed);
     }
 
     public bool IsGrabbed()

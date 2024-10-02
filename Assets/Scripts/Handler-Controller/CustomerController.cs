@@ -42,6 +42,8 @@ public class CustomerController : Interactable
 
     // Referencia a la burbuja de chat activa
     private ChatBubble activeChatBubble;
+    private string currentChatText; // Para almacenar el texto actual de la burbuja de chat
+    private bool isFarewellTextActive = false; // Indica si la burbuja contiene el texto de despedida
 
     // Referencia al CapsuleCollider
     private CapsuleCollider capsuleCollider;
@@ -224,7 +226,6 @@ public class CustomerController : Interactable
         }
     }
 
-
     private IEnumerator DisplayTextWithVoice(string text)
     {
         if (string.IsNullOrEmpty(text))
@@ -245,8 +246,9 @@ public class CustomerController : Interactable
             characterVoice.PlayVoice();
         }
 
-        // Crear la burbuja de chat
+        // Crear la burbuja de chat y guardar el texto actual
         activeChatBubble = ChatBubble.Create(transform, new Vector3(-0.6f, 1.7f, 0f), emotion, text);
+        currentChatText = text;
 
         // Esperar hasta que termine la frase
         yield return new WaitForSeconds(text.Length * 0.1f);  // Ajustar la duración según la longitud del texto
@@ -258,10 +260,10 @@ public class CustomerController : Interactable
         }
     }
 
-    // Método para destruir la burbuja de chat cuando el cliente se va
+    // Método para destruir la burbuja de chat si no es de despedida
     public void DestroyChatBubble()
     {
-        if (activeChatBubble != null)
+        if (activeChatBubble != null && !isFarewellTextActive)
         {
             Destroy(activeChatBubble);
             activeChatBubble = null; // Resetear la referencia
@@ -467,8 +469,20 @@ public class CustomerController : Interactable
     }
 
 
+    // Coroutine para esperar a que se escriba el texto completo si es de despedida
+    private IEnumerator WaitForFarewellTextToComplete()
+    {
+        // Una vez que el texto esté completamente escrito, podemos esperar un tiempo antes de destruir la burbuja
+        yield return new WaitForSeconds(6f); // Esperar 3 segundos adicionales o el tiempo que creas conveniente
+
+        // Destruir la burbuja y hacer que el cliente se vaya
+        DestroyChatBubble();
+        SetState(State.ReturnToStart);
+    }
+
     private void UpdateEndText()
     {
+        // Obtener la frase de despedida del CustomerPhraseManager
         endText = phraseManager.GetFarewellPhrase(customerStateHandler.GetCurrentCustomerState());
 
         if (string.IsNullOrEmpty(endText))
@@ -567,10 +581,35 @@ public class CustomerController : Interactable
 
     public void Leave()
     {
+        // Si el cliente está en el estado de Shopping, proceder con la salida
         if (currentState == State.Shopping)
         {
-            DestroyChatBubble(); // Destruir la burbuja de chat cuando el cliente se va
-            SetState(State.ReturnToStart);
+            // Mostrar el texto de despedida si es el momento de irse
+            UpdateEndText();
+            DisplayFarewellText(); // Mostrar el texto de despedida
+
+            // Verificar si la burbuja tiene el texto de despedida
+            if (currentChatText == endText)
+            {
+                isFarewellTextActive = true;
+                StartCoroutine(WaitForFarewellTextToComplete()); // Esperar a que el texto de despedida se complete antes de moverse
+            }
+            else
+            {
+                DestroyChatBubble(); // Destruir la burbuja si no es de despedida
+                SetState(State.ReturnToStart);
+            }
         }
     }
+
+    // Método para mostrar el texto de despedida
+    private void DisplayFarewellText()
+    {
+        if (!string.IsNullOrEmpty(endText))
+        {
+            StartCoroutine(DisplayTextWithVoice(endText));  // Mostrar la burbuja con el texto de despedida
+            currentChatText = endText; // Establecer el texto actual como el texto de despedida
+        }
+    }
+
 }

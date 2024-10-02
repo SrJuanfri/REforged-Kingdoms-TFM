@@ -67,12 +67,12 @@ public class PlayerPickUpDrop : MonoBehaviour
             // Case 2: If an object is already held, try to drop it
             else
             {
-                Debug.Log("Attempting to drop the object.");
+                //Debug.Log("Attempting to drop the object.");
 
                 // Check if the object being held is the newspaper
                 if (newspaper != null)
                 {
-                    Debug.Log("Currently holding the newspaper.");
+                    //Debug.Log("Currently holding the newspaper.");
 
                     // Prevent dropping the newspaper if it's in reading mode
                     if (newspaper.getIsReading())
@@ -83,7 +83,7 @@ public class PlayerPickUpDrop : MonoBehaviour
 
                     // Drop the newspaper if it's not being read
                     newspaper.SetGrabbed(false);
-                    Debug.Log("Dropped the newspaper.");
+                    //Debug.Log("Dropped the newspaper.");
                     objectGrabbable.Drop();  // Drop the held newspaper
                     objectGrabbable = null;  // Clear references
                     newspaper = null;  // Clear the newspaper reference
