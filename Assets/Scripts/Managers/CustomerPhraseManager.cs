@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CustomerPhraseManager : MonoBehaviour
@@ -101,7 +102,7 @@ public class CustomerPhraseManager : MonoBehaviour
             "¡Qué desastre, no pienso regresar!"
         }},
     };
-    public string GetOrderPhrase(CustomerState state, string item, string metal, string wood)
+    public string GetOrderPhrase(CustomerState state, string item, List<string> metals, List<string> woods)
     {
         var matchingPhrases = orderPhrases.FindAll(phrase => phrase.state == state);
         if (matchingPhrases.Count > 0)
@@ -122,29 +123,11 @@ public class CustomerPhraseManager : MonoBehaviour
             phrase = EliminarFrasesDesconocidas(phrase, "madera");
 
             // Reemplazar los placeholders de {metal} y {wood}
-            if (string.IsNullOrEmpty(metal))
-            {
-                // Eliminar cualquier parte de la frase que contenga el artículo y el metal
-                phrase = phrase.Replace("un {metal}", "").Replace("una {metal}", "")
-                               .Replace("Un {metal}", "").Replace("Una {metal}", "")
-                               .Replace("{metal}", "");  // Si no hay artículo
-            }
-            else
-            {
-                phrase = phrase.Replace("{metal}", metal);
-            }
+            string metalPhrase = FormatMaterialList(metals, "metal");
+            string woodPhrase = FormatMaterialList(woods, "wood");
 
-            if (string.IsNullOrEmpty(wood))
-            {
-                // Eliminar cualquier parte de la frase que contenga el artículo y la madera
-                phrase = phrase.Replace("un {wood}", "").Replace("una {wood}", "")
-                               .Replace("Un {wood}", "").Replace("Una {wood}", "")
-                               .Replace("{wood}", "");  // Si no hay artículo
-            }
-            else
-            {
-                phrase = phrase.Replace("{wood}", wood);
-            }
+            // Reemplazar {metal} y {wood} en la frase si existen metales o maderas
+            phrase = phrase.Replace("{metal}", metalPhrase).Replace("{wood}", woodPhrase);
 
             // Limpiar espacios en blanco adicionales que puedan quedar
             phrase = phrase.Replace("  ", " ").Trim();
@@ -154,6 +137,27 @@ public class CustomerPhraseManager : MonoBehaviour
 
         return "No hay frases de pedido disponibles para los parámetros especificados.";
     }
+
+    // Función auxiliar para formatear listas de materiales
+    private string FormatMaterialList(List<string> materials, string materialType)
+    {
+        if (materials == null || materials.Count == 0)
+        {
+            // No hay material, devuelve cadena vacía
+            return "";
+        }
+
+        if (materials.Count == 1)
+        {
+            // Solo hay un material
+            return materials[0];
+        }
+
+        // Formatear la lista separada por comas y agregar "y" antes del último material
+        string formattedList = string.Join(", ", materials.Take(materials.Count - 1)) + " y " + materials.Last();
+        return formattedList;
+    }
+
 
     // Método para reemplazar y corregir el artículo antes de {item}, si es necesario
     private string ReemplazarYCorregirArticulo(string phrase, string item, string articuloCorrecto)
@@ -203,7 +207,11 @@ public class CustomerPhraseManager : MonoBehaviour
         $"un {material} desconocido",
         $"una {material} desconocida",
         $"Un {material} desconocido",
-        $"Una {material} desconocida"
+        $"Una {material} desconocida",
+        $"de un {material} desconocido",
+        $"de una {material} desconocida",
+        $"De un {material} desconocido",
+        $"De una {material} desconocida"
         };
 
         // Reemplazar todas las combinaciones encontradas
@@ -215,6 +223,7 @@ public class CustomerPhraseManager : MonoBehaviour
         // Limpiar los espacios en blanco adicionales que puedan quedar
         return phrase.Replace("  ", " ").Trim();
     }
+
 
 
     // Método para obtener una frase de despedida basada en el estado del cliente

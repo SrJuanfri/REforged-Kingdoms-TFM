@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -481,14 +482,17 @@ public class CustomerController : Interactable
     {
         CraftingRecipeSO craftingRecipeSO = GetComponent<ClientSOHolder>().ClientSO.currentOrder.craftingRecipe;
         string item = craftingRecipeSO.outputItemSO.itemName;
-        Dictionary<string, string> materials = craftingRecipeSO.MaterialNames;
-        string metal = materials.ContainsKey("metal") ? materials["metal"] : "desconocido";
-        string wood = materials.ContainsKey("wood") ? materials["wood"] : "desconocido";
+
+        // Obtener los nombres de los materiales como listas
+        Dictionary<string, HashSet<string>> materials = craftingRecipeSO.MaterialNames;
+        List<string> metals = materials.ContainsKey("metals") ? materials["metals"].ToList() : new List<string> { "desconocido" };
+        List<string> woods = materials.ContainsKey("woods") ? materials["woods"].ToList() : new List<string> { "desconocido" };
 
         int currentOrderIndex = customerManager.ordersData.IndexOf(customerManager.currentOrder);
 
-        sellText = customerManager.GetEventPhraseForOrder(currentOrderIndex, item, metal, wood) ??
-                   phraseManager.GetOrderPhrase(customerStateHandler.GetCurrentCustomerState(), item, metal, wood);
+        // Usar las listas de metales y maderas en GetOrderPhrase
+        sellText = customerManager.GetEventPhraseForOrder(currentOrderIndex, item, metals, woods) ??
+                   phraseManager.GetOrderPhrase(customerStateHandler.GetCurrentCustomerState(), item, metals, woods);
 
         if (string.IsNullOrEmpty(sellText))
         {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Interaction : Interactable
@@ -25,23 +26,27 @@ public class Interaction : Interactable
     {
         // Obtener valores de CraftingRecipeSO
         string item = craftingRecipeSO.outputItemSO.itemName;
-        Dictionary<string, string> materials = craftingRecipeSO.MaterialNames;
-        string metal = materials.ContainsKey("metal") ? materials["metal"] : "desconocido";
-        string wood = materials.ContainsKey("wood") ? materials["wood"] : "desconocido";
 
-        // Obtener y asignar la frase de pedido
-        sellText = phraseManager.GetOrderPhrase(state, item, metal, wood);
+        // Obtener los nombres de los materiales como listas
+        Dictionary<string, HashSet<string>> materials = craftingRecipeSO.MaterialNames;
+        List<string> metals = materials.ContainsKey("metals") ? materials["metals"].ToList() : new List<string> { "desconocido" };
+        List<string> woods = materials.ContainsKey("woods") ? materials["woods"].ToList() : new List<string> { "desconocido" };
+
+        // Obtener y asignar la frase de pedido usando las listas de metales y maderas
+        sellText = phraseManager.GetOrderPhrase(state, item, metals, woods);
+
         // Obtener y asignar la frase de despedida
         endText = phraseManager.GetFarewellPhrase(state);
 
         // Actualizar orderText en CustomerManager
         CustomerManager customerManager = GetComponent<ClientSOHolder>().ClientSO;
-        
+
         if (customerManager.currentOrder != null)
         {
             customerManager.currentOrder.OrderText = sellText;
         }
     }
+
 
     public void InteractNPC()
     {

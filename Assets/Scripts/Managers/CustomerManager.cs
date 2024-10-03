@@ -89,7 +89,7 @@ public class CustomerManager : ScriptableObject
         }
     }
 
-    public string GetEventPhraseForOrder(int orderIndex, string item, string metal, string wood)
+    public string GetEventPhraseForOrder(int orderIndex, string item, List<string> metals, List<string> woods)
     {
         if (!hasEvent || eventOrders == null) return null;  // No hay frase de evento si hasEvent es false o eventOrders es null
 
@@ -98,15 +98,33 @@ public class CustomerManager : ScriptableObject
 
         if (eventOrder != null)
         {
+            // Formatear las listas de metales y maderas
+            string metalPhrase = FormatMaterialList(metals);
+            string woodPhrase = FormatMaterialList(woods);
+
             // Reemplazar los marcadores {item}, {metal}, {wood}
             return eventOrder.eventPhrase
                 .Replace("{item}", item)
-                .Replace("{metal}", metal)
-                .Replace("{wood}", wood);
+                .Replace("{metal}", metalPhrase)
+                .Replace("{wood}", woodPhrase);
         }
 
         return null;
     }
+
+    // Función auxiliar para formatear las listas de materiales
+    private string FormatMaterialList(List<string> materials)
+    {
+        if (materials == null || materials.Count == 0)
+            return "desconocido";
+
+        if (materials.Count == 1)
+            return materials[0];
+
+        // Si hay más de un material, separarlos por comas y agregar "y" antes del último
+        return string.Join(", ", materials.Take(materials.Count - 1)) + " y " + materials.Last();
+    }
+
 
     public void ActivateCustomerEvent(string eventName)
     {
