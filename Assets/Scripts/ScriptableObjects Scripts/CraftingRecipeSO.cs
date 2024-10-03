@@ -29,29 +29,30 @@ public class CraftingRecipeSO : ScriptableObject
     }
 
     // Propiedad para obtener los nombres de los materiales
-    public Dictionary<string, string> MaterialNames
+    public Dictionary<string, HashSet<string>> MaterialNames
     {
         get
         {
-            string metalName = "metal desconocido";
-            string woodName = "madera desconocida";
+            HashSet<string> metalNames = new HashSet<string>();
+            HashSet<string> woodNames = new HashSet<string>();
 
             foreach (var item in inputItemSOList)
             {
                 if (item.itemType == ItemSO.ItemType.Metal)
                 {
-                    metalName = item.itemName;
+                    metalNames.Add(item.itemName); // Añade si no está en el HashSet
                 }
                 else if (item.itemType == ItemSO.ItemType.Wood)
                 {
-                    woodName = item.itemName;
+                    woodNames.Add(item.itemName); // Añade si no está en el HashSet
                 }
             }
 
-            return new Dictionary<string, string> {
-                { "metal", metalName },
-                { "wood", woodName }
-            };
+            return new Dictionary<string, HashSet<string>> {
+            { "metals", metalNames },
+            { "woods", woodNames }
+        };
         }
     }
+
 }
