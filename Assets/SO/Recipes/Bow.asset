@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a639b3d6f45946a2a3297db3755bf, type: 3}
   m_Name: Bow
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: f5d320cc64f06e3489da871ca77b6292, type: 3}
-  inputItemSOList:
-  - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
-  - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
-  - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
-  outputItemSO: {fileID: 11400000, guid: 7313e262a1e845245a0ad49c59514c00, type: 2}
+  sprite: {fileID: 21300000, guid: d3c8fa2a6fc9f7643a403c93023c2e83, type: 3}
   isWeapon: 1
   designBasePrice: 5
+  materialCombinations:
+  - materials:
+    - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
+    - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
+    - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 7313e262a1e845245a0ad49c59514c00, type: 2}

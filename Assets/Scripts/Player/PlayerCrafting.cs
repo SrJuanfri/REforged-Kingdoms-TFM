@@ -61,15 +61,20 @@ public class PlayerCrafting : MonoBehaviour
                     raycastHit.collider.GetComponent<ItemGenerator>().itemSO.value);
                 playerUI.infoUI.SetActive(true);
             }
-            
+
             if (raycastHit.collider.GetComponent<PlaneGenerator>())
             {
-                //Update nombre y valor
-                
-                playerUI.UpdateInfoText(raycastHit.collider.GetComponent<PlaneGenerator>().craftingRecipeSO.outputItemSO.itemName, 
-                    raycastHit.collider.GetComponent<PlaneGenerator>().craftingRecipeSO.designBasePrice);
+                // Obtener el craftingRecipeSO del PlaneGenerator
+                var planeGenerator = raycastHit.collider.GetComponent<PlaneGenerator>();
+
+                // Obtener siempre la primera combinación de materiales
+                var selectedCombination = planeGenerator.craftingRecipeSO.materialCombinations[0];
+
+                // Actualizar la UI con el nombre y precio base del item de salida correspondiente
+                playerUI.UpdateInfoText(selectedCombination.outputItemSO.itemName, planeGenerator.craftingRecipeSO.designBasePrice);
                 playerUI.infoUI.SetActive(true);
             }
+
         }
     }
 

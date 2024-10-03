@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a639b3d6f45946a2a3297db3755bf, type: 3}
   m_Name: LongswordRecipe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: fc8feb73e24165a409ab8d209af83a4d, type: 3}
-  inputItemSOList:
-  - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
-  - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
-  - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
-  - {fileID: 11400000, guid: a47c2bc810c51b043bf1e56f0b99af5c, type: 2}
-  outputItemSO: {fileID: 11400000, guid: 96cfb7b23f47fb44f92ff9cf6fb1115a, type: 2}
+  sprite: {fileID: 21300000, guid: 76ce410c3ed475f42a8dce1b4b85cd52, type: 3}
   isWeapon: 1
   designBasePrice: 100
+  materialCombinations:
+  - materials:
+    - {fileID: 11400000, guid: a47c2bc810c51b043bf1e56f0b99af5c, type: 2}
+    - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
+    - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
+    - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 96cfb7b23f47fb44f92ff9cf6fb1115a, type: 2}

@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a639b3d6f45946a2a3297db3755bf, type: 3}
   m_Name: DaggerRecipe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: b8cdb06e0ade48343a4a7631cdbaec0e, type: 3}
-  inputItemSOList:
-  - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
-  - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
-  - {fileID: 11400000, guid: 8910d1b6bec3d8c4b8a3ffcd2d9f54d2, type: 2}
-  outputItemSO: {fileID: 11400000, guid: 83ecc6aab84ffa24a9fddc20c67f760f, type: 2}
+  sprite: {fileID: 21300000, guid: cd78273d8bd9b384ca78128f59e510c3, type: 3}
   isWeapon: 1
-  designBasePrice: 0
+  designBasePrice: 20
+  materialCombinations:
+  - materials:
+    - {fileID: 11400000, guid: 8910d1b6bec3d8c4b8a3ffcd2d9f54d2, type: 2}
+    - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
+    - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 83ecc6aab84ffa24a9fddc20c67f760f, type: 2}

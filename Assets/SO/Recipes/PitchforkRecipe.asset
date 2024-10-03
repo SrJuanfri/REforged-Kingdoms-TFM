@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a639b3d6f45946a2a3297db3755bf, type: 3}
   m_Name: PitchforkRecipe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: edbdbcc92d33bae42b32f48e2f0d6692, type: 3}
-  inputItemSOList:
-  - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
-  - {fileID: 11400000, guid: c912a77f742c800419f8af7f650cfaba, type: 2}
-  - {fileID: 11400000, guid: c912a77f742c800419f8af7f650cfaba, type: 2}
-  outputItemSO: {fileID: 11400000, guid: bf32dbb59f5b4364d9d4e7550ee745e6, type: 2}
+  sprite: {fileID: 21300000, guid: a522b22ab4d7b124ba75f3a35dd8ef3f, type: 3}
   isWeapon: 0
   designBasePrice: 40
+  materialCombinations:
+  - materials:
+    - {fileID: 11400000, guid: c912a77f742c800419f8af7f650cfaba, type: 2}
+    - {fileID: 11400000, guid: c912a77f742c800419f8af7f650cfaba, type: 2}
+    - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
+    outputItemSO: {fileID: 11400000, guid: bf32dbb59f5b4364d9d4e7550ee745e6, type: 2}

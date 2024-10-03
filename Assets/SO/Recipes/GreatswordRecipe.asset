@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a639b3d6f45946a2a3297db3755bf, type: 3}
   m_Name: GreatswordRecipe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 667f5004dfe7ebb43b73ac5b93630771, type: 3}
-  inputItemSOList:
-  - {fileID: 11400000, guid: ad6340ade1b32bc4e884ecf3128592ab, type: 2}
-  - {fileID: 11400000, guid: e8aa3d5e7d5c1af408a7bff152a28803, type: 2}
-  - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
-  - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
-  - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
-  outputItemSO: {fileID: 11400000, guid: 2efa085018f249049b765db4d4916744, type: 2}
+  sprite: {fileID: 21300000, guid: b231006f1c1b9f74494191f505c6c742, type: 3}
   isWeapon: 1
   designBasePrice: 150
+  materialCombinations:
+  - materials:
+    - {fileID: 11400000, guid: ad6340ade1b32bc4e884ecf3128592ab, type: 2}
+    - {fileID: 11400000, guid: e8aa3d5e7d5c1af408a7bff152a28803, type: 2}
+    - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
+    - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
+    - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 2efa085018f249049b765db4d4916744, type: 2}

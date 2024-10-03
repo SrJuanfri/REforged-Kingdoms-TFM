@@ -6,29 +6,42 @@ using UnityEngine;
 public class CraftingRecipeSO : ScriptableObject
 {
     public Sprite sprite;
-    public List<ItemSO> inputItemSOList;
-    public WeaponOrToolSO outputItemSO;
     public bool isWeapon;
 
     // Campo para el precio base del diseño
     public int designBasePrice;
 
-    // Propiedad para calcular el precio total
+    // Clase para contener las combinaciones de materiales y el item de salida específico
+    [System.Serializable]
+    public class MaterialCombination
+    {
+        public List<ItemSO> materials; // Lista de materiales
+        public WeaponOrToolSO outputItemSO; // Item de salida específico para esta combinación
+    }
+
+    // Lista de posibles combinaciones de materiales
+    [Tooltip("Cada entrada es una combinación de materiales posible con un item de salida específico.")]
+    public List<MaterialCombination> materialCombinations;  // Lista de combinaciones de materiales
+
+    // Propiedad para calcular el precio total basado en una combinación activa
     public int TotalPrice
     {
         get
         {
             int total = designBasePrice; // Incluir el precio base del diseño
-            foreach (var item in inputItemSOList)
+            if (materialCombinations.Count > 0)
             {
-                total += item.value;
+                // Se asume que estás calculando el precio de la primera combinación, pero puedes ajustarlo
+                foreach (var item in materialCombinations[0].materials)
+                {
+                    total += item.value;
+                }
             }
-            outputItemSO.value = total;
             return total;
         }
     }
 
-    // Propiedad para obtener los nombres de los materiales
+    // Propiedad para obtener los nombres de los materiales de la combinación activa
     public Dictionary<string, HashSet<string>> MaterialNames
     {
         get
@@ -36,23 +49,26 @@ public class CraftingRecipeSO : ScriptableObject
             HashSet<string> metalNames = new HashSet<string>();
             HashSet<string> woodNames = new HashSet<string>();
 
-            foreach (var item in inputItemSOList)
+            if (materialCombinations.Count > 0)
             {
-                if (item.itemType == ItemSO.ItemType.Metal)
+                // Utilizar la primera combinación como ejemplo (puedes ajustarlo según el uso en tu proyecto)
+                foreach (var item in materialCombinations[0].materials)
                 {
-                    metalNames.Add(item.itemName); // Añade si no está en el HashSet
-                }
-                else if (item.itemType == ItemSO.ItemType.Wood)
-                {
-                    woodNames.Add(item.itemName); // Añade si no está en el HashSet
+                    if (item.itemType == ItemSO.ItemType.Metal)
+                    {
+                        metalNames.Add(item.itemName); // Añade si no está en el HashSet
+                    }
+                    else if (item.itemType == ItemSO.ItemType.Wood)
+                    {
+                        woodNames.Add(item.itemName); // Añade si no está en el HashSet
+                    }
                 }
             }
 
             return new Dictionary<string, HashSet<string>> {
-            { "metals", metalNames },
-            { "woods", woodNames }
-        };
+                { "metals", metalNames },
+                { "woods", woodNames }
+            };
         }
     }
-
 }

@@ -341,11 +341,25 @@ public class CustomerController : Interactable
             return false; // No hay evento para este pedido
         }
 
+        // Obtener la combinación de materiales actual de la orden
+        CraftingRecipeSO craftingRecipeSO = customerManager.currentOrder.craftingRecipe;
+        int combinationIndex = customerManager.currentOrder.materialCombinationIndex;
+
+        // Verificar que el índice esté dentro de los límites de las combinaciones disponibles
+        if (combinationIndex < 0 || combinationIndex >= craftingRecipeSO.materialCombinations.Count)
+        {
+            Debug.LogError("Índice de combinación fuera de los límites en CheckEventOrderCompletion.");
+            return false;
+        }
+
+        // Obtener el item de salida correspondiente a la combinación seleccionada
+        WeaponOrToolSO expectedItem = craftingRecipeSO.materialCombinations[combinationIndex].outputItemSO;
+
         // Verificar si el ítem entregado es un arma
         bool isWeapon = heldWeaponOrTool.itemType == WeaponOrToolSO.ItemType.Weapon;
 
-        // Verificar si el tipo de ítem entregado coincide con el esperado en la orden
-        if (heldWeaponOrTool.itemType == customerManager.currentOrder.craftingRecipe.outputItemSO.itemType)
+        // Verificar si el tipo de ítem entregado coincide con el esperado en la combinación seleccionada
+        if (heldWeaponOrTool.itemType == expectedItem.itemType)
         {
             // Pedido completado correctamente con el ítem correcto
             customerManager.currentOrder.IsCompleted = true;
@@ -443,50 +457,72 @@ public class CustomerController : Interactable
 
     private void ProcessNonMatchingItem(ItemMatchResult result)
     {
+        // Obtener el CraftingRecipeSO de la orden actual
         CraftingRecipeSO craftingRecipeSO = GetComponent<ClientSOHolder>().ClientSO.currentOrder.craftingRecipe;
+
+        // Obtener el índice de la combinación de materiales especificado en OrderData
+        int combinationIndex = GetComponent<ClientSOHolder>().ClientSO.currentOrder.materialCombinationIndex;
+
+        // Verificar que el índice esté dentro de los límites
+        if (combinationIndex < 0 || combinationIndex >= craftingRecipeSO.materialCombinations.Count)
+        {
+            Debug.LogError("Índice de combinación fuera de los límites en ProcessNonMatchingItem.");
+            return;
+        }
+
+        // Obtener el item de salida correspondiente a la combinación
+        WeaponOrToolSO requestedItem = craftingRecipeSO.materialCombinations[combinationIndex].outputItemSO;
+
+        // Determinar el mensaje en función de las coincidencias
         if (result.TypeMatch && !result.MetalMatch && !result.WoodMatch)
         {
-            customerStateHandler.UpdateIndicatorsAndState(craftingRecipeSO.outputItemSO.itemType.ToString(), "Mal Hecha (Diseño y Material)");
+            customerStateHandler.UpdateIndicatorsAndState(requestedItem.itemType.ToString(), "Mal Hecha (Diseño y Material)");
         }
-        else if (result.TypeMatch && result.MetalMatch && !result.WoodMatch)
+        else if (result.TypeMatch && (result.MetalMatch || result.WoodMatch))
         {
-            customerStateHandler.UpdateIndicatorsAndState(craftingRecipeSO.outputItemSO.itemType.ToString(), "Mal Hecha (Material)");
-        }
-        else if (result.TypeMatch && !result.MetalMatch && result.WoodMatch)
-        {
-            customerStateHandler.UpdateIndicatorsAndState(craftingRecipeSO.outputItemSO.itemType.ToString(), "Mal Hecha (Material)");
-        }
-        else if (!result.TypeMatch && result.MetalMatch && !result.WoodMatch)
-        {
-            customerStateHandler.UpdateIndicatorsAndState(craftingRecipeSO.outputItemSO.itemType.ToString(), "Rechazada");
-        }
-        else if (!result.TypeMatch && !result.MetalMatch && result.WoodMatch)
-        {
-            customerStateHandler.UpdateIndicatorsAndState(craftingRecipeSO.outputItemSO.itemType.ToString(), "Rechazada");
-        }
-        else if (!result.TypeMatch && result.MetalMatch && result.WoodMatch)
-        {
-            customerStateHandler.UpdateIndicatorsAndState(craftingRecipeSO.outputItemSO.itemType.ToString(), "Rechazada");
-        }
-        else if (!result.TypeMatch && !result.MetalMatch && !result.WoodMatch)
-        {
-            customerStateHandler.UpdateIndicatorsAndState(craftingRecipeSO.outputItemSO.itemType.ToString(), "Rechazada");
+            customerStateHandler.UpdateIndicatorsAndState(requestedItem.itemType.ToString(), "Mal Hecha (Material)");
         }
         else
         {
-            Debug.Log("Unhandled combination of match results.");
+            customerStateHandler.UpdateIndicatorsAndState(requestedItem.itemType.ToString(), "Rechazada");
         }
     }
 
     public void UpdateSellText()
     {
+        // Obtener el CraftingRecipeSO de la orden actual
         CraftingRecipeSO craftingRecipeSO = GetComponent<ClientSOHolder>().ClientSO.currentOrder.craftingRecipe;
-        string item = craftingRecipeSO.outputItemSO.itemName;
 
-        // Obtener los nombres de los materiales como listas
-        Dictionary<string, HashSet<string>> materials = craftingRecipeSO.MaterialNames;
-        List<string> metals = materials.ContainsKey("metals") ? materials["metals"].ToList() : new List<string> { "desconocido" };
-        List<string> woods = materials.ContainsKey("woods") ? materials["woods"].ToList() : new List<string> { "desconocido" };
+        // Obtener el índice de la combinación de materiales especificado en OrderData
+        int combinationIndex = GetComponent<ClientSOHolder>().ClientSO.currentOrder.materialCombinationIndex;
+
+        // Verificar que el índice esté dentro de los límites de las combinaciones disponibles
+        if (combinationIndex < 0 || combinationIndex >= craftingRecipeSO.materialCombinations.Count)
+        {
+            Debug.LogError("Índice de combinación fuera de los límites en UpdateSellText!");
+            return;
+        }
+
+        // Obtener la combinación de materiales especificada (ahora usando la clase MaterialCombination)
+        List<ItemSO> selectedCombination = craftingRecipeSO.materialCombinations[combinationIndex].materials;
+
+        // Obtener el item de salida de la combinación seleccionada
+        string item = craftingRecipeSO.materialCombinations[combinationIndex].outputItemSO.itemName;
+
+        // Filtrar los metales y maderas de la combinación seleccionada
+        List<string> metals = selectedCombination
+            .Where(item => item.itemType == ItemSO.ItemType.Metal)
+            .Select(item => item.itemName)
+            .ToList();
+
+        List<string> woods = selectedCombination
+            .Where(item => item.itemType == ItemSO.ItemType.Wood)
+            .Select(item => item.itemName)
+            .ToList();
+
+        // Si no hay metales o maderas, poner "desconocido" como fallback
+        if (metals.Count == 0) metals.Add("desconocido");
+        if (woods.Count == 0) woods.Add("desconocida");
 
         int currentOrderIndex = customerManager.ordersData.IndexOf(customerManager.currentOrder);
 
@@ -499,6 +535,7 @@ public class CustomerController : Interactable
             Debug.LogError("sellText is null or empty in UpdateSellText!");
         }
 
+        // Actualizar el texto de la orden actual
         if (customerManager.currentOrder != null)
         {
             customerManager.currentOrder.OrderText = sellText;
@@ -598,14 +635,27 @@ public class CustomerController : Interactable
             return result;
         }
 
-        WeaponOrToolSO requestedItem = craftingRecipeSO.outputItemSO;
+        // Obtener el índice de la combinación de materiales especificado en la orden actual
+        int combinationIndex = GetComponent<ClientSOHolder>().ClientSO.currentOrder.materialCombinationIndex;
 
+        // Verificar que el índice esté dentro de los límites
+        if (combinationIndex < 0 || combinationIndex >= craftingRecipeSO.materialCombinations.Count)
+        {
+            Debug.LogError("Índice de combinación fuera de los límites.");
+            return result;
+        }
+
+        // Obtener el item solicitado correspondiente a la combinación actual
+        WeaponOrToolSO requestedItem = craftingRecipeSO.materialCombinations[combinationIndex].outputItemSO;
+
+        // Comparar el objeto que tiene el jugador con el item solicitado
         result.TypeMatch = heldWeaponOrTool.itemType == requestedItem.itemType;
         result.MetalMatch = heldWeaponOrTool.metal == requestedItem.metal;
         result.WoodMatch = heldWeaponOrTool.wood == requestedItem.wood;
 
         return result;
     }
+
 
     [Serializable]
     public class ItemMatchResult

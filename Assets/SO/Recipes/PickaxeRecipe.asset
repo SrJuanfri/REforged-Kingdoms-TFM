@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a639b3d6f45946a2a3297db3755bf, type: 3}
   m_Name: PickaxeRecipe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: e3082653968d5f64ea77f0d7bd0e4469, type: 3}
-  inputItemSOList:
-  - {fileID: 11400000, guid: 370525f19a810c347883f123cb282ba4, type: 2}
-  - {fileID: 11400000, guid: 8910d1b6bec3d8c4b8a3ffcd2d9f54d2, type: 2}
-  - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
-  outputItemSO: {fileID: 11400000, guid: a9aa8bdd0088f1a4fbdb1bc9d6d284aa, type: 2}
+  sprite: {fileID: 21300000, guid: aaae31e809ccb7e4a8ae837a13085e3f, type: 3}
   isWeapon: 0
   designBasePrice: 35
+  materialCombinations:
+  - materials:
+    - {fileID: 11400000, guid: 8910d1b6bec3d8c4b8a3ffcd2d9f54d2, type: 2}
+    - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
+    - {fileID: 11400000, guid: 370525f19a810c347883f123cb282ba4, type: 2}
+    outputItemSO: {fileID: 11400000, guid: a9aa8bdd0088f1a4fbdb1bc9d6d284aa, type: 2}

@@ -24,13 +24,37 @@ public class Interaction : Interactable
 
     public void SetCustomerState(CustomerState state)
     {
-        // Obtener valores de CraftingRecipeSO
-        string item = craftingRecipeSO.outputItemSO.itemName;
+        // Obtener el CraftingRecipeSO de la orden actual
+        CraftingRecipeSO craftingRecipeSO = GetComponent<ClientSOHolder>().ClientSO.currentOrder.craftingRecipe;
 
-        // Obtener los nombres de los materiales como listas
-        Dictionary<string, HashSet<string>> materials = craftingRecipeSO.MaterialNames;
-        List<string> metals = materials.ContainsKey("metals") ? materials["metals"].ToList() : new List<string> { "desconocido" };
-        List<string> woods = materials.ContainsKey("woods") ? materials["woods"].ToList() : new List<string> { "desconocido" };
+        // Obtener el índice de la combinación de materiales especificado en la orden actual
+        int combinationIndex = GetComponent<ClientSOHolder>().ClientSO.currentOrder.materialCombinationIndex;
+
+        // Verificar que el índice esté dentro de los límites de las combinaciones disponibles
+        if (combinationIndex < 0 || combinationIndex >= craftingRecipeSO.materialCombinations.Count)
+        {
+            Debug.LogError("Índice de combinación fuera de los límites en SetCustomerState.");
+            return;
+        }
+
+        // Obtener el item de salida y los materiales de la combinación seleccionada
+        var selectedCombination = craftingRecipeSO.materialCombinations[combinationIndex];
+        string item = selectedCombination.outputItemSO.itemName;
+
+        // Filtrar los metales y maderas de la combinación seleccionada
+        List<string> metals = selectedCombination.materials
+            .Where(material => material.itemType == ItemSO.ItemType.Metal)
+            .Select(material => material.itemName)
+            .ToList();
+
+        List<string> woods = selectedCombination.materials
+            .Where(material => material.itemType == ItemSO.ItemType.Wood)
+            .Select(material => material.itemName)
+            .ToList();
+
+        // Si no hay metales o maderas, usar "desconocido" como fallback
+        if (metals.Count == 0) metals.Add("desconocido");
+        if (woods.Count == 0) woods.Add("desconocido");
 
         // Obtener y asignar la frase de pedido usando las listas de metales y maderas
         sellText = phraseManager.GetOrderPhrase(state, item, metals, woods);
@@ -54,7 +78,7 @@ public class Interaction : Interactable
         animator.SetTrigger("Talk");
     }
 
-    public void SellNPC()
+    /*public void SellNPC()
     {
         Debug.Log("Sell");
 
@@ -106,6 +130,6 @@ public class Interaction : Interactable
         {
             Debug.Log("Faltan ítems para completar la receta.");
         }
-    }
+    }*/
 
 }

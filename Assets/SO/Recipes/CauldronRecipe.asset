@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a639b3d6f45946a2a3297db3755bf, type: 3}
   m_Name: CauldronRecipe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 1c6626a8000082e4a91d4f04c571e7f1, type: 3}
-  inputItemSOList:
-  - {fileID: 11400000, guid: 1626bace5f24d6d41bdca41e349d7668, type: 2}
-  - {fileID: 11400000, guid: 370525f19a810c347883f123cb282ba4, type: 2}
-  - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
-  outputItemSO: {fileID: 11400000, guid: 3222b84aa5a25ec48b83d12e770249c0, type: 2}
+  sprite: {fileID: 21300000, guid: bf9ea50f01cce8c42b4d52d9b64b162e, type: 3}
   isWeapon: 0
   designBasePrice: 30
+  materialCombinations:
+  - materials:
+    - {fileID: 11400000, guid: 1626bace5f24d6d41bdca41e349d7668, type: 2}
+    - {fileID: 11400000, guid: 370525f19a810c347883f123cb282ba4, type: 2}
+    - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 3222b84aa5a25ec48b83d12e770249c0, type: 2}

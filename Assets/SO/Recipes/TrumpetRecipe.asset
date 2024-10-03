@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a639b3d6f45946a2a3297db3755bf, type: 3}
   m_Name: TrumpetRecipe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 4cf3d93b49662374082836ee2454a2d8, type: 3}
-  inputItemSOList:
-  - {fileID: 11400000, guid: 233eaaf327dab6f499bdc9c9cd61559f, type: 2}
-  - {fileID: 11400000, guid: 233eaaf327dab6f499bdc9c9cd61559f, type: 2}
-  - {fileID: 11400000, guid: 233eaaf327dab6f499bdc9c9cd61559f, type: 2}
-  outputItemSO: {fileID: 11400000, guid: 2e8ecf3a710b1a74682b51010a5c9297, type: 2}
+  sprite: {fileID: 21300000, guid: 0209553a0634cc0499d3308618725179, type: 3}
   isWeapon: 0
   designBasePrice: 60
+  materialCombinations:
+  - materials:
+    - {fileID: 11400000, guid: 233eaaf327dab6f499bdc9c9cd61559f, type: 2}
+    - {fileID: 11400000, guid: 233eaaf327dab6f499bdc9c9cd61559f, type: 2}
+    - {fileID: 11400000, guid: 233eaaf327dab6f499bdc9c9cd61559f, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 2e8ecf3a710b1a74682b51010a5c9297, type: 2}

@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a639b3d6f45946a2a3297db3755bf, type: 3}
   m_Name: SawRecipe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: d9b3855df16a50344943543b0260a551, type: 3}
-  inputItemSOList:
-  - {fileID: 11400000, guid: e8aa3d5e7d5c1af408a7bff152a28803, type: 2}
-  - {fileID: 11400000, guid: 8910d1b6bec3d8c4b8a3ffcd2d9f54d2, type: 2}
-  - {fileID: 11400000, guid: e8aa3d5e7d5c1af408a7bff152a28803, type: 2}
-  outputItemSO: {fileID: 11400000, guid: f6e9bacc5fc46954882954554c491465, type: 2}
+  sprite: {fileID: 21300000, guid: f16f7f3bf08f16749a67eb73f53d2eb3, type: 3}
   isWeapon: 0
   designBasePrice: 30
+  materialCombinations:
+  - materials:
+    - {fileID: 11400000, guid: 8910d1b6bec3d8c4b8a3ffcd2d9f54d2, type: 2}
+    - {fileID: 11400000, guid: e8aa3d5e7d5c1af408a7bff152a28803, type: 2}
+    - {fileID: 11400000, guid: e8aa3d5e7d5c1af408a7bff152a28803, type: 2}
+    outputItemSO: {fileID: 11400000, guid: f6e9bacc5fc46954882954554c491465, type: 2}

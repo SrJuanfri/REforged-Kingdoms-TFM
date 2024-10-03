@@ -19,47 +19,69 @@ public class RecipeCrafting : Interactable
 
     public void Craft()
     {
-        //Debug.Log("Craft");
-
+        // Obtener los colliders de los objetos en el área de crafting
         Collider[] colliderArray = Physics.OverlapBox(transform.position + placeItemsAreaCollider.center,
             placeItemsAreaCollider.size, placeItemsAreaCollider.transform.rotation);
 
-        List<ItemSO> inputItemList = new List<ItemSO>(craftingRecipeSO.inputItemSOList);
-
+        // Lista para almacenar los objetos que serán consumidos (eliminados)
         List<GameObject> consumeItemGameObjectList = new List<GameObject>();
+
+        // Lista para almacenar los ItemSO detectados en el área
+        List<ItemSO> detectedItems = new List<ItemSO>();
 
         foreach (Collider collider in colliderArray)
         {
+            // Verificar si el collider tiene un componente ItemSOHolder
             if (collider.TryGetComponent(out ItemSOHolder itemSOHolder))
             {
-                if (inputItemList.Contains(itemSOHolder.itemSO))
+                detectedItems.Add(itemSOHolder.itemSO);
+                consumeItemGameObjectList.Add(collider.gameObject); // Agregar el objeto a eliminar si coincide con la receta
+            }
+        }
+
+        // Verificar si los items detectados coinciden exactamente con alguna de las combinaciones posibles
+        foreach (var combination in craftingRecipeSO.materialCombinations)
+        {
+            // Crear una copia de la lista de materiales para hacer la verificación
+            List<ItemSO> requiredItems = new List<ItemSO>(combination.materials);
+
+            // Eliminar de la lista de requeridos los items detectados que coincidan
+            foreach (var item in detectedItems)
+            {
+                if (requiredItems.Contains(item))
                 {
-                    inputItemList.Remove(itemSOHolder.itemSO);
-                    consumeItemGameObjectList.Add(collider.gameObject);
+                    requiredItems.Remove(item);
                 }
             }
-        }
 
-        if (inputItemList.Count == 0)
-        {
-            //Tenemos todos los items requeridos 
-
-            //Debug.Log("Yes");
-
-            Transform spawnedItemTransform = Instantiate(craftingRecipeSO.outputItemSO.prefab, itemSpawnPoint.position,
-                itemSpawnPoint.rotation);
-
-            // Guardamos el ItemSO del objeto instanciado como el último creado
-            lastCreatedItemSO = craftingRecipeSO.outputItemSO;
-
-            Instantiate(vfxSpawnItem, itemSpawnPoint.position, itemSpawnPoint.rotation);
-
-            foreach(GameObject consumeItemGameObject in consumeItemGameObjectList)
+            // Si todos los items requeridos fueron eliminados y no hay más items detectados, significa que tenemos exactamente los materiales necesarios
+            if (requiredItems.Count == 0 && detectedItems.Count == combination.materials.Count)
             {
-                Destroy(consumeItemGameObject);
+                // Usar el outputItemSO específico de la combinación
+                WeaponOrToolSO outputItem = combination.outputItemSO;
+
+                // Realizar el crafting
+                Transform spawnedItemTransform = Instantiate(outputItem.prefab, itemSpawnPoint.position,
+                    itemSpawnPoint.rotation);
+
+                // Guardar el ItemSO del objeto instanciado como el último creado
+                lastCreatedItemSO = outputItem;
+
+                // Instanciar efectos visuales
+                Instantiate(vfxSpawnItem, itemSpawnPoint.position, itemSpawnPoint.rotation);
+
+                // Destruir los objetos consumidos
+                foreach (GameObject consumeItemGameObject in consumeItemGameObjectList)
+                {
+                    Destroy(consumeItemGameObject);
+                }
+
+                return; // Salir del método una vez que el crafting ha sido exitoso
             }
         }
-        
+
+        // Si ninguna combinación coincide o hay materiales extra, mostrar un mensaje o indicar que faltan materiales
+        Debug.LogWarning("Faltan materiales o hay materiales extra. La combinación no es válida.");
     }
 
 

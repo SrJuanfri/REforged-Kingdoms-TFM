@@ -31,17 +31,42 @@ public class CustomerManager : ScriptableObject
     {
         currentOrder = GetLastUncompletedOrder();
 
-        if (currentOrder != null && price != null)
+        if (currentOrder != null)
         {
-            price.text = currentOrder.Price.ToString();
-        }
+            // Usar la combinación de materiales especificada en OrderData
+            int combinationIndex = currentOrder.materialCombinationIndex;
 
-        // Solo verificar eventos si hasEvent es true
-        if (hasEvent)
-        {
-            CheckForEventActivation();
+            // Verificar que el índice esté dentro de los límites de las combinaciones disponibles
+            if (combinationIndex >= 0 && combinationIndex < currentOrder.CraftingRecipe.materialCombinations.Count)
+            {
+                // Usar la combinación especificada (ahora como List<ItemSO>)
+                List<ItemSO> selectedCombination = currentOrder.CraftingRecipe.materialCombinations[combinationIndex].materials;
+
+                // Puedes usar selectedCombination como la combinación activa en otras partes del código.
+                // Ejemplo: Calcular el precio o actualizar la interfaz visual usando esta combinación
+                if (price != null)
+                {
+                    int totalPrice = currentOrder.CraftingRecipe.designBasePrice;
+                    foreach (var item in selectedCombination)
+                    {
+                        totalPrice += item.value;
+                    }
+                    price.text = totalPrice.ToString();
+                }
+            }
+            else
+            {
+                Debug.LogError("El índice de combinación en OrderData está fuera de los límites.");
+            }
+
+            // Solo verificar eventos si hasEvent es true
+            if (hasEvent)
+            {
+                CheckForEventActivation();
+            }
         }
     }
+
 
     // Método para cambiar la probabilidad
     public void SetAppearanceProbability(float newProbability)
@@ -209,6 +234,10 @@ public class OrderData
     public CustomerState customerState;
     public bool isCompleted;
     public int price;
+
+    // Agregar un campo para el índice de combinación de materiales
+    [Tooltip("Índice de la combinación de materiales que se usará para esta orden")]
+    public int materialCombinationIndex;
 
     // Propiedad para acceder a isCompleted
     public bool IsCompleted

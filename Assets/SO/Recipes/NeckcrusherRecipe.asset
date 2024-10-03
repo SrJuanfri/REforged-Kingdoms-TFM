@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8a639b3d6f45946a2a3297db3755bf, type: 3}
   m_Name: NeckcrusherRecipe
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 2d896431bd3a7e04fb76a5d0e1fdb8a3, type: 3}
-  inputItemSOList:
-  - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
-  - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
-  - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
-  - {fileID: 11400000, guid: 0a3be9fefc7300d49a0a5453beda364e, type: 2}
-  - {fileID: 11400000, guid: 6925e1bf04b1e5445921ce141d4a05ac, type: 2}
-  - {fileID: 11400000, guid: c912a77f742c800419f8af7f650cfaba, type: 2}
-  outputItemSO: {fileID: 11400000, guid: 11e69c0035d02634e853dd8ed2fb4df2, type: 2}
+  sprite: {fileID: 21300000, guid: 066f906d05fb812448de3f54caf9f455, type: 3}
   isWeapon: 1
   designBasePrice: 200
+  materialCombinations:
+  - materials:
+    - {fileID: 11400000, guid: 6925e1bf04b1e5445921ce141d4a05ac, type: 2}
+    - {fileID: 11400000, guid: c912a77f742c800419f8af7f650cfaba, type: 2}
+    - {fileID: 11400000, guid: 0a3be9fefc7300d49a0a5453beda364e, type: 2}
+    - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
+    - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
+    - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 11e69c0035d02634e853dd8ed2fb4df2, type: 2}
