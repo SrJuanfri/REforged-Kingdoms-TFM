@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fec0619ddc3a8954e9e797814c9e1e99, type: 3}
-  m_Name: MiniIronDagger
+  m_Name: MiniCopperDagger
   m_EditorClassIdentifier: 
   itemName: mini daga
   itemType: 0
-  inputItem: {fileID: 1199745710843566, guid: 2d9ad1108dc7d814aab17d17567a1cae, type: 3}
-  prefab: {fileID: 4601218379243718, guid: 2d9ad1108dc7d814aab17d17567a1cae, type: 3}
+  inputItem: {fileID: 1199745710843566, guid: 712c6768e37cc2a478bd83fdb435bf31, type: 3}
+  prefab: {fileID: 4601218379243718, guid: 712c6768e37cc2a478bd83fdb435bf31, type: 3}
   value: 10
-  metal: {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
+  metal: {fileID: 11400000, guid: 1626bace5f24d6d41bdca41e349d7668, type: 2}
   wood: {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
