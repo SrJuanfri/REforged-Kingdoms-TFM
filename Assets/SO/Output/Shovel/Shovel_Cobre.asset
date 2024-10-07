@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fec0619ddc3a8954e9e797814c9e1e99, type: 3}
+  m_Name: Shovel_Cobre
+  m_EditorClassIdentifier: 
+  itemName: pala
+  itemType: 1
+  inputItem: {fileID: 1109856461651676, guid: 03da7f14da0b26f499ba1f911a6c6c66, type: 3}
+  prefab: {fileID: 4586951856358392, guid: 03da7f14da0b26f499ba1f911a6c6c66, type: 3}
+  value: 10
+  metal: {fileID: 11400000, guid: 1626bace5f24d6d41bdca41e349d7668, type: 2}
+  wood: {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}

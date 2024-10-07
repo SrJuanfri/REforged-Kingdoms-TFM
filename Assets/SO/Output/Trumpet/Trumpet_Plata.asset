@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fec0619ddc3a8954e9e797814c9e1e99, type: 3}
+  m_Name: Trumpet_Plata
+  m_EditorClassIdentifier: 
+  itemName: trompeta
+  itemType: 1
+  inputItem: {fileID: 1209233278439172, guid: 39fa27ece0fcd3c47851881f0dc56cab, type: 3}
+  prefab: {fileID: 4816354726955980, guid: 39fa27ece0fcd3c47851881f0dc56cab, type: 3}
+  value: 30
+  metal: {fileID: 11400000, guid: e8aa3d5e7d5c1af408a7bff152a28803, type: 2}
+  wood: {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
