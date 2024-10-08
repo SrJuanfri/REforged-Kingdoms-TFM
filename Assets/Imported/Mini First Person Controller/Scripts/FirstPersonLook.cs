@@ -10,6 +10,7 @@ public class FirstPersonLook : MonoBehaviour
     Vector2 velocity;
     Vector2 frameVelocity;
 
+    Quaternion characterStartRotation; // Variable para almacenar la rotación inicial del personaje
 
     void Reset()
     {
@@ -21,6 +22,8 @@ public class FirstPersonLook : MonoBehaviour
     {
         // Lock the mouse cursor to the game screen.
         Cursor.lockState = CursorLockMode.Locked;
+        // Almacena la rotación inicial del personaje
+        characterStartRotation = character.localRotation;
     }
 
     void Update()
@@ -34,6 +37,8 @@ public class FirstPersonLook : MonoBehaviour
 
         // Rotate camera up-down and controller left-right from velocity.
         transform.localRotation = Quaternion.AngleAxis(-velocity.y, Vector3.right);
-        character.localRotation = Quaternion.AngleAxis(velocity.x, Vector3.up);
+
+        // Aplica la rotación del personaje relativa a su rotación inicial
+        character.localRotation = characterStartRotation * Quaternion.AngleAxis(velocity.x, Vector3.up);
     }
 }
