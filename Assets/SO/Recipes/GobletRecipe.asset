@@ -18,5 +18,29 @@ MonoBehaviour:
   materialCombinations:
   - materials:
     - {fileID: 11400000, guid: e8aa3d5e7d5c1af408a7bff152a28803, type: 2}
+    - {fileID: 11400000, guid: e8aa3d5e7d5c1af408a7bff152a28803, type: 2}
+    outputItemSO: {fileID: 11400000, guid: fa6cd4b1c7d10b44398fa41c801ac7e5, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: 233eaaf327dab6f499bdc9c9cd61559f, type: 2}
     - {fileID: 11400000, guid: 233eaaf327dab6f499bdc9c9cd61559f, type: 2}
     outputItemSO: {fileID: 11400000, guid: 2950b8c1b28fa2847845d0bd820d0da7, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: 0a3be9fefc7300d49a0a5453beda364e, type: 2}
+    - {fileID: 11400000, guid: 0a3be9fefc7300d49a0a5453beda364e, type: 2}
+    outputItemSO: {fileID: 11400000, guid: d8009789e309f354c9272e9969c24068, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
+    - {fileID: 11400000, guid: 0ff90616f46f7b54188060330f068879, type: 2}
+    outputItemSO: {fileID: 11400000, guid: cb2ed375016bd004392218d154fc808d, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: 1626bace5f24d6d41bdca41e349d7668, type: 2}
+    - {fileID: 11400000, guid: 1626bace5f24d6d41bdca41e349d7668, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 7cff33ed8e251f14594c22a65842d040, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: 370525f19a810c347883f123cb282ba4, type: 2}
+    - {fileID: 11400000, guid: 370525f19a810c347883f123cb282ba4, type: 2}
+    outputItemSO: {fileID: 11400000, guid: d749b2ca52c9bf94c951d871853fe6d2, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
+    - {fileID: 11400000, guid: 507a8a42d38953b4fb8e2b0533708c2d, type: 2}
+    outputItemSO: {fileID: 11400000, guid: b0657faefb12cc747a5568ec2d0da95d, type: 2}

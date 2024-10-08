@@ -19,4 +19,28 @@ MonoBehaviour:
   - materials:
     - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
     - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 403fcca02fa552b45b81b6e007be087f, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: 6ca1d4744cad7ba42be10ea91481033a, type: 2}
+    - {fileID: 11400000, guid: 6ca1d4744cad7ba42be10ea91481033a, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 8ff464efbb90dcf488daa4dc298c9f4c, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: ad6340ade1b32bc4e884ecf3128592ab, type: 2}
+    - {fileID: 11400000, guid: ad6340ade1b32bc4e884ecf3128592ab, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 50f99a45a8454894d97adffc3c2bb0e3, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: a47c2bc810c51b043bf1e56f0b99af5c, type: 2}
+    - {fileID: 11400000, guid: a47c2bc810c51b043bf1e56f0b99af5c, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 36135974f611216428fbf56d392fceed, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: 8910d1b6bec3d8c4b8a3ffcd2d9f54d2, type: 2}
+    - {fileID: 11400000, guid: 8910d1b6bec3d8c4b8a3ffcd2d9f54d2, type: 2}
     outputItemSO: {fileID: 11400000, guid: 63892bc58af0bbe4f941df9f7b7b3e96, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: c912a77f742c800419f8af7f650cfaba, type: 2}
+    - {fileID: 11400000, guid: c912a77f742c800419f8af7f650cfaba, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 66ae3ceb923c69f488775e74147ef6db, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: 6925e1bf04b1e5445921ce141d4a05ac, type: 2}
+    - {fileID: 11400000, guid: 6925e1bf04b1e5445921ce141d4a05ac, type: 2}
+    outputItemSO: {fileID: 11400000, guid: ece0760ce55885241b681fefd24cc32f, type: 2}

@@ -21,3 +21,33 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
     - {fileID: 11400000, guid: 38015f6ee0aa3914ba635e958b28c4ec, type: 2}
     outputItemSO: {fileID: 11400000, guid: 7313e262a1e845245a0ad49c59514c00, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: a47c2bc810c51b043bf1e56f0b99af5c, type: 2}
+    - {fileID: 11400000, guid: a47c2bc810c51b043bf1e56f0b99af5c, type: 2}
+    - {fileID: 11400000, guid: a47c2bc810c51b043bf1e56f0b99af5c, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 7e95f63ae134f8c4fa6941f47002a5b7, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: 6925e1bf04b1e5445921ce141d4a05ac, type: 2}
+    - {fileID: 11400000, guid: 6925e1bf04b1e5445921ce141d4a05ac, type: 2}
+    - {fileID: 11400000, guid: 6925e1bf04b1e5445921ce141d4a05ac, type: 2}
+    outputItemSO: {fileID: 11400000, guid: e2951175c2f7e4d4088d3ce776d1ee1f, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: 8910d1b6bec3d8c4b8a3ffcd2d9f54d2, type: 2}
+    - {fileID: 11400000, guid: 8910d1b6bec3d8c4b8a3ffcd2d9f54d2, type: 2}
+    - {fileID: 11400000, guid: 8910d1b6bec3d8c4b8a3ffcd2d9f54d2, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 17f5b044ce1d35f49a77fe2a3cb72c42, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: c912a77f742c800419f8af7f650cfaba, type: 2}
+    - {fileID: 11400000, guid: c912a77f742c800419f8af7f650cfaba, type: 2}
+    - {fileID: 11400000, guid: c912a77f742c800419f8af7f650cfaba, type: 2}
+    outputItemSO: {fileID: 11400000, guid: d125cf29f3dbe3c4fbbe9f6895ee1f40, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: ad6340ade1b32bc4e884ecf3128592ab, type: 2}
+    - {fileID: 11400000, guid: ad6340ade1b32bc4e884ecf3128592ab, type: 2}
+    - {fileID: 11400000, guid: ad6340ade1b32bc4e884ecf3128592ab, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 764ae47e27252dd40bdefddcd3ffb27a, type: 2}
+  - materials:
+    - {fileID: 11400000, guid: 6ca1d4744cad7ba42be10ea91481033a, type: 2}
+    - {fileID: 11400000, guid: 6ca1d4744cad7ba42be10ea91481033a, type: 2}
+    - {fileID: 11400000, guid: 6ca1d4744cad7ba42be10ea91481033a, type: 2}
+    outputItemSO: {fileID: 11400000, guid: 9db0d5cb611f86349b307f0164668c05, type: 2}
