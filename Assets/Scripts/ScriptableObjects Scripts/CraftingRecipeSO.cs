@@ -29,6 +29,7 @@ public class CraftingRecipeSO : ScriptableObject
         get
         {
             int total = designBasePrice; // Incluir el precio base del diseño
+            
             if (materialCombinations.Count > 0)
             {
                 // Se asume que estás calculando el precio de la primera combinación, pero puedes ajustarlo
