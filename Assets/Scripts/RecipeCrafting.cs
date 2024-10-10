@@ -13,20 +13,23 @@ public class RecipeCrafting : Interactable
     [SerializeField] private Transform itemSpawnPoint;
     [SerializeField] private Transform vfxSpawnItem;
     [HideInInspector] public CraftingRecipeSO craftingRecipeSO;
+    
+    public AudioSource audioSource; 
+    public AudioClip craftSound;
 
-    // Variable para almacenar el último objeto instanciado
+    // Variable para almacenar el Ãºltimo objeto instanciado
     private WeaponOrToolSO lastCreatedItemSO;
 
     public void Craft()
     {
-        // Obtener los colliders de los objetos en el área de crafting
+        // Obtener los colliders de los objetos en el Ã¡rea de crafting
         Collider[] colliderArray = Physics.OverlapBox(transform.position + placeItemsAreaCollider.center,
             placeItemsAreaCollider.size, placeItemsAreaCollider.transform.rotation);
 
-        // Lista para almacenar los objetos que serán consumidos (eliminados)
+        // Lista para almacenar los objetos que serÃ¡n consumidos (eliminados)
         List<GameObject> consumeItemGameObjectList = new List<GameObject>();
 
-        // Lista para almacenar los ItemSO detectados en el área
+        // Lista para almacenar los ItemSO detectados en el Ã¡rea
         List<ItemSO> detectedItems = new List<ItemSO>();
 
         foreach (Collider collider in colliderArray)
@@ -42,7 +45,7 @@ public class RecipeCrafting : Interactable
         // Verificar si los items detectados coinciden exactamente con alguna de las combinaciones posibles
         foreach (var combination in craftingRecipeSO.materialCombinations)
         {
-            // Crear una copia de la lista de materiales para hacer la verificación
+            // Crear una copia de la lista de materiales para hacer la verificaciÃ³n
             List<ItemSO> requiredItems = new List<ItemSO>(combination.materials);
 
             // Eliminar de la lista de requeridos los items detectados que coincidan
@@ -54,21 +57,22 @@ public class RecipeCrafting : Interactable
                 }
             }
 
-            // Si todos los items requeridos fueron eliminados y no hay más items detectados, significa que tenemos exactamente los materiales necesarios
+            // Si todos los items requeridos fueron eliminados y no hay mÃ¡s items detectados, significa que tenemos exactamente los materiales necesarios
             if (requiredItems.Count == 0 && detectedItems.Count == combination.materials.Count)
             {
-                // Usar el outputItemSO específico de la combinación
+                // Usar el outputItemSO especÃ­fico de la combinaciÃ³n
                 WeaponOrToolSO outputItem = combination.outputItemSO;
 
                 // Realizar el crafting
                 Transform spawnedItemTransform = Instantiate(outputItem.prefab, itemSpawnPoint.position,
                     itemSpawnPoint.rotation);
 
-                // Guardar el ItemSO del objeto instanciado como el último creado
+                // Guardar el ItemSO del objeto instanciado como el Ãºltimo creado
                 lastCreatedItemSO = outputItem;
 
                 // Instanciar efectos visuales
                 Instantiate(vfxSpawnItem, itemSpawnPoint.position, itemSpawnPoint.rotation);
+                audioSource.PlayOneShot(craftSound);
 
                 // Destruir los objetos consumidos
                 foreach (GameObject consumeItemGameObject in consumeItemGameObjectList)
@@ -76,16 +80,16 @@ public class RecipeCrafting : Interactable
                     Destroy(consumeItemGameObject);
                 }
 
-                return; // Salir del método una vez que el crafting ha sido exitoso
+                return; // Salir del mÃ©todo una vez que el crafting ha sido exitoso
             }
         }
 
-        // Si ninguna combinación coincide o hay materiales extra, mostrar un mensaje o indicar que faltan materiales
-        Debug.LogWarning("Faltan materiales o hay materiales extra. La combinación no es válida.");
+        // Si ninguna combinaciÃ³n coincide o hay materiales extra, mostrar un mensaje o indicar que faltan materiales
+        Debug.LogWarning("Faltan materiales o hay materiales extra. La combinaciÃ³n no es vÃ¡lida.");
     }
 
 
-    // Función para obtener el último ItemSO creado
+    // FunciÃ³n para obtener el Ãºltimo ItemSO creado
     public WeaponOrToolSO GetLastCreatedItem()
     {
         return lastCreatedItemSO;
@@ -93,7 +97,7 @@ public class RecipeCrafting : Interactable
     public List<ItemSO> GetItemsInCollider()
     {
         //Debug.Log("GetItemsInCollider");
-        // Usamos Physics.OverlapBox para detectar todos los colliders en el área del BoxCollider
+        // Usamos Physics.OverlapBox para detectar todos los colliders en el Ã¡rea del BoxCollider
         Collider[] colliderArray = Physics.OverlapBox(transform.position + placeItemsAreaCollider.center,
     placeItemsAreaCollider.size, placeItemsAreaCollider.transform.rotation);
 
@@ -106,7 +110,7 @@ public class RecipeCrafting : Interactable
             // Comprobamos si el objeto tiene un componente ItemSOHolder
             if (collider.TryGetComponent(out ItemSOHolder itemSOHolder))
             {
-                // Añadimos el ItemSO a la lista
+                // AÃ±adimos el ItemSO a la lista
                 itemList.Add(itemSOHolder.itemSO);
             }
         }
