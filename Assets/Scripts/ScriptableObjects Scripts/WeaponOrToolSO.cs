@@ -27,6 +27,6 @@ public class WeaponOrToolSO : ScriptableObject
     public int value;
 
     // Materiales utilizados en la creación del arma o herramienta
-    public ItemSO metal;
-    public ItemSO wood;
+    //public ItemSO metal;
+    //public ItemSO wood;
 }

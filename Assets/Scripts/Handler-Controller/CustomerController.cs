@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -415,7 +416,7 @@ public class CustomerController : Interactable
         {
             int itemValue = heldWeaponOrTool.value;
             List<ItemSO> coinsToInstantiate = GetCoinsForValue(itemValue);
-            Debug.Log(coinsToInstantiate.Count);
+            //Debug.Log(coinsToInstantiate.Count);
             if (coinsToInstantiate != null)
             {
                 foreach (ItemSO coin in coinsToInstantiate)
@@ -433,7 +434,7 @@ public class CustomerController : Interactable
         }
         else
         {
-            ProcessNonMatchingItem(result);
+            ProcessNonMatchingItem(result, heldWeaponOrTool);
             dayProgressManager.RecordIncorrectOrder();
         }
 
@@ -455,8 +456,9 @@ public class CustomerController : Interactable
         Leave();
     }
 
-    private void ProcessNonMatchingItem(ItemMatchResult result)
+    private void ProcessNonMatchingItem(ItemMatchResult result, WeaponOrToolSO heldWeaponOrTool)
     {
+        int itemValue = heldWeaponOrTool.value;
         // Obtener el CraftingRecipeSO de la orden actual
         CraftingRecipeSO craftingRecipeSO = GetComponent<ClientSOHolder>().ClientSO.currentOrder.craftingRecipe;
 
@@ -474,18 +476,55 @@ public class CustomerController : Interactable
         WeaponOrToolSO requestedItem = craftingRecipeSO.materialCombinations[combinationIndex].outputItemSO;
 
         // Determinar el mensaje en función de las coincidencias
-        if (result.TypeMatch && !result.MetalMatch && !result.WoodMatch)
+        if (result.TypeMatch && !result.PrefabMatch)
         {
-            customerStateHandler.UpdateIndicatorsAndState(requestedItem.itemType.ToString(), "Mal Hecha (Diseño y Material)");
-        }
-        else if (result.TypeMatch && (result.MetalMatch || result.WoodMatch))
-        {
+            // Si coincide el diseño (tipo) pero no el material
             customerStateHandler.UpdateIndicatorsAndState(requestedItem.itemType.ToString(), "Mal Hecha (Material)");
+            itemValue = (int)Math.Round(heldWeaponOrTool.value / 1.5f, MidpointRounding.ToEven);
+
+        }
+        else if (!result.TypeMatch && result.PrefabMatch)
+        {
+            // Si coincide el material pero el tipo (diseño) es incorrecto
+            customerStateHandler.UpdateIndicatorsAndState(requestedItem.itemType.ToString(), "Mal Hecha (Diseño)");
+            itemValue = (int)Math.Round(heldWeaponOrTool.value / 2f, MidpointRounding.ToEven);
+        }
+        else if (!result.TypeMatch && !result.PrefabMatch)
+        {
+            // Si no coinciden ni el diseño ni el material
+            customerStateHandler.UpdateIndicatorsAndState(requestedItem.itemType.ToString(), "Mal Hecha (Diseño y Material)");
+            itemValue = (int)Math.Round(heldWeaponOrTool.value / 3f, MidpointRounding.ToEven);
         }
         else
         {
+            // En cualquier otro caso, se rechaza
             customerStateHandler.UpdateIndicatorsAndState(requestedItem.itemType.ToString(), "Rechazada");
         }
+
+        List<ItemSO> coinsToInstantiate = GetCoinsForValue(itemValue);
+        //Debug.Log(coinsToInstantiate.Count);
+        if (coinsToInstantiate != null)
+        {
+            foreach (ItemSO coin in coinsToInstantiate)
+            {
+                Instantiate(coin.prefab, itemSpawnPoint.position, itemSpawnPoint.rotation);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No coins found for value: " + itemValue);
+        }
+    }
+
+    public void rechazar()
+    {
+        // Obtener el CraftingRecipeSO de la orden actual
+        CraftingRecipeSO craftingRecipeSO = GetComponent<ClientSOHolder>().ClientSO.currentOrder.craftingRecipe;
+        // Obtener el índice de la combinación de materiales especificado en OrderData
+        int combinationIndex = GetComponent<ClientSOHolder>().ClientSO.currentOrder.materialCombinationIndex;
+        // Obtener el item de salida correspondiente a la combinación
+        WeaponOrToolSO requestedItem = craftingRecipeSO.materialCombinations[combinationIndex].outputItemSO;
+        customerStateHandler.UpdateIndicatorsAndState(requestedItem.itemType.ToString(), "Rechazada");
     }
 
     public void UpdateSellText()
@@ -648,10 +687,14 @@ public class CustomerController : Interactable
         // Obtener el item solicitado correspondiente a la combinación actual
         WeaponOrToolSO requestedItem = craftingRecipeSO.materialCombinations[combinationIndex].outputItemSO;
 
-        // Comparar el objeto que tiene el jugador con el item solicitado
-        result.TypeMatch = heldWeaponOrTool.itemType == requestedItem.itemType;
-        result.MetalMatch = heldWeaponOrTool.metal == requestedItem.metal;
-        result.WoodMatch = heldWeaponOrTool.wood == requestedItem.wood;
+        // Comparar el tipo de item usando itemName en minúsculas y sin espacios
+        string heldItemName = heldWeaponOrTool.itemName.Replace(" ", "").ToLower();
+        string requestedItemName = requestedItem.itemName.Replace(" ", "").ToLower();
+
+        result.TypeMatch = heldItemName == requestedItemName;
+
+        // Comparar si el prefab que sostiene el jugador es una instancia exacta del prefab solicitado
+        result.PrefabMatch = GameObject.ReferenceEquals(heldWeaponOrTool.prefab, requestedItem.prefab);
 
         return result;
     }
@@ -661,10 +704,12 @@ public class CustomerController : Interactable
     public class ItemMatchResult
     {
         public bool TypeMatch { get; set; }
-        public bool MetalMatch { get; set; }
-        public bool WoodMatch { get; set; }
-        public bool AllMatch => TypeMatch && MetalMatch && WoodMatch;
+        public bool PrefabMatch { get; set; }
+
+        // El resultado completo será verdadero solo si coinciden el tipo y el prefab
+        public bool AllMatch => TypeMatch && PrefabMatch;
     }
+
 
     public void Leave()
     {
