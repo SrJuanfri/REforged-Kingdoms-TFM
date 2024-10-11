@@ -544,6 +544,8 @@ MonoBehaviour:
   secondChild: {fileID: 6689439195861325219}
   readPoint: {fileID: 0}
   eventInfoText: {fileID: 0}
+  audioSource: {fileID: 0}
+  newspaperClip: {fileID: 0}
 --- !u!1001 &497099491097838375
 PrefabInstance:
   m_ObjectHideFlags: 0
