@@ -10,12 +10,16 @@ public class Newspaper : Interactable
     [SerializeField] private Transform secondChild; // The second child (reading mode of the newspaper)
     [SerializeField] private Transform readPoint;   // Point where the set will move when the second child is active (Assigned from the Inspector)
     [SerializeField] private TextMeshProUGUI eventInfoText;  // TextMeshProUGUI component to display event information
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip newspaperClip;
+    
 
     private Transform originalParent;  // Save the original parent of the newspaper
     private Vector3 originalPosition;  // Save the original position
     private Quaternion originalRotation;  // Save the original rotation
     private bool isReading = false;  // State to know if we are reading the newspaper
     private bool isGrabbed = false;  // Track if the newspaper is currently grabbed
+    
 
     private void Awake()
     {
@@ -57,6 +61,7 @@ public class Newspaper : Interactable
             // Detect first frame where Q is pressed to toggle reading mode
             if (Input.GetKeyDown(KeyCode.Q))
             {
+                audioSource.PlayOneShot(newspaperClip);
                 ToggleReadingMode();
             }
         }
