@@ -201,7 +201,7 @@ public class CustomerPhraseManager : MonoBehaviour
     // Método auxiliar para eliminar frases que contengan "un/una metal desconocido" o "un/una madera desconocida"
     private string EliminarFrasesDesconocidas(string phrase, string material)
     {
-        // Crear una lista de combinaciones posibles
+        // Crear una lista de combinaciones posibles, incluyendo los casos solicitados
         string[] placeholders = new string[]
         {
         $"un {material} desconocido",
@@ -211,7 +211,19 @@ public class CustomerPhraseManager : MonoBehaviour
         $"de un {material} desconocido",
         $"de una {material} desconocida",
         $"De un {material} desconocido",
-        $"De una {material} desconocida"
+        $"De una {material} desconocida",
+        "de desconocido",
+        "de desconocida",
+        "De desconocido",
+        "De desconocida",
+        "un desconocido",
+        "una desconocida",
+        "Un desconocido",
+        "Una desconocida",
+        "un desconocida", // Errores tipográficos
+        "una desconocido",
+        "Un desconocida",
+        "Una desconocido"
         };
 
         // Reemplazar todas las combinaciones encontradas
@@ -223,6 +235,7 @@ public class CustomerPhraseManager : MonoBehaviour
         // Limpiar los espacios en blanco adicionales que puedan quedar
         return phrase.Replace("  ", " ").Trim();
     }
+
 
 
 

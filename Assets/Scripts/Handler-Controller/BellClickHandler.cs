@@ -35,7 +35,9 @@ public class BellClickHandler : Interactable
         {
             if (customerController != null && customerController.currentState == CustomerController.State.Shopping)
             {
+                customerController.rechazar();
                 customerController.Leave();
+
                 break; // Solo un cliente a la vez
             }
         }
