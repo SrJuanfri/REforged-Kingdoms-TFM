@@ -7,6 +7,7 @@ using UnityEditor;
 public class RightClickDetector : MonoBehaviour
 {
     public TW_MultiStrings_RandomPointer randomPointer;
+    public FinDelJuegoAnimation finDelJuegoAnimation;
 
     // Índice de la escena seleccionada en Build Settings
     [SerializeField] private int selectedSceneIndex = 0;
@@ -39,23 +40,36 @@ public class RightClickDetector : MonoBehaviour
     {
         Debug.Log("Acción del clic derecho ejecutada");
 
+        // Verifica si el randomPointer ha terminado de escribir
         if (randomPointer.HasFinishedWriting())
         {
-            // Cargar la escena seleccionada por su índice
-            if (selectedSceneIndex >= 0 && selectedSceneIndex < scenes.Length)
+            // Si la animación no ha empezado, la iniciamos
+            if (!finDelJuegoAnimation.IsAnimationStarted())
             {
-                SceneManager.LoadScene(scenes[selectedSceneIndex]);
+                randomPointer.gameObject.SetActive(false);
+                StartCoroutine(finDelJuegoAnimation.EscribirTexto());  // Llamar como corutina
             }
-            else
+            // Si la animación ha terminado, cargamos la escena seleccionada
+            else if (finDelJuegoAnimation.IsAnimationFinished())
             {
-                Debug.LogError("Índice de escena seleccionado fuera de rango.");
+                // Validación del índice de la escena seleccionada
+                if (selectedSceneIndex >= 0 && selectedSceneIndex < scenes.Length)
+                {
+                    SceneManager.LoadScene(scenes[selectedSceneIndex]);
+                }
+                else
+                {
+                    Debug.LogError("Índice de escena seleccionado fuera de rango.");
+                }
             }
         }
         else
         {
+            // Si randomPointer no ha terminado, pasamos al siguiente string
             randomPointer.NextString();
         }
     }
+
 
 #if UNITY_EDITOR
     // Custom editor para mostrar un desplegable con las escenas de Build Settings
