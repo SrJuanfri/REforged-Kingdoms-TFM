@@ -19,32 +19,38 @@ MonoBehaviour:
     customerState: 2
     isCompleted: 0
     price: 15
+    materialCombinationIndex: 18
   - orderText: 
     craftingRecipe: {fileID: 11400000, guid: e0104359692bd894db99d11dc14389be, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
+    materialCombinationIndex: 0
   - orderText: 
     craftingRecipe: {fileID: 11400000, guid: 2a0cf91d5c45c514588cce22bc73ca22, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
+    materialCombinationIndex: 0
   - orderText: 
     craftingRecipe: {fileID: 11400000, guid: 8a3bad2b4184d874aa5012be4ce33c1c, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
+    materialCombinationIndex: 0
   - orderText: 
     craftingRecipe: {fileID: 11400000, guid: d51422ddfd7387248af649ae7fbcc43a, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
+    materialCombinationIndex: 0
   currentOrder:
     orderText: 
     craftingRecipe: {fileID: 0}
     customerState: 0
     isCompleted: 0
     price: 0
+    materialCombinationIndex: 0
   appearanceProbability: 100
   hasEvent: 1
   eventOrders:

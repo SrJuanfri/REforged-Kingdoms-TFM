@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b6b8ca5dc851f74ba635fd4491dacce, type: 3}
   m_Name: 50 Coins
   m_EditorClassIdentifier: 
-  itemName: 50 Monedas
+  itemName: 50 leones
   inputItem: {fileID: 151506, guid: 20cee5b494c8fcd478d9889cddc7c03e, type: 3}
   prefab: {fileID: 404270, guid: 20cee5b494c8fcd478d9889cddc7c03e, type: 3}
   value: 50

@@ -16,6 +16,4 @@ MonoBehaviour:
   itemType: 0
   inputItem: {fileID: 1923258896892504, guid: 54b52385354229d499a588e6b205b026, type: 3}
   prefab: {fileID: 4718907677275056, guid: 54b52385354229d499a588e6b205b026, type: 3}
-  value: 40
-  metal: {fileID: 11400000, guid: 370525f19a810c347883f123cb282ba4, type: 2}
-  wood: {fileID: 11400000, guid: a47c2bc810c51b043bf1e56f0b99af5c, type: 2}
+  value: 31

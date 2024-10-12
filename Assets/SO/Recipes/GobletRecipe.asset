@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: e4bf178d644902a47b3f1cc324411ee4, type: 3}
   isWeapon: 0
-  designBasePrice: 15
+  designBasePrice: 25
   materialCombinations:
   - materials:
     - {fileID: 11400000, guid: e8aa3d5e7d5c1af408a7bff152a28803, type: 2}

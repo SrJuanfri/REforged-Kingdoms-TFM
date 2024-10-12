@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: {fileID: 0}
   ordersData:
-  - orderText: Voy a necesitar una mini daga de acero con mango de abedul.
-    craftingRecipe: {fileID: 11400000, guid: 8a3bad2b4184d874aa5012be4ce33c1c, type: 2}
+  - orderText: 
+    craftingRecipe: {fileID: 11400000, guid: e0104359692bd894db99d11dc14389be, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
-    materialCombinationIndex: 0
+    materialCombinationIndex: 4
   - orderText: 
     craftingRecipe: {fileID: 11400000, guid: 2a0cf91d5c45c514588cce22bc73ca22, type: 2}
     customerState: 2
