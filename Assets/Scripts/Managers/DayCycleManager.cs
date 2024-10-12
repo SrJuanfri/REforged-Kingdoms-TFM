@@ -378,7 +378,7 @@ public class DayCycleManager : MonoBehaviour
 
     public void TownRepresentationSelector()
     {
-        if (indicatorManager.Satisfaction >= 20 || indicatorManager.Opinion >= 20 || indicatorManager.Danger >= 20)
+        if (indicatorManager.Satisfaction <= 20 || indicatorManager.Opinion <= 20 || indicatorManager.Danger <= 20)
         {
             badReputation.SetActive(true);
             normalReputation.SetActive(false);
