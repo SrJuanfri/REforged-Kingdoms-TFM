@@ -586,7 +586,7 @@ MonoBehaviour:
   actionKey: E
   placeItemsAreaCollider: {fileID: 3785700772589957929}
   itemSpawnPoint: {fileID: 0}
-  emotion: 0
+  emotion: 2
   shopDestination: {fileID: 0}
   walkingSpeed: 1.5
 --- !u!114 &7917748620373984349
@@ -622,8 +622,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 2
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -658,7 +658,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
