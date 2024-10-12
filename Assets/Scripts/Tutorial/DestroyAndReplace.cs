@@ -57,7 +57,7 @@ public class DestroyAndReplace : MonoBehaviour
         Destroy(obj);
 
         // Instanciar el prefab en la posición del objeto destruido
-        if (replacementPrefab != null)
+        if (replacementPrefab)
         {
             Instantiate(replacementPrefab, obj.transform.position, obj.transform.rotation);
             replaced = true;

@@ -88,8 +88,6 @@ public class DayCycleManager : MonoBehaviour
         audioSourceMusic.volume = 0.3f;
         audioSourceMusic.Play();
         
-        TownRepresentationSelector();
-        
         dayNightController.stop = !isDayNightCycleActive;
         merchantController.setStateGoToShop();
         customerSelector.selectedCustomer = null;
@@ -207,6 +205,8 @@ public class DayCycleManager : MonoBehaviour
         // Actualizar el periódico y restablecerlo para el nuevo día
         ResetAndUpdateNewspaper();
 
+        TownRepresentationSelector();
+        
         Initiate.DoneFading();
         fade.GetComponent<Fader>().OnLevelFinishedLoading();
         transitionTextDay.SetActive(false);
@@ -378,7 +378,11 @@ public class DayCycleManager : MonoBehaviour
 
     public void TownRepresentationSelector()
     {
-        if (indicatorManager.Satisfaction <= 20 || indicatorManager.Opinion <= 20 || indicatorManager.Danger <= 20)
+        Debug.Log(indicatorManager.Satisfaction);
+        Debug.Log(indicatorManager.Opinion);
+        Debug.Log(indicatorManager.Danger);
+        
+        if (indicatorManager.Satisfaction <= 20 || indicatorManager.Opinion <= 20 || indicatorManager.Danger >= 80)
         {
             badReputation.SetActive(true);
             normalReputation.SetActive(false);
