@@ -201,42 +201,44 @@ public class CustomerPhraseManager : MonoBehaviour
     // Método auxiliar para eliminar frases que contengan "un/una metal desconocido" o "un/una madera desconocida"
     private string EliminarFrasesDesconocidas(string phrase, string material)
     {
-        // Crear una lista de combinaciones posibles, incluyendo los casos solicitados
-        string[] placeholders = new string[]
+        // Crear una lista de palabras clave y combinaciones comunes
+        string[] palabrasClave = new string[] { material, "metal", "mango", "madera" };
+
+        // Crear una lista de combinaciones posibles
+        List<string> placeholders = new List<string>();
+
+        foreach (string palabra in palabrasClave)
         {
-        $"un {material} desconocido",
-        $"una {material} desconocida",
-        $"Un {material} desconocido",
-        $"Una {material} desconocida",
-        $"de un {material} desconocido",
-        $"de una {material} desconocida",
-        $"De un {material} desconocido",
-        $"De una {material} desconocida",
-        "de desconocido",
-        "de desconocida",
-        "De desconocido",
-        "De desconocida",
-        "un desconocido",
-        "una desconocida",
-        "Un desconocido",
-        "Una desconocida",
-        "un desconocida", // Errores tipográficos
-        "una desconocido",
-        "Un desconocida",
-        "Una desconocido"
-        };
+            // Añadir todas las combinaciones sin duplicar casos similares
+            placeholders.AddRange(new string[]
+            {
+            $"un {palabra} desconocido", $"una {palabra} desconocida", $"Un {palabra} desconocido", $"Una {palabra} desconocida",
+            $"de un {palabra} desconocido", $"de una {palabra} desconocida", $"De un {palabra} desconocido", $"De una {palabra} desconocida",
+            $"unos {palabra}s desconocidos", $"unas {palabra}s desconocidas", $"Unos {palabra}s desconocidos", $"Unas {palabra}s desconocidas",
+            $"con un {palabra} de desconocido", $"con una {palabra} de desconocida", $"con un {palabra} desconocido", $"con una {palabra} desconocida",
+            $"con unos {palabra}s de desconocido", $"con unas {palabra}s de desconocida", $"con unos {palabra}s desconocidos", $"con unas {palabra}s desconocidas",
+            $"sin un {palabra} desconocido", $"sin una {palabra} desconocida", $"por un {palabra} desconocido", $"para un {palabra} desconocido",
+            $"todo el {palabra} desconocido", $"toda la {palabra} desconocida", $"todos los {palabra}s desconocidos", $"todas las {palabra}s desconocidas",
+            $"el {palabra} desconocido", $"la {palabra} desconocida", $"los {palabra}s desconocidos", $"las {palabra}s desconocidas",
+            $"con su {palabra} desconocido", $"con su {palabra} desconocida", $"con este {palabra} desconocido", $"con estos {palabra}s desconocidos",
+            $"con algún {palabra} desconocido", $"con algunos {palabra}s desconocidos", $"sin ningún {palabra} desconocido", $"sin ningunos {palabra}s desconocidos",
+            $"entre {palabra} desconocido y {palabra} desconocida", $"ningún {palabra} desconocido", $"ninguna {palabra} desconocida",
+            $"{palabra} desconocido", $"{palabra} desconocida", $"{palabra}s desconocidos", $"{palabra}s desconocidas",
+            "un desconocida", "una desconocido", "Un desconocida", "Una desconocido"
+            });
+        }
 
         // Reemplazar todas las combinaciones encontradas
         foreach (string placeholder in placeholders)
         {
-            phrase = phrase.Replace(placeholder, "");
+            phrase = phrase.Replace(placeholder, "").Trim();
         }
 
-        // Limpiar los espacios en blanco adicionales que puedan quedar
-        return phrase.Replace("  ", " ").Trim();
+        // Limpiar los espacios en blanco adicionales
+        phrase = System.Text.RegularExpressions.Regex.Replace(phrase, @"\s+", " ").Trim();
+
+        return phrase;
     }
-
-
 
 
     // Método para obtener una frase de despedida basada en el estado del cliente
