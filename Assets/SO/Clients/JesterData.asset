@@ -21,11 +21,11 @@ MonoBehaviour:
     price: 15
     materialCombinationIndex: 2
   - orderText: 
-    craftingRecipe: {fileID: 11400000, guid: 8a3bad2b4184d874aa5012be4ce33c1c, type: 2}
+    craftingRecipe: {fileID: 11400000, guid: 4a4f598c7621cb04190a4df920cbafc4, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
-    materialCombinationIndex: 0
+    materialCombinationIndex: 36
   - orderText: 
     craftingRecipe: {fileID: 11400000, guid: d1720035ee5d6844cbf717ccebf87c66, type: 2}
     customerState: 2
@@ -33,19 +33,31 @@ MonoBehaviour:
     price: 15
     materialCombinationIndex: 0
   - orderText: 
-    craftingRecipe: {fileID: 11400000, guid: 460aaa7ddc200a344b35444f5e9fb234, type: 2}
+    craftingRecipe: {fileID: 11400000, guid: 0505608975d967840b5356c03f96f821, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
-    materialCombinationIndex: 0
+    materialCombinationIndex: 40
   currentOrder:
     orderText: 
-    craftingRecipe: {fileID: 11400000, guid: 456263707424fda419ddcd0a6f04f4c0, type: 2}
+    craftingRecipe: {fileID: 11400000, guid: cab84b3deb037c84cb7ba4f9c2d5f61f, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
-    materialCombinationIndex: 0
-  appearanceProbability: 22
-  hasEvent: 0
-  eventOrders: []
+    materialCombinationIndex: 2
+  appearanceProbability: 24.2
+  hasEvent: 1
+  eventOrders:
+  - orderIndex: 3
+    eventPhrase: "\xA1Es usted un herrero estupendo! Soy Kefka, llevo viniendo unos
+      cuantos d\xEDas, \xBFLe importar\xEDa venderme una {item} de {metal} y {wood},
+      si fuera tan amable?"
+    eventInfo: "De Payaso a Dios.  \xA1El famoso reto entre los j\xF3venes que se
+      ha hecho viral en las redes! Un conocido buf\xF3n de la corte, Kefka, se convirti\xF3
+      anoche en una figura divina y ascendi\xF3 a los cielos mientras promet\xEDa
+      esclavizar a toda la humanidad. \"\xA1Os arrepentir\xE9is depu\xE9s de tantos
+      a\xF1os de burlas!\". Nuestro corresponsal en palacio nos ampliaba la informaci\xF3n
+      esta ma\xF1ana cont\xE1ndonos que este suceso se ha llevado a cabo gracias
+      a una {item} de {metal} y {wood} con propiedades m\xE1gicas que el buf\xF3n
+      hab\xEDa adquirido el d\xEDa anterior. "
   activeEvent: 

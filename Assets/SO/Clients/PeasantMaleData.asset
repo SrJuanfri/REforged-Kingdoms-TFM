@@ -31,21 +31,21 @@ MonoBehaviour:
     customerState: 2
     isCompleted: 0
     price: 15
-    materialCombinationIndex: 0
+    materialCombinationIndex: 22
   - orderText: 
-    craftingRecipe: {fileID: 11400000, guid: d1720035ee5d6844cbf717ccebf87c66, type: 2}
+    craftingRecipe: {fileID: 11400000, guid: 2a0cf91d5c45c514588cce22bc73ca22, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
-    materialCombinationIndex: 0
+    materialCombinationIndex: 5
   currentOrder:
     orderText: 
-    craftingRecipe: {fileID: 11400000, guid: 456263707424fda419ddcd0a6f04f4c0, type: 2}
+    craftingRecipe: {fileID: 11400000, guid: 741a06ccb2a49fc41b77d22c31fefcfe, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
-    materialCombinationIndex: 0
-  appearanceProbability: 55
+    materialCombinationIndex: 4
+  appearanceProbability: 66.55
   hasEvent: 0
   eventOrders: []
   activeEvent: 

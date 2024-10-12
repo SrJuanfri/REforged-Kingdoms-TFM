@@ -26,7 +26,8 @@ public class DayCycleManager : MonoBehaviour
 
     private DayProgressManager dayProgressManager; // Referencia al DayProgressManager
 
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSourceSFX;
+    [SerializeField] private AudioSource audioSourceMusic;
     [SerializeField] private AudioClip roosterClip;
     [SerializeField] private AudioClip churchClip;
 
@@ -80,7 +81,10 @@ public class DayCycleManager : MonoBehaviour
 
     private IEnumerator MerchantArrivalPhase()
     {
-        audioSource.PlayOneShot(roosterClip);
+        audioSourceSFX.PlayOneShot(roosterClip);
+        
+        audioSourceMusic.volume = 0.3f;
+        audioSourceMusic.Play();
         dayNightController.stop = !isDayNightCycleActive;
         merchantController.setStateGoToShop();
         customerSelector.selectedCustomer = null;
@@ -164,7 +168,8 @@ public class DayCycleManager : MonoBehaviour
 
     private IEnumerator DayTransitionPhase()
     {
-        audioSource.PlayOneShot(churchClip);
+        audioSourceSFX.PlayOneShot(churchClip);
+        audioSourceMusic.volume = 0.1f;
         dayNumber++;
         dayTextPauseMenu.text = "Día: " + dayNumber.ToString();
         transitionTextDay.SetActive(true);
