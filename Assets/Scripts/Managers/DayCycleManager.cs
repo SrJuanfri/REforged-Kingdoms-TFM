@@ -11,6 +11,8 @@ public class DayCycleManager : MonoBehaviour
     public GameObject transitionCanvas;
     public GameObject transitionTextDay;
     public GameObject transitionTextSummaryDay;
+    public GameObject badReputation;
+    public GameObject normalReputation;
 
     private float dayTimer;
     private DayNightController dayNightController;
@@ -85,6 +87,9 @@ public class DayCycleManager : MonoBehaviour
         
         audioSourceMusic.volume = 0.3f;
         audioSourceMusic.Play();
+        
+        TownRepresentationSelector();
+        
         dayNightController.stop = !isDayNightCycleActive;
         merchantController.setStateGoToShop();
         customerSelector.selectedCustomer = null;
@@ -369,6 +374,21 @@ public class DayCycleManager : MonoBehaviour
     public bool IsFirstDay()
     {
         return dayNumber == firstDayNumber;
+    }
+
+    public void TownRepresentationSelector()
+    {
+        if (indicatorManager.Satisfaction >= 20 || indicatorManager.Opinion >= 20 || indicatorManager.Danger >= 20)
+        {
+            badReputation.SetActive(true);
+            normalReputation.SetActive(false);
+        }
+        else
+        {
+            badReputation.SetActive(false);
+            normalReputation.SetActive(true);
+        }
+        
     }
 
 }
