@@ -383,7 +383,7 @@ public class DayCycleManager : MonoBehaviour
         Debug.Log(indicatorManager.Opinion);
         Debug.Log(indicatorManager.Danger);
         
-        if ((indicatorManager.Satisfaction <= 30 || indicatorManager.Opinion <= 30) && indicatorManager.Danger >= 70)
+        if (indicatorManager.Satisfaction <= 30 || indicatorManager.Opinion <= 30 || indicatorManager.Danger >= 70)
         {
             badReputation.SetActive(true);
             normalReputation.SetActive(false);
