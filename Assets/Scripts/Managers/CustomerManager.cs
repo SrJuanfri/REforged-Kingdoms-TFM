@@ -79,7 +79,7 @@ public class CustomerManager : ScriptableObject
         return ordersData.All(order => order.IsCompleted);
     }
 
-    private OrderData GetLastUncompletedOrder()
+    public OrderData GetLastUncompletedOrder()
     {
         // Recorre la lista de pedidos desde el principio hacia el final
         for (int i = 0; i < ordersData.Count; i++)

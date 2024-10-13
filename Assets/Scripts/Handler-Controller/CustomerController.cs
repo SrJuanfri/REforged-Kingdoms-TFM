@@ -95,6 +95,11 @@ public class CustomerController : Interactable
         // Asegurarse de que todas las rotaciones estén desbloqueadas al inicio
         rb.constraints = RigidbodyConstraints.None;
 
+        foreach (OrderData order in customerManager.ordersData)
+        {
+            order.isCompleted = false;
+        }
+
         SetState(State.Idle);
     }
 
@@ -178,6 +183,7 @@ public class CustomerController : Interactable
 
     private void EnterGoToShop()
     {
+        customerManager.currentOrder = customerManager.GetLastUncompletedOrder();
         navMeshAgent.destination = shopDestination.position;
         animator.SetBool("Walk", true);
     }
