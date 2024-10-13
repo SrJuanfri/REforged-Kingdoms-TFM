@@ -21,18 +21,17 @@ public class RandomMusicPlayerWithDucking : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(gameObject); // No destruir el objeto al cambiar de escena
-    }
-
-    void Start()
-    {
+        
         // Verifica si estamos en la escena "Demo Mini FPC"
         if (SceneManager.GetActiveScene().name == "Demo Mini FPC")
         {
             Debug.Log("Music disabled in Demo Mini FPC scene.");
             audioSource.Stop(); // Detener la música en esta escena
-            return; // No iniciar la música
         }
+    }
 
+    void Start()
+    {
         // Verifica que hay canciones asignadas
         if (musicTracks.Length == 0)
         {
