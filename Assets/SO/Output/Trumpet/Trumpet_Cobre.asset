@@ -16,4 +16,4 @@ MonoBehaviour:
   itemType: 1
   inputItem: {fileID: 1209233278439172, guid: 088b100267139a74783acba062f394a4, type: 3}
   prefab: {fileID: 4816354726955980, guid: 088b100267139a74783acba062f394a4, type: 3}
-  value: 11
+  value: 16
