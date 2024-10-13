@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class RandomMusicPlayerWithDucking : MonoBehaviour
 {
@@ -24,6 +25,14 @@ public class RandomMusicPlayerWithDucking : MonoBehaviour
 
     void Start()
     {
+        // Verifica si estamos en la escena "Demo Mini FPC"
+        if (SceneManager.GetActiveScene().name == "Demo Mini FPC")
+        {
+            Debug.Log("Music disabled in Demo Mini FPC scene.");
+            audioSource.Stop(); // Detener la música en esta escena
+            return; // No iniciar la música
+        }
+
         // Verifica que hay canciones asignadas
         if (musicTracks.Length == 0)
         {
@@ -50,7 +59,6 @@ public class RandomMusicPlayerWithDucking : MonoBehaviour
         // Comienza a reproducir las canciones
         StartCoroutine(PlayRandomTrack());
     }
-
     void Update()
     {
         // Verifica si hay otros sonidos reproduciéndose
