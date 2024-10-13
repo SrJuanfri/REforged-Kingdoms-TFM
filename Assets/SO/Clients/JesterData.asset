@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: {fileID: 0}
   ordersData:
-  - orderText: 
+  - orderText: "\xBFPodr\xEDas prepararme un anillo de hierro con mango ?"
     craftingRecipe: {fileID: 11400000, guid: cab84b3deb037c84cb7ba4f9c2d5f61f, type: 2}
     customerState: 2
     isCompleted: 0
@@ -39,14 +39,14 @@ MonoBehaviour:
     price: 15
     materialCombinationIndex: 40
   currentOrder:
-    orderText: 
+    orderText: "\xBFPodr\xEDas prepararme un anillo de hierro con mango ?"
     craftingRecipe: {fileID: 11400000, guid: cab84b3deb037c84cb7ba4f9c2d5f61f, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
     materialCombinationIndex: 2
-  appearanceProbability: 24.2
-  hasEvent: 1
+  appearanceProbability: 100
+  hasEvent: 0
   eventOrders:
   - orderIndex: 3
     eventPhrase: "\xA1Es usted un herrero estupendo! Soy Kefka, llevo viniendo unos

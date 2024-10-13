@@ -39,13 +39,13 @@ MonoBehaviour:
     price: 15
     materialCombinationIndex: 5
   currentOrder:
-    orderText: 
+    orderText: "Me gustar\xEDa un c\xE1liz de cobre y cobre con mango."
     craftingRecipe: {fileID: 11400000, guid: 741a06ccb2a49fc41b77d22c31fefcfe, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
     materialCombinationIndex: 4
-  appearanceProbability: 66.55
+  appearanceProbability: 100
   hasEvent: 0
   eventOrders: []
   activeEvent: 

@@ -39,13 +39,19 @@ MonoBehaviour:
     price: 15
     materialCombinationIndex: 29
   currentOrder:
-    orderText: 
+    orderText: Un arco con mango de pino, pino y pino, por favor.
     craftingRecipe: {fileID: 11400000, guid: 71809b0b48e10b84699a6a5b9b5b869f, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
     materialCombinationIndex: 0
-  appearanceProbability: 60.5
+  appearanceProbability: 100
   hasEvent: 0
-  eventOrders: []
+  eventOrders:
+  - orderIndex: 2
+    eventPhrase: Una {item} hecha de {metal} y con un mango de {wood}. Hay alguien
+      que me la debe,  es hora de ajustar cuentas.
+    eventInfo: Un comerciante local, conocido por sus negocios con varios prestamistas,
+      ha desaparecido sin dejar ninguna pista. Las autoridades sospechan de un posible
+      ajuste de cuentas, pero no se han encontrado pruebas claras.
   activeEvent: 

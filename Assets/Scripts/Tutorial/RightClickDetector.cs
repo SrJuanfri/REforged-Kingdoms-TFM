@@ -35,7 +35,6 @@ public class RightClickDetector : MonoBehaviour
         }
     }
 
-    // Método que se llama cuando se detecta un clic derecho
     void OnRightClick()
     {
         Debug.Log("Acción del clic derecho ejecutada");
@@ -43,24 +42,24 @@ public class RightClickDetector : MonoBehaviour
         // Verifica si el randomPointer ha terminado de escribir
         if (randomPointer.HasFinishedWriting())
         {
-            // Si la animación no ha empezado, la iniciamos
-            if (!finDelJuegoAnimation.IsAnimationStarted())
+            // Verificamos si finDelJuegoAnimation existe
+            if (finDelJuegoAnimation != null)
             {
-                randomPointer.gameObject.SetActive(false);
-                StartCoroutine(finDelJuegoAnimation.EscribirTexto());  // Llamar como corutina
+                // Si la animación no ha empezado, la iniciamos
+                if (!finDelJuegoAnimation.IsAnimationStarted())
+                {
+                    StartCoroutine(finDelJuegoAnimation.EscribirTexto());  // Llamar como corutina
+                }
+                // Si la animación ha terminado, cargamos la escena seleccionada
+                else if (finDelJuegoAnimation.IsAnimationFinished())
+                {
+                    CargarEscena();
+                }
             }
-            // Si la animación ha terminado, cargamos la escena seleccionada
-            else if (finDelJuegoAnimation.IsAnimationFinished())
+            else
             {
-                // Validación del índice de la escena seleccionada
-                if (selectedSceneIndex >= 0 && selectedSceneIndex < scenes.Length)
-                {
-                    SceneManager.LoadScene(scenes[selectedSceneIndex]);
-                }
-                else
-                {
-                    Debug.LogError("Índice de escena seleccionado fuera de rango.");
-                }
+                // Si no hay animación de fin del juego, pasamos directamente a cargar la escena
+                CargarEscena();
             }
         }
         else
@@ -69,6 +68,21 @@ public class RightClickDetector : MonoBehaviour
             randomPointer.NextString();
         }
     }
+
+    // Método auxiliar para cargar la escena seleccionada
+    void CargarEscena()
+    {
+        // Validación del índice de la escena seleccionada
+        if (selectedSceneIndex >= 0 && selectedSceneIndex < scenes.Length)
+        {
+            SceneManager.LoadScene(scenes[selectedSceneIndex]);
+        }
+        else
+        {
+            Debug.LogError("Índice de escena seleccionado fuera de rango.");
+        }
+    }
+
 
 
 #if UNITY_EDITOR

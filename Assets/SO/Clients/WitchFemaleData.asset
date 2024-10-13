@@ -45,7 +45,8 @@ MonoBehaviour:
     price: 15
     materialCombinationIndex: 0
   currentOrder:
-    orderText: 
+    orderText: 'Necesito una mini daga hecha de cobre y con un mango de pino. Es
+      esencial para un ritual...  '
     craftingRecipe: {fileID: 11400000, guid: 8a3bad2b4184d874aa5012be4ce33c1c, type: 2}
     customerState: 2
     isCompleted: 0
@@ -55,9 +56,8 @@ MonoBehaviour:
   hasEvent: 1
   eventOrders:
   - orderIndex: 0
-    eventPhrase: "Necesito una {item} hecha de {metal} y con un mango de {wood}.
-      Es esencial para un ritual... muy importante. Aseg\xFArate de que est\xE9 afilada,
-      ser\xE1 usada en un sacrificio. "
+    eventPhrase: 'Necesito una {item} hecha de {metal} y con un mango de {wood}.
+      Es esencial para un ritual...  '
     eventInfo: "Misteriosa Desaparici\xF3n Tras Ritual Oscuro  Una persona ha desaparecido
       tras lo que parece ser un ritual siniestro. En la escena se encontr\xF3 una
       {item} de {metal} con mango de {wood}, aparentemente usada en un sacrificio.

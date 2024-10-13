@@ -39,13 +39,18 @@ MonoBehaviour:
     price: 15
     materialCombinationIndex: 44
   currentOrder:
-    orderText: 
+    orderText: Quisiera pedir una escoba con mango de pino y pino.
     craftingRecipe: {fileID: 11400000, guid: e0104359692bd894db99d11dc14389be, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
     materialCombinationIndex: 0
-  appearanceProbability: 60.5
+  appearanceProbability: 100
   hasEvent: 0
-  eventOrders: []
+  eventOrders:
+  - orderIndex: 1
+    eventPhrase: Quiero una {item} de {metal}, con un mango de {wood}. Que sea resistente...
+      algunas puertas se abren con fuerza.
+    eventInfo: Un audaz robo ha tenido lugar en la taberna local. Durante la madrugada,
+      la caja fuerte fue abierta y las monedas desaparecieron sin dejar rastro.
   activeEvent: 

@@ -45,7 +45,7 @@ MonoBehaviour:
     isCompleted: 0
     price: 15
     materialCombinationIndex: 23
-  appearanceProbability: 48.4
+  appearanceProbability: 100
   hasEvent: 0
   eventOrders: []
   activeEvent: 

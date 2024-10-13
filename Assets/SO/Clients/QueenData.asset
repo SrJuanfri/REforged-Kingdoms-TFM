@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: {fileID: 0}
   ordersData:
-  - orderText: 
+  - orderText: "Un c\xE1liz de oro y oro con mango , por favor."
     craftingRecipe: {fileID: 11400000, guid: 741a06ccb2a49fc41b77d22c31fefcfe, type: 2}
     customerState: 2
     isCompleted: 0
@@ -45,13 +45,20 @@ MonoBehaviour:
     price: 15
     materialCombinationIndex: 0
   currentOrder:
-    orderText: 
+    orderText: "Un c\xE1liz de oro y oro con mango , por favor."
     craftingRecipe: {fileID: 11400000, guid: 741a06ccb2a49fc41b77d22c31fefcfe, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
     materialCombinationIndex: 1
-  appearanceProbability: 39.93
+  appearanceProbability: 98.01
   hasEvent: 0
-  eventOrders: []
+  eventOrders:
+  - orderIndex: 2
+    eventPhrase: "\"Necesito una {item} de {metal}, con un mango de {wood}. No preguntes
+      para qu\xE9...que sea letal."
+    eventInfo: " Un brutal asesinato ha sacudido la tranquilidad del pueblo. La v\xEDctima,
+      a\xFAn no identificada, fue encontrada en las afueras con signos evidentes
+      de violencia. Los investigadores describen el arma como \"extremadamente letal
+      y precisa\""
   activeEvent: 

@@ -39,13 +39,14 @@ MonoBehaviour:
     price: 15
     materialCombinationIndex: 3
   currentOrder:
-    orderText: 
+    orderText: "\xBFPodr\xEDas prepararme una daga de cobre y cobre con mango de
+      pino?"
     craftingRecipe: {fileID: 11400000, guid: 456263707424fda419ddcd0a6f04f4c0, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
     materialCombinationIndex: 23
-  appearanceProbability: 39.6
+  appearanceProbability: 99
   hasEvent: 0
   eventOrders: []
   activeEvent: 

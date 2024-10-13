@@ -39,13 +39,13 @@ MonoBehaviour:
     price: 15
     materialCombinationIndex: 1
   currentOrder:
-    orderText: 
+    orderText: Por favor, una escoba de desconocido con mango de roble y roble.
     craftingRecipe: {fileID: 11400000, guid: e0104359692bd894db99d11dc14389be, type: 2}
     customerState: 2
     isCompleted: 0
     price: 15
     materialCombinationIndex: 4
-  appearanceProbability: 78.92304
+  appearanceProbability: 100
   hasEvent: 0
   eventOrders: []
   activeEvent: 

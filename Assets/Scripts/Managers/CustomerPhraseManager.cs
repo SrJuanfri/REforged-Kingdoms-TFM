@@ -104,39 +104,132 @@ public class CustomerPhraseManager : MonoBehaviour
     };
     public string GetOrderPhrase(CustomerState state, string item, List<string> metals, List<string> woods)
     {
+        // Buscar las frases que coincidan con el estado del cliente
         var matchingPhrases = orderPhrases.FindAll(phrase => phrase.state == state);
+
         if (matchingPhrases.Count > 0)
         {
+            // Seleccionar una frase aleatoria
             int randomIndex = Random.Range(0, matchingPhrases.Count);
-
-            // Obtener la frase correspondiente
             string phrase = matchingPhrases[randomIndex].phrase;
+
+            // Reemplazar los placeholders de {metal} y {wood} primero
+            string metalPhrase = FormatMaterialList(metals, "metal");
+            string woodPhrase = FormatMaterialList(woods, "wood");
+            phrase = phrase.Replace("{metal}", metalPhrase).Replace("{wood}", woodPhrase);
 
             // Determinar el artículo correcto según el género del item
             string articuloCorrecto = DeterminarArticulo(item);
 
-            // Asegurarse de que {item} siempre se reemplace correctamente
+            // Reemplazar {item} por el nombre del item con su artículo correspondiente después
             phrase = ReemplazarYCorregirArticulo(phrase, item, articuloCorrecto);
-
-            // Eliminar las frases que contienen "un/una metal desconocido" o "un/una madera desconocida"
-            phrase = EliminarFrasesDesconocidas(phrase, "metal");
-            phrase = EliminarFrasesDesconocidas(phrase, "madera");
-
-            // Reemplazar los placeholders de {metal} y {wood}
-            string metalPhrase = FormatMaterialList(metals, "metal");
-            string woodPhrase = FormatMaterialList(woods, "wood");
-
-            // Reemplazar {metal} y {wood} en la frase si existen metales o maderas
-            phrase = phrase.Replace("{metal}", metalPhrase).Replace("{wood}", woodPhrase);
 
             // Limpiar espacios en blanco adicionales que puedan quedar
             phrase = phrase.Replace("  ", " ").Trim();
+
+
+            // Eliminar las frases que contienen "un/una metal desconocido" o "un/una madera desconocida" al final
+            phrase = EliminarFrasesDesconocidas(phrase, "metal");
+            phrase = EliminarFrasesDesconocidas(phrase, "madera");
+
+            phrase = SustituirFrasesConMangoMetalMaderaPorPunto(phrase);
+            phrase = ArreglarPuntuacion(phrase);
+
+            // Corregir las mayúsculas incorrectas en medio de la frase
+            phrase = CorrectCapitalization(phrase);
 
             return phrase;
         }
 
         return "No hay frases de pedido disponibles para los parámetros especificados.";
     }
+
+    private string ArreglarPuntuacion(string phrase)
+    {
+        // Expresión regular que encuentra casos de ". ," o ", ." con o sin espacios entre medias
+        phrase = System.Text.RegularExpressions.Regex.Replace(phrase, @"\s*(\.\s*,|,\s*\.)\s*", ".", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+        // Limpiar espacios adicionales alrededor de los puntos
+        phrase = System.Text.RegularExpressions.Regex.Replace(phrase, @"\s*\.\s*", ". ").Trim();
+
+        return phrase;
+    }
+
+
+    private string SustituirFrasesConMangoMetalMaderaPorPunto(string phrase)
+    {
+        // Crear una lista de patrones a sustituir por un punto, incluyendo sus variaciones
+        string[] patrones = new string[]
+        {
+        "con mango", "de mango", "de metal", "de madera",
+        "Con mango", "De mango", "De metal", "De madera",
+        "con Mango", "de Mango", "de Metal", "de Madera",
+        "Con Mango", "De Mango", "De Metal", "De Madera",
+        "con metal", "con madera",
+        "Con metal", "Con madera",
+        "con Metal", "con Madera",
+        "Con Metal", "Con Madera"
+        };
+
+        // Reemplazar solo si no está seguido por " de " (ignorar si va acompañado de "de algo")
+        foreach (string patron in patrones)
+        {
+            // Reemplazar solo si no está seguido por " de " o más contenido
+            phrase = System.Text.RegularExpressions.Regex.Replace(phrase, @"\b" + System.Text.RegularExpressions.Regex.Escape(patron) + @"(?!\s+de\s+)", ".", System.Text.RegularExpressions.RegexOptions.IgnoreCase).Trim();
+        }
+
+        // Asegurar que si hay espacios o múltiples puntos, los limpie correctamente
+        phrase = System.Text.RegularExpressions.Regex.Replace(phrase, @"(\s*\.\s*)+", ". ").Trim();
+
+        // Asegurar que los puntos finales sean correctos
+        phrase = System.Text.RegularExpressions.Regex.Replace(phrase, @"\s*\.\s*$", ".").Trim();
+
+        return phrase;
+    }
+
+
+    private string CorrectCapitalization(string input)
+    {
+        char[] delimiters = { '.', '!', '?' }; // Delimitadores que marcan el final de una oración
+        string result = "";
+        bool capitalizeNext = true; // Controla si la siguiente letra debe ser mayúscula
+
+        for (int i = 0; i < input.Length; i++)
+        {
+            char currentChar = input[i];
+
+            if (char.IsWhiteSpace(currentChar))
+            {
+                // Si encontramos un espacio, lo agregamos pero mantenemos la decisión de capitalización
+                result += currentChar;
+            }
+            else if (capitalizeNext && char.IsLetter(currentChar))
+            {
+                // Capitalizar la primera letra encontrada si `capitalizeNext` está habilitado
+                result += char.ToUpper(currentChar);
+                capitalizeNext = false; // Desactivar capitalización hasta encontrar un nuevo delimitador
+            }
+            else if (!capitalizeNext && char.IsLetter(currentChar))
+            {
+                // Convertir a minúscula cualquier letra que no deba estar en mayúscula
+                result += char.ToLower(currentChar);
+            }
+            else
+            {
+                // Agregar el carácter tal cual si no es una letra que deba ser capitalizada o convertida
+                result += currentChar;
+
+                // Verificar si el carácter actual es un delimitador (punto, exclamación, interrogación)
+                if (delimiters.Contains(currentChar))
+                {
+                    capitalizeNext = true; // La próxima letra debe ser mayúscula después del delimitador
+                }
+            }
+        }
+
+        return result.Trim();
+    }
+
 
     // Función auxiliar para formatear listas de materiales
     private string FormatMaterialList(List<string> materials, string materialType)
@@ -209,9 +302,10 @@ public class CustomerPhraseManager : MonoBehaviour
 
         foreach (string palabra in palabrasClave)
         {
-            // Añadir todas las combinaciones sin duplicar casos similares
+            // Añadir todas las combinaciones, permitiendo duplicados similares
             placeholders.AddRange(new string[]
             {
+            // Casos con artículo
             $"un {palabra} desconocido", $"una {palabra} desconocida", $"Un {palabra} desconocido", $"Una {palabra} desconocida",
             $"de un {palabra} desconocido", $"de una {palabra} desconocida", $"De un {palabra} desconocido", $"De una {palabra} desconocida",
             $"unos {palabra}s desconocidos", $"unas {palabra}s desconocidas", $"Unos {palabra}s desconocidos", $"Unas {palabra}s desconocidas",
@@ -224,22 +318,74 @@ public class CustomerPhraseManager : MonoBehaviour
             $"con algún {palabra} desconocido", $"con algunos {palabra}s desconocidos", $"sin ningún {palabra} desconocido", $"sin ningunos {palabra}s desconocidos",
             $"entre {palabra} desconocido y {palabra} desconocida", $"ningún {palabra} desconocido", $"ninguna {palabra} desconocida",
             $"{palabra} desconocido", $"{palabra} desconocida", $"{palabra}s desconocidos", $"{palabra}s desconocidas",
-            "un desconocida", "una desconocido", "Un desconocida", "Una desconocido"
+
+            // Nuevas combinaciones sin artículos
+            $"con {palabra} de desconocido", $"con {palabra} desconocido",
+            $"de {palabra} desconocido", $"de {palabra} desconocida",
+
+            // Nuevas combinaciones con otras preposiciones
+            $"sobre {palabra} de desconocido", $"sobre {palabra} desconocido",
+            $"bajo {palabra} de desconocido", $"bajo {palabra} desconocido",
+            $"junto a un {palabra} de desconocido", $"junto a una {palabra} de desconocida",
+
+            // Combinaciones con direcciones y posesiones
+            $"hacia un {palabra} desconocido", $"hacia una {palabra} desconocida",
+            $"al {palabra} desconocido", $"a la {palabra} desconocida",
+            $"del {palabra} de desconocido", $"del {palabra} desconocido",
+            $"por el {palabra} desconocido", $"por la {palabra} desconocida",
+
+            // **Ampliación de combinaciones con verbos**
+            $"hecho de {palabra} desconocido", $"hecha de {palabra} desconocida",
+            $"fabricado con {palabra} desconocido", $"fabricada con {palabra} desconocida",
+            $"compuesto de {palabra} desconocido", $"compuesta de {palabra} desconocida",
+            $"forjado con {palabra} desconocido", $"forjada con {palabra} desconocida",
+            $"construido con {palabra} desconocido", $"construida con {palabra} desconocida",
+            $"producido con {palabra} desconocido", $"producida con {palabra} desconocida",
+            $"creado con {palabra} desconocido", $"creada con {palabra} desconocida",
+            $"diseñado con {palabra} desconocido", $"diseñada con {palabra} desconocida",
+            $"tallado en {palabra} desconocido", $"tallada en {palabra} desconocida",
+            $"modelado con {palabra} desconocido", $"modelada con {palabra} desconocida",
+            $"fundido en {palabra} desconocido", $"fundida en {palabra} desconocida",
+            $"labrado con {palabra} desconocido", $"labrada con {palabra} desconocida",
+            $"esculpido en {palabra} desconocido", $"esculpida en {palabra} desconocida",
+            $"mezclado con {palabra} desconocido", $"mezclada con {palabra} desconocida",
+            $"reparado con {palabra} desconocido", $"reparada con {palabra} desconocida",
+            $"ensamblado con {palabra} desconocido", $"ensamblada con {palabra} desconocida",
+            $"modificado con {palabra} desconocido", $"modificada con {palabra} desconocida",
+
+            // Negaciones y frases más complejas
+            $"sin ningún rastro de {palabra} desconocido", $"sin ninguna pista de {palabra} desconocida",
+            $"cuando {palabra} sea desconocido", $"cuando {palabra} sea de desconocido",
+            $"si el {palabra} es desconocido", $"si la {palabra} es desconocida",
+            $"antes de {palabra} desconocido", $"antes de {palabra} de desconocido",
+            $"después de {palabra} desconocido", $"después de {palabra} de desconocido",
+
+            // Casos de errores comunes o variantes simples
+            "un desconocida", "una desconocido", "Un desconocida", "Una desconocido",
+            "de desconocida", "de desconocido", "De desconocida", "De desconocido"
             });
         }
 
-        // Reemplazar todas las combinaciones encontradas
+        // Reemplazar todas las combinaciones encontradas de forma insensible a mayúsculas/minúsculas
         foreach (string placeholder in placeholders)
         {
-            phrase = phrase.Replace(placeholder, "").Trim();
+            phrase = ReplaceIgnoreCase(phrase, placeholder, "").Trim();
         }
 
-        // Limpiar los espacios en blanco adicionales
+        // Limpiar espacios en blanco adicionales
         phrase = System.Text.RegularExpressions.Regex.Replace(phrase, @"\s+", " ").Trim();
 
         return phrase;
     }
 
+    // Método auxiliar para reemplazar ignorando mayúsculas/minúsculas
+    private string ReplaceIgnoreCase(string input, string search, string replacement)
+    {
+        return System.Text.RegularExpressions.Regex.Replace(input,
+            System.Text.RegularExpressions.Regex.Escape(search),
+            replacement.Replace("$", "$$"),
+            System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+    }
 
     // Método para obtener una frase de despedida basada en el estado del cliente
     public string GetFarewellPhrase(CustomerState state)

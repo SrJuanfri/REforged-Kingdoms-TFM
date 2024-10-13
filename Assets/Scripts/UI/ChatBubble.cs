@@ -1,12 +1,31 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class ChatBubble : MonoBehaviour
 {
     private static ChatBubble activeChatBubble;  // Guardar referencia a la burbuja de chat activa
+
+    private SpriteRenderer backgroundSpriteRenderer;
+    private SpriteRenderer iconSpriteRenderer;
+    private TextMeshPro textMeshPro;
+
+    private bool isWritingComplete = false;  // Indica si el texto ya está completamente escrito
+
+    [SerializeField] private Sprite muyInsatisfechoIconSprite;
+    [SerializeField] private Sprite insatisfechoIconSprite;
+    [SerializeField] private Sprite neutralIconSprite;
+    [SerializeField] private Sprite contentoIconSprite;
+    [SerializeField] private Sprite muyFelizIconSprite;
+
+    public enum IconType
+    {
+        MuyInsatisfecho,
+        Insatisfecho,
+        Neutral,
+        Contento,
+        MuyFeliz
+    }
 
     private void Awake()
     {
@@ -22,7 +41,7 @@ public class ChatBubble : MonoBehaviour
             Debug.LogError("TextMeshPro component not found!");
     }
 
-    public static ChatBubble Create(Transform parent, Vector3 localPosition, string text, float destroyTime = 6f)
+    public static ChatBubble Create(Transform parent, Vector3 localPosition, string text, float destroyTime = 4f)
     {
         // Si ya existe una burbuja activa, destruirla antes de crear una nueva
         if (activeChatBubble != null)
@@ -41,14 +60,14 @@ public class ChatBubble : MonoBehaviour
         // Establecer la burbuja creada como la burbuja activa
         activeChatBubble = chatBubble;
 
-        // Destruir la burbuja después del tiempo especificado (o 6 segundos si no se pasa el valor)
-        Destroy(chatBubbleTransform.gameObject, destroyTime);
+        // Iniciar el temporizador de destrucción solo después de que el texto esté completamente escrito
+        chatBubble.StartCoroutine(chatBubble.WaitForTextToFinish(destroyTime));
 
         // Retornar la referencia al objeto ChatBubble
         return chatBubble;
     }
 
-    public static ChatBubble Create(Transform parent, Vector3 localPosition, IconType iconType, string text, float destroyTime = 6f)
+    public static ChatBubble Create(Transform parent, Vector3 localPosition, IconType iconType, string text, float destroyTime = 4f)
     {
         // Si ya existe una burbuja activa, destruirla antes de crear una nueva
         if (activeChatBubble != null)
@@ -67,40 +86,21 @@ public class ChatBubble : MonoBehaviour
         // Establecer la burbuja creada como la burbuja activa
         activeChatBubble = chatBubble;
 
-        // Destruir la burbuja después del tiempo especificado (o 6 segundos si no se pasa el valor)
-        Destroy(chatBubbleTransform.gameObject, destroyTime);
+        // Iniciar el temporizador de destrucción solo después de que el texto esté completamente escrito
+        chatBubble.StartCoroutine(chatBubble.WaitForTextToFinish(destroyTime));
 
         return chatBubble;
     }
 
-    private void OnDestroy()
+    private IEnumerator WaitForTextToFinish(float destroyTime)
     {
-        // Si la burbuja activa es esta, restablecer la referencia
-        if (activeChatBubble == this)
-        {
-            activeChatBubble = null;
-        }
+        // Espera hasta que la escritura del texto esté completa
+        yield return new WaitUntil(() => isWritingComplete);
+
+        // Una vez completado, espera el tiempo indicado y luego destruye la burbuja
+        yield return new WaitForSeconds(destroyTime);
+        Destroy(gameObject);
     }
-
-    public enum IconType
-    {
-        MuyInsatisfecho,
-        Insatisfecho,
-        Neutral,
-        Contento,
-        MuyFeliz
-    }
-
-    [SerializeField] private Sprite muyInsatisfechoIconSprite;
-    [SerializeField] private Sprite insatisfechoIconSprite;
-    [SerializeField] private Sprite neutralIconSprite;
-    [SerializeField] private Sprite contentoIconSprite;
-    [SerializeField] private Sprite muyFelizIconSprite;
-
-    private SpriteRenderer backgroundSpriteRenderer;
-    private SpriteRenderer iconSpriteRenderer;
-    private TextMeshPro textMeshPro;
-
 
     // Configuración para burbuja con icono
     private void Setup(IconType iconType, string text)
@@ -111,8 +111,8 @@ public class ChatBubble : MonoBehaviour
             return;
         }
 
-        text = InsertLineBreaks(text, 30); // Inserta saltos de línea si la frase es muy larga
-        StartCoroutine(TypeText(text));
+        text = InsertLineBreaks(text, 30);  // Inserta saltos de línea si la frase es muy larga
+        StartCoroutine(TypeText(text));  // Escribe el texto letra a letra
 
         Vector2 textSize = textMeshPro.GetRenderedValues(false);
 
@@ -135,7 +135,7 @@ public class ChatBubble : MonoBehaviour
             return;
         }
 
-        text = InsertLineBreaks(text, 30); // Inserta saltos de línea si la frase es muy larga
+        text = InsertLineBreaks(text, 30);  // Inserta saltos de línea si la frase es muy larga
         StartCoroutine(TypeText(text));  // Escribe el texto letra a letra
 
         Vector2 textSize = textMeshPro.GetRenderedValues(false);
@@ -149,6 +149,7 @@ public class ChatBubble : MonoBehaviour
         // Desactiva el icono si no es necesario
         iconSpriteRenderer.gameObject.SetActive(false);
     }
+
     private IEnumerator TypeText(string text)
     {
         textMeshPro.text = "";
@@ -187,6 +188,9 @@ public class ChatBubble : MonoBehaviour
 
             yield return new WaitForSeconds(0.05f);  // Controla la velocidad del tipeo
         }
+
+        // Marcar que la escritura ha finalizado
+        isWritingComplete = true;
     }
 
     private Sprite GetIconSprite(IconType iconType)
@@ -204,6 +208,15 @@ public class ChatBubble : MonoBehaviour
                 return contentoIconSprite;
             case IconType.MuyFeliz:
                 return muyFelizIconSprite;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        // Si la burbuja activa es esta, restablecer la referencia
+        if (activeChatBubble == this)
+        {
+            activeChatBubble = null;
         }
     }
 
@@ -235,5 +248,4 @@ public class ChatBubble : MonoBehaviour
 
         return result.TrimEnd(); // Eliminar el espacio final
     }
-
 }

@@ -40,6 +40,10 @@ public class MerchantController : Interactable
     // Referencia al CapsuleCollider del mercader
     private CapsuleCollider capsuleCollider;
 
+    // Nuevo bool que controla si se salta la explicación del primer día
+    [SerializeField] private bool skipFirstDayExplanation = false;
+
+
     public enum State
     {
         GoToShop,
@@ -69,12 +73,11 @@ public class MerchantController : Interactable
         capsuleCollider = GetComponent<CapsuleCollider>();
 
         // Desactivar el BoxCollider del objeto "Bell" si es el primer día
-        if (IsFirstDay() && bellObject != null)
+        if (IsFirstDay() && bellObject != null && !skipFirstDayExplanation)
         {
             bellObject.GetComponent<BoxCollider>().enabled = false;
         }
     }
-
     void Update()
     {
         switch (currentState)
@@ -194,8 +197,8 @@ public class MerchantController : Interactable
         // Activar la animación de hablar
         animator.SetTrigger("Talk");
 
-        // Si es el primer día, usar las frases de la lista
-        if (IsFirstDay() && firstDayPhrases.Count > 0)
+        // Verificar si se debe saltar la explicación del primer día
+        if (!skipFirstDayExplanation && IsFirstDay() && firstDayPhrases.Count > 0)
         {
             StartCoroutine(DisplayFirstDayPhrases());
         }
@@ -234,6 +237,7 @@ public class MerchantController : Interactable
         return dayCycleManager != null && dayCycleManager.IsFirstDay();
     }
 
+    // Corrutina para mostrar las frases del primer día con un retardo entre ellas y evitar superposición
     // Corrutina para mostrar las frases del primer día con un retardo entre ellas y evitar superposición
     private IEnumerator DisplayFirstDayPhrases()
     {
@@ -294,7 +298,6 @@ public class MerchantController : Interactable
             bellObject.GetComponent<BoxCollider>().enabled = true;
         }
     }
-
 
     // Método para reproducir la voz antes de cada frase
     private void PlayVoice()

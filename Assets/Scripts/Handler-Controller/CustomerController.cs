@@ -9,6 +9,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CustomerStateHandler))]
 public class CustomerController : Interactable
 {
+    [SerializeField] private int apperanceProbability;
     [Header("Interaction Settings")]
     [SerializeField] private BoxCollider placeItemsAreaCollider;
     [SerializeField] private Transform itemSpawnPoint;
@@ -65,6 +66,7 @@ public class CustomerController : Interactable
 
     private void Awake()
     {
+
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         phraseManager = FindObjectOfType<CustomerPhraseManager>();
@@ -75,6 +77,8 @@ public class CustomerController : Interactable
         customerStateHandler = GetComponent<CustomerStateHandler>();
         customerManager = GetComponent<ClientSOHolder>().ClientSO;
         dayProgressManager = FindObjectOfType<DayProgressManager>(); // Encuentra el DayProgressManager en la escena
+
+        customerManager.SetAppearanceProbability(apperanceProbability);
 
         // Establecer la emoción inicial en Neutral
         emotion = ChatBubble.IconType.Neutral;
@@ -333,9 +337,12 @@ public class CustomerController : Interactable
         }
 
         WeaponOrToolSO heldWeaponOrTool = holder.weaponOrToolSO;
+        Debug.Log($"Player is holding a valid item: {heldWeaponOrTool.itemName}, ItemType: {heldWeaponOrTool.itemType}");
 
         // Verificar si el EventOrder coincide con la orden actual
         int currentOrderIndex = customerManager.ordersData.IndexOf(customerManager.currentOrder);
+        Debug.Log($"Current order index: {currentOrderIndex}, EventOrder index: {eventOrder?.orderIndex ?? -1}");
+
         if (eventOrder == null || eventOrder.orderIndex != currentOrderIndex)
         {
             Debug.Log("No event associated with this order.");
@@ -345,6 +352,7 @@ public class CustomerController : Interactable
         // Obtener la combinación de materiales actual de la orden
         CraftingRecipeSO craftingRecipeSO = customerManager.currentOrder.craftingRecipe;
         int combinationIndex = customerManager.currentOrder.materialCombinationIndex;
+        Debug.Log($"Material combination index: {combinationIndex}");
 
         // Verificar que el índice esté dentro de los límites de las combinaciones disponibles
         if (combinationIndex < 0 || combinationIndex >= craftingRecipeSO.materialCombinations.Count)
@@ -355,15 +363,18 @@ public class CustomerController : Interactable
 
         // Obtener el item de salida correspondiente a la combinación seleccionada
         WeaponOrToolSO expectedItem = craftingRecipeSO.materialCombinations[combinationIndex].outputItemSO;
+        Debug.Log($"Expected item: {expectedItem.itemName}, Expected ItemType: {expectedItem.itemType}");
 
         // Verificar si el ítem entregado es un arma
         bool isWeapon = heldWeaponOrTool.itemType == WeaponOrToolSO.ItemType.Weapon;
+        Debug.Log(isWeapon ? "Held item is a weapon." : "Held item is not a weapon.");
 
         // Verificar si el tipo de ítem entregado coincide con el esperado en la combinación seleccionada
+        Debug.Log($"Comparing held item type ({heldWeaponOrTool.itemType}) with expected item type ({expectedItem.itemType})");
         if (heldWeaponOrTool.itemType == expectedItem.itemType)
         {
-            // Pedido completado correctamente con el ítem correcto
             customerManager.currentOrder.IsCompleted = true;
+            Debug.Log("The item matches the expected type.");
 
             if (isWeapon)
             {
@@ -372,42 +383,43 @@ public class CustomerController : Interactable
             }
             else
             {
-                Debug.Log("El pedido fue completado con una herramienta.");
+                Debug.Log("The order was completed with a tool, not a weapon.");
                 return false; // Se completó con una herramienta, pero no es un arma
             }
         }
 
-        Debug.Log("El ítem entregado no coincide con el tipo esperado en el pedido.");
+        Debug.LogWarning("The delivered item does not match the expected item type in the order.");
         return false;
     }
+
 
 
     public void SellNPC()
     {
         if (playerPickUpDrop == null || bank == null)
         {
-            Debug.LogError("PlayerPickUpDrop or Bank reference is missing.");
+            //.LogError("PlayerPickUpDrop or Bank reference is missing.");
             return;
         }
 
         ObjectGrabbable heldObject = playerPickUpDrop.GetHeldObject();
         if (heldObject == null)
         {
-            Debug.Log("Player is not holding a valid object.");
+            //Debug.Log("Player is not holding a valid object.");
             return;
         }
 
         WeaponOrToolSOHolder holder = heldObject.GetComponentInChildren<WeaponOrToolSOHolder>();
         if (holder == null)
         {
-            Debug.Log("The held object does not have a WeaponOrToolSOHolder component.");
+            //Debug.Log("The held object does not have a WeaponOrToolSOHolder component.");
             return;
         }
 
         WeaponOrToolSO heldWeaponOrTool = holder.weaponOrToolSO;
         if (heldWeaponOrTool == null)
         {
-            Debug.Log("The held object does not have a WeaponOrToolSO.");
+            //Debug.Log("The held object does not have a WeaponOrToolSO.");
             return;
         }
 
@@ -426,10 +438,12 @@ public class CustomerController : Interactable
             }
             else
             {
-                Debug.LogWarning("No coins found for value: " + itemValue);
+                //Debug.LogWarning("No coins found for value: " + itemValue);
             }
 
+            Debug.Log($"Updating indicators and state with ItemType: {heldWeaponOrTool.itemType.ToString()} and Status: 'Bien Hecha'.");
             customerStateHandler.UpdateIndicatorsAndState(heldWeaponOrTool.itemType.ToString(), "Bien Hecha");
+            GetComponent<ClientSOHolder>().ClientSO.currentOrder.isCompleted = true;
             dayProgressManager.RecordCorrectOrder();
         }
         else
@@ -445,7 +459,7 @@ public class CustomerController : Interactable
             {
                 //Debug.Log("Pedido de evento completado correctamente con un arma.");
                 Newspaper newspaper = FindFirstObjectByType<Newspaper>();
-                newspaper.UpdateEventInfo(eventOrder.eventPhrase); // Cambiar el texto del periódico
+                newspaper.UpdateEventInfo(eventOrder.GetEventInfo()); // Cambiar el texto del periódico
             }
         }
 
@@ -453,7 +467,7 @@ public class CustomerController : Interactable
         Destroy(heldObject.gameObject);
         UpdateEndText();
         ChatBubble.Create(transform, new Vector3(-0.6f, 1.7f, 0f), emotion, endText);
-        Leave();
+        Leave(false);
     }
 
     private void ProcessNonMatchingItem(ItemMatchResult result, WeaponOrToolSO heldWeaponOrTool)
@@ -525,6 +539,8 @@ public class CustomerController : Interactable
         // Obtener el item de salida correspondiente a la combinación
         WeaponOrToolSO requestedItem = craftingRecipeSO.materialCombinations[combinationIndex].outputItemSO;
         customerStateHandler.UpdateIndicatorsAndState(requestedItem.itemType.ToString(), "Rechazada");
+
+        Leave(true);
     }
 
     public void UpdateSellText()
@@ -601,6 +617,20 @@ public class CustomerController : Interactable
         if (string.IsNullOrEmpty(endText))
         {
             Debug.LogError("endText is null or empty in UpdateEndText!");
+        }
+    }
+    private void UpdateInsatisfechoText()
+    {
+        // Obtener las frases de despedida del estado "Insatisfecho"
+        string insatisfechoPhrase = phraseManager.GetFarewellPhrase(CustomerState.Insatisfecho);
+
+        if (string.IsNullOrEmpty(insatisfechoPhrase))
+        {
+            Debug.LogError("insatisfechoPhrase is null or empty in UpdateInsatisfechoText!");
+        }
+        else
+        {
+            endText = insatisfechoPhrase; // Asignar la frase obtenida a la variable endText
         }
     }
 
@@ -711,7 +741,7 @@ public class CustomerController : Interactable
     }
 
 
-    public void Leave()
+    public void Leave(bool rejected)
     {
         // Si el cliente está en el estado de Shopping, proceder con la salida
         if (currentState == State.Shopping)
@@ -720,7 +750,7 @@ public class CustomerController : Interactable
             rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             // Mostrar el texto de despedida si es el momento de irse
             UpdateEndText();
-            DisplayFarewellText(); // Mostrar el texto de despedida
+            DisplayFarewellText(rejected); // Mostrar el texto de despedida
 
             // Verificar si la burbuja tiene el texto de despedida
             if (currentChatText == endText)
@@ -737,8 +767,12 @@ public class CustomerController : Interactable
     }
 
     // Método para mostrar el texto de despedida
-    private void DisplayFarewellText()
+    private void DisplayFarewellText(bool rejected)
     {
+        if (rejected)
+        {
+            UpdateInsatisfechoText();
+        }
         if (!string.IsNullOrEmpty(endText))
         {
             StartCoroutine(DisplayTextWithVoice(endText));  // Mostrar la burbuja con el texto de despedida
