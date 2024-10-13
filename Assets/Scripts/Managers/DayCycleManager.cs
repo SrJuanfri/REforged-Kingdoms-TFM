@@ -383,13 +383,13 @@ public class DayCycleManager : MonoBehaviour
         Debug.Log(indicatorManager.Opinion);
         Debug.Log(indicatorManager.Danger);
         
-        if (indicatorManager.Satisfaction <= 20 || indicatorManager.Opinion <= 20 || indicatorManager.Danger >= 80)
+        if ((indicatorManager.Satisfaction <= 30 || indicatorManager.Opinion <= 30) && indicatorManager.Danger >= 70)
         {
             badReputation.SetActive(true);
             normalReputation.SetActive(false);
             goodReputation.SetActive(false);
         }
-        if (indicatorManager.Satisfaction >= 60 && indicatorManager.Opinion >= 60 && indicatorManager.Danger <= 40)
+        if (indicatorManager.Satisfaction >= 70 && indicatorManager.Opinion >= 70 && indicatorManager.Danger <= 50)
         {
             badReputation.SetActive(false);
             normalReputation.SetActive(false);

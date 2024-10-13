@@ -39,10 +39,10 @@ public class IndicatorManager : MonoBehaviour
     {
         switch (itemType)
         {
-            case "Arma":
+            case "Weapon":
                 UpdateIndicatorsForWeapon(quality);
                 break;
-            case "Herramienta":
+            case "Tool":
                 UpdateIndicatorsForTool(quality);
                 break;
             default:
@@ -57,7 +57,7 @@ public class IndicatorManager : MonoBehaviour
         {
             case "Rechazada":
                 AdjustSatisfaction(-25);
-                AdjustDanger(0);
+                AdjustDanger(-10);
                 AdjustOpinion(-20);
                 break;
             case "Mal Hecha (Diseño)":
@@ -67,7 +67,7 @@ public class IndicatorManager : MonoBehaviour
                 break;
             case "Mal Hecha (Material)":
                 AdjustSatisfaction(-20);
-                AdjustDanger(0);
+                AdjustDanger(5);
                 AdjustOpinion(-15);
                 break;
             case "Mal Hecha (Diseño y Material)":
@@ -77,7 +77,7 @@ public class IndicatorManager : MonoBehaviour
                 break;
             case "Bien Hecha":
                 AdjustSatisfaction(30);
-                AdjustDanger(0);
+                AdjustDanger(10);
                 AdjustOpinion(30);
                 break;
             default:
@@ -112,7 +112,7 @@ public class IndicatorManager : MonoBehaviour
                 break;
             case "Bien Hecha":
                 AdjustSatisfaction(30);
-                AdjustDanger(0);
+                AdjustDanger(-10);
                 AdjustOpinion(30);
                 break;
             default:
