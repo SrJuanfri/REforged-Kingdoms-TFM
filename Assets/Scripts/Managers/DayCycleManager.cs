@@ -13,6 +13,7 @@ public class DayCycleManager : MonoBehaviour
     public GameObject transitionTextSummaryDay;
     public GameObject badReputation;
     public GameObject normalReputation;
+    public GameObject goodReputation;
 
     private float dayTimer;
     private DayNightController dayNightController;
@@ -386,11 +387,19 @@ public class DayCycleManager : MonoBehaviour
         {
             badReputation.SetActive(true);
             normalReputation.SetActive(false);
+            goodReputation.SetActive(false);
+        }
+        if (indicatorManager.Satisfaction >= 60 && indicatorManager.Opinion >= 60 && indicatorManager.Danger <= 40)
+        {
+            badReputation.SetActive(false);
+            normalReputation.SetActive(false);
+            goodReputation.SetActive(true);
         }
         else
         {
             badReputation.SetActive(false);
             normalReputation.SetActive(true);
+            goodReputation.SetActive(false);
         }
         
     }
