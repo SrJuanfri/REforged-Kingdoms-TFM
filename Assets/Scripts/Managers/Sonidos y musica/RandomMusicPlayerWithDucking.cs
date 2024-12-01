@@ -6,17 +6,17 @@ using UnityEngine.SceneManagement;
 public class RandomMusicPlayerWithDucking : MonoBehaviour
 {
     public AudioClip[] musicTracks; // Canciones
-    public float fadeDuration = 2f; // Duración del fade entre pistas
+    public float fadeDuration = 2f; // DuraciÃ³n del fade entre pistas
     public float timeBetweenTracks = 2f; // Tiempo entre pistas
     public float duckVolume = 0.2f; // Volumen cuando hay otros sonidos
     public float normalVolume = 1f; // Volumen normal cuando no hay otros sonidos
-    public float duckFadeDuration = 0.5f; // Duración del fade cuando se aplica el ducking
+    public float duckFadeDuration = 0.5f; // DuraciÃ³n del fade cuando se aplica el ducking
 
-    public AudioMixerGroup musicGroup; // Referencia al grupo de música en el Audio Mixer
+    public AudioMixerGroup musicGroup; // Referencia al grupo de mÃºsica en el Audio Mixer
 
     private AudioSource audioSource;
     private int currentTrackIndex = -1;
-    private bool isDucked = false; // Indica si el volumen está reducido
+    private bool isDucked = false; // Indica si el volumen estÃ¡ reducido
 
     void Awake()
     {
@@ -34,14 +34,14 @@ public class RandomMusicPlayerWithDucking : MonoBehaviour
             return;
         }
 
-        // Asegúrate de que el AudioSource esté presente
+        // AsegÃºrate de que el AudioSource estÃ© presente
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        // Asignar el grupo de música al AudioSource
+        // Asignar el grupo de mÃºsica al AudioSource
         if (musicGroup != null)
         {
             audioSource.outputAudioMixerGroup = musicGroup;
@@ -55,13 +55,13 @@ public class RandomMusicPlayerWithDucking : MonoBehaviour
     }
     void Update()
     {
-        // Verifica si hay otros sonidos reproduciéndose
+        // Verifica si hay otros sonidos reproduciÃ©ndose
         CheckForOtherSounds();
         
         if (SceneManager.GetActiveScene().name == "Demo Mini FPC")
         {
             Debug.Log("Music disabled in Demo Mini FPC scene.");
-            audioSource.Stop(); // Detener la música en esta escena
+            audioSource.Stop(); // Detener la mÃºsica en esta escena
         }
     }
 
@@ -75,7 +75,7 @@ public class RandomMusicPlayerWithDucking : MonoBehaviour
                 yield return new WaitForSeconds(timeBetweenTracks);
             }
 
-            // Elige una canción aleatoria
+            // Elige una canciÃ³n aleatoria
             int newTrackIndex;
             do
             {
@@ -85,7 +85,7 @@ public class RandomMusicPlayerWithDucking : MonoBehaviour
             currentTrackIndex = newTrackIndex;
             AudioClip nextTrack = musicTracks[currentTrackIndex];
 
-            // Realiza un fade-out de la pista actual si está sonando
+            // Realiza un fade-out de la pista actual si estÃ¡ sonando
             if (audioSource.isPlaying)
             {
                 yield return StartCoroutine(FadeOut(audioSource, fadeDuration));
@@ -102,7 +102,7 @@ public class RandomMusicPlayerWithDucking : MonoBehaviour
         }
     }
 
-    // Función para hacer el fade-in
+    // FunciÃ³n para hacer el fade-in
     IEnumerator FadeIn(AudioSource audioSource, float duration)
     {
         float startVolume = 0f;
@@ -116,7 +116,7 @@ public class RandomMusicPlayerWithDucking : MonoBehaviour
         audioSource.volume = normalVolume;
     }
 
-    // Función para hacer el fade-out
+    // FunciÃ³n para hacer el fade-out
     IEnumerator FadeOut(AudioSource audioSource, float duration)
     {
         float startVolume = audioSource.volume;
@@ -131,7 +131,7 @@ public class RandomMusicPlayerWithDucking : MonoBehaviour
         audioSource.volume = startVolume; // Restablece el volumen original para la siguiente pista
     }
 
-    // Comprueba si otros sonidos están reproduciéndose y aplica ducking
+    // Comprueba si otros sonidos estÃ¡n reproduciÃ©ndose y aplica ducking
     void CheckForOtherSounds()
     {
         // Encuentra todos los AudioSources que no sean este
@@ -141,7 +141,7 @@ public class RandomMusicPlayerWithDucking : MonoBehaviour
         {
             if (source != audioSource && source.isPlaying)
             {
-                // Si otro sonido está reproduciéndose, reduce el volumen
+                // Si otro sonido estÃ¡ reproduciÃ©ndose, reduce el volumen
                 if (!isDucked)
                 {
                     StartCoroutine(DuckMusic());
@@ -157,7 +157,7 @@ public class RandomMusicPlayerWithDucking : MonoBehaviour
         }
     }
 
-    // Función para reducir el volumen de la música
+    // FunciÃ³n para reducir el volumen de la mÃºsica
     IEnumerator DuckMusic()
     {
         isDucked = true;
@@ -172,7 +172,7 @@ public class RandomMusicPlayerWithDucking : MonoBehaviour
         audioSource.volume = targetVolume;
     }
 
-    // Función para restaurar el volumen de la música
+    // FunciÃ³n para restaurar el volumen de la mÃºsica
     IEnumerator RestoreMusicVolume()
     {
         isDucked = false;
